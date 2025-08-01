@@ -44,7 +44,7 @@ const sendWorkspaceAdd = async (email: string, workspaceName: string, dashboardL
     textContent = `You have been added to ${workspaceName}. Click here to visit your dashboard: ${dashboardLink}` // plain text body
 
     await transporter.sendMail({
-        from: SENDER_EMAIL || '"FlowiseAI Team" <team@mail.flowiseai.com>', // sender address
+        from: SENDER_EMAIL || '"DtamindAI Team" <team@mail.dtamindai.com>', // sender address
         to: email,
         subject: `You have been added to ${workspaceName}`, // Subject line
         text: textContent, // plain text body
@@ -77,7 +77,7 @@ const sendWorkspaceInvite = async (
     textContent = `You have been invited to ${workspaceName}. Click here to register: ${registerLink}` // plain text body
 
     await transporter.sendMail({
-        from: SENDER_EMAIL || '"FlowiseAI Team" <team@mail.flowiseai.com>', // sender address
+        from: SENDER_EMAIL || '"DtamindAI Team" <team@mail.dtamindai.com>', // sender address
         to: email,
         subject: `You have been invited to ${workspaceName}`, // Subject line
         text: textContent, // plain text body
@@ -91,7 +91,7 @@ const sendPasswordResetEmail = async (email: string, resetLink: string) => {
 
     const htmlToSend = compiledPasswordResetTemplateSource({ resetLink })
     await transporter.sendMail({
-        from: SENDER_EMAIL || '"FlowiseAI Team" <team@mail.flowiseai.com>', // sender address
+        from: SENDER_EMAIL || '"DtamindAI Team" <team@mail.dtamindai.com>', // sender address
         to: email,
         subject: 'Reset your password', // Subject line
         text: `You requested a link to reset your password. Click here to reset the password: ${resetLink}`, // plain text body
@@ -109,7 +109,7 @@ const sendVerificationEmailForCloud = async (email: string, verificationLink: st
     textContent = `To complete your registration, we need to verify your email address. Click here to verify your email address: ${verificationLink}` // plain text body
 
     await transporter.sendMail({
-        from: SENDER_EMAIL || '"FlowiseAI Team" <team@mail.flowiseai.com>', // sender address
+        from: SENDER_EMAIL || '"DtamindAI Team" <team@mail.dtamindai.com>', // sender address
         to: email,
         subject: 'Action Required: Please verify your email', // Subject line
         text: textContent, // plain text body

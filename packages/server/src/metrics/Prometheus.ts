@@ -23,7 +23,7 @@ export class Prometheus implements IMetricsProvider {
     }
 
     async initializeCounters(): Promise<void> {
-        const serviceName: string = process.env.METRICS_SERVICE_NAME || 'FlowiseAI'
+        const serviceName: string = process.env.METRICS_SERVICE_NAME || 'DtamindAI'
         this.register.setDefaultLabels({
             app: serviceName
         })
