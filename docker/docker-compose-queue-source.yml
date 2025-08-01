@@ -3,13 +3,13 @@ version: '3.1'
 services:
     redis:
         image: redis:alpine
-        container_name: flowise-redis
+        container_name: dtamind-redis
         ports:
             - '6379:6379'
         volumes:
             - redis_data:/data
         networks:
-            - flowise-net
+            - dtamind-net
 
     flowise:
         container_name: flowise-main
@@ -35,7 +35,7 @@ services:
         depends_on:
             - redis
         networks:
-            - flowise-net
+            - dtamind-net
 
     flowise-worker:
         container_name: flowise-worker
@@ -60,12 +60,12 @@ services:
             - redis
             - flowise
         networks:
-            - flowise-net
+            - dtamind-net
 
 volumes:
     redis_data:
         driver: local
 
 networks:
-    flowise-net:
+    dtamind-net:
         driver: bridge
