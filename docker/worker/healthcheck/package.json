@@ -1,7 +1,7 @@
 {
-    "name": "flowise-worker-healthcheck",
+    "name": "dtamind-worker-healthcheck",
     "version": "1.0.0",
-    "description": "Simple healthcheck server for Flowise worker",
+    "description": "Simple healthcheck server for Dtamind worker",
     "main": "healthcheck.js",
     "private": true,
     "scripts": {

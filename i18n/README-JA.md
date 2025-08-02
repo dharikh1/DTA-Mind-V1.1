@@ -1,31 +1,31 @@
 <!-- markdownlint-disable MD030 -->
 
 <p align="center">
-<img src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_white.svg#gh-light-mode-only">
-<img src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_dark.svg#gh-dark-mode-only">
+<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/flowise_white.svg#gh-light-mode-only">
+<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/flowise_dark.svg#gh-dark-mode-only">
 </p>
 
-[![Release Notes](https://img.shields.io/github/release/FlowiseAI/Flowise)](https://github.com/FlowiseAI/Flowise/releases)
+[![Release Notes](https://img.shields.io/github/release/DtamindAI/Dtamind)](https://github.com/DtamindAI/Dtamind/releases)
 [![Discord](https://img.shields.io/discord/1087698854775881778?label=Discord&logo=discord)](https://discord.gg/jbaHfsRVBW)
-[![Twitter Follow](https://img.shields.io/twitter/follow/FlowiseAI?style=social)](https://twitter.com/FlowiseAI)
-[![GitHub star chart](https://img.shields.io/github/stars/FlowiseAI/Flowise?style=social)](https://star-history.com/#FlowiseAI/Flowise)
-[![GitHub fork](https://img.shields.io/github/forks/FlowiseAI/Flowise?style=social)](https://github.com/FlowiseAI/Flowise/fork)
+[![Twitter Follow](https://img.shields.io/twitter/follow/DtamindAI?style=social)](https://twitter.com/DtamindAI)
+[![GitHub star chart](https://img.shields.io/github/stars/DtamindAI/Dtamind?style=social)](https://star-history.com/#DtamindAI/Dtamind)
+[![GitHub fork](https://img.shields.io/github/forks/DtamindAI/Dtamind?style=social)](https://github.com/DtamindAI/Dtamind/fork)
 
 [English](../README.md) | [繁體中文](./README-TW.md) | [简体中文](./README-ZH.md) | 日本語 | [한국어](./README-KR.md)
 
 <h3>AIエージェントをビジュアルに構築</h3>
-<a href="https://github.com/FlowiseAI/Flowise">
-<img width="100%" src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_agentflow.gif?raw=true"></a>
+<a href="https://github.com/DtamindAI/Dtamind">
+<img width="100%" src="https://github.com/DtamindAI/Dtamind/blob/main/images/flowise_agentflow.gif?raw=true"></a>
 
 ## ⚡ クイックスタート
 
 [NodeJS](https://nodejs.org/en/download) >= 18.15.0 をダウンロードしてインストール
 
-1. Flowise のインストール
+1. Dtamind のインストール
     ```bash
     npm install -g flowise
     ```
-2. Flowise の実行
+2. Dtamind の実行
 
     ```bash
     npx flowise start
@@ -62,7 +62,7 @@
 
 ## 👨‍💻 開発者向け
 
-Flowise には、3 つの異なるモジュールが 1 つの mono リポジトリにあります。
+Dtamind には、3 つの異なるモジュールが 1 つの mono リポジトリにあります。
 
 -   `server`: API ロジックを提供する Node バックエンド
 -   `ui`: React フロントエンド
@@ -80,13 +80,13 @@ Flowise には、3 つの異なるモジュールが 1 つの mono リポジト�
 1. リポジトリをクローン
 
     ```bash
-    git clone https://github.com/FlowiseAI/Flowise.git
+    git clone https://github.com/DtamindAI/Dtamind.git
     ```
 
 2. リポジトリフォルダに移動
 
     ```bash
-    cd Flowise
+    cd Dtamind
     ```
 
 3. すべてのモジュールの依存関係をインストール:
@@ -123,34 +123,34 @@ Flowise には、3 つの異なるモジュールが 1 つの mono リポジト�
 
 ## 🌱 環境変数
 
-Flowise は、インスタンスを設定するためのさまざまな環境変数をサポートしています。`packages/server` フォルダ内の `.env` ファイルで以下の変数を指定することができる。[続き](https://github.com/FlowiseAI/Flowise/blob/main/CONTRIBUTING.md#-env-variables)を読む
+Dtamind は、インスタンスを設定するためのさまざまな環境変数をサポートしています。`packages/server` フォルダ内の `.env` ファイルで以下の変数を指定することができる。[続き](https://github.com/DtamindAI/Dtamind/blob/main/CONTRIBUTING.md#-env-variables)を読む
 
 ## 📖 ドキュメント
 
-[Flowise ドキュメント](https://docs.flowiseai.com/)
+[Dtamind ドキュメント](https://docs.dtamindai.com/)
 
 ## 🌐 セルフホスト
 
-お客様の既存インフラに Flowise をセルフホストでデプロイ、様々な[デプロイ](https://docs.flowiseai.com/configuration/deployment)をサポートします
+お客様の既存インフラに Dtamind をセルフホストでデプロイ、様々な[デプロイ](https://docs.dtamindai.com/configuration/deployment)をサポートします
 
--   [AWS](https://docs.flowiseai.com/deployment/aws)
--   [Azure](https://docs.flowiseai.com/deployment/azure)
--   [Digital Ocean](https://docs.flowiseai.com/deployment/digital-ocean)
--   [GCP](https://docs.flowiseai.com/deployment/gcp)
+-   [AWS](https://docs.dtamindai.com/deployment/aws)
+-   [Azure](https://docs.dtamindai.com/deployment/azure)
+-   [Digital Ocean](https://docs.dtamindai.com/deployment/digital-ocean)
+-   [GCP](https://docs.dtamindai.com/deployment/gcp)
 -   <details>
       <summary>その他</summary>
 
-    -   [Railway](https://docs.flowiseai.com/deployment/railway)
+    -   [Railway](https://docs.dtamindai.com/deployment/railway)
 
         [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/pn4G8S?referralCode=WVNPD9)
 
-    -   [Render](https://docs.flowiseai.com/deployment/render)
+    -   [Render](https://docs.dtamindai.com/deployment/render)
 
-        [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://docs.flowiseai.com/deployment/render)
+        [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://docs.dtamindai.com/deployment/render)
 
-    -   [Hugging Face Spaces](https://docs.flowiseai.com/deployment/hugging-face)
+    -   [Hugging Face Spaces](https://docs.dtamindai.com/deployment/hugging-face)
 
-        <a href="https://huggingface.co/spaces/FlowiseAI/Flowise"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg" alt="Hugging Face Spaces"></a>
+        <a href="https://huggingface.co/spaces/DtamindAI/Dtamind"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg" alt="Hugging Face Spaces"></a>
 
     -   [Elestio](https://elest.io/open-source/flowiseai)
 
@@ -168,22 +168,22 @@ Flowise は、インスタンスを設定するためのさまざまな環境変
 
 ## ☁️ クラウドホスト
 
-[Flowise Cloud の使い方を始める](https://flowiseai.com/)
+[Dtamind Cloud の使い方を始める](https://dtamindai.com/)
 
 ## 🙋 サポート
 
-ご質問、問題提起、新機能のご要望は、[discussion](https://github.com/FlowiseAI/Flowise/discussions)までお気軽にどうぞ
+ご質問、問題提起、新機能のご要望は、[discussion](https://github.com/DtamindAI/Dtamind/discussions)までお気軽にどうぞ
 
 ## 🙌 コントリビュート
 
 これらの素晴らしい貢献者に感謝します
 
-<a href="https://github.com/FlowiseAI/Flowise/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=FlowiseAI/Flowise" />
+<a href="https://github.com/DtamindAI/Dtamind/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=DtamindAI/Dtamind" />
 </a>
 
 [コントリビューティングガイド](../CONTRIBUTING.md)を参照してください。質問や問題があれば、[Discord](https://discord.gg/jbaHfsRVBW) までご連絡ください。
-[![Star History Chart](https://api.star-history.com/svg?repos=FlowiseAI/Flowise&type=Timeline)](https://star-history.com/#FlowiseAI/Flowise&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=DtamindAI/Dtamind&type=Timeline)](https://star-history.com/#DtamindAI/Dtamind&Date)
 
 ## 📄 ライセンス
 

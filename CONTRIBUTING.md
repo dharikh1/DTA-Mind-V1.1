@@ -125,7 +125,7 @@ Dtamind support different environment variables to configure your instance. You 
 | PORT                               | The HTTP port Dtamind runs on                                                    | Number                                           | 3000                                |
 | CORS_ORIGINS                       | The allowed origins for all cross-origin HTTP calls                              | String                                           |                                     |
 | IFRAME_ORIGINS                     | The allowed origins for iframe src embedding                                     | String                                           |                                     |
-| FLOWISE_FILE_SIZE_LIMIT            | Upload File Size Limit                                                           | String                                           | 50mb                                |
+| DTAMIND_FILE_SIZE_LIMIT            | Upload File Size Limit                                                           | String                                           | 50mb                                |
 | DEBUG                              | Print logs from components                                                       | Boolean                                          |                                     |
 | LOG_PATH                           | Location where log files are stored                                              | String                                           | `your-path/Dtamind/logs`            |
 | LOG_LEVEL                          | Different levels of logs                                                         | Enum String: `error`, `info`, `verbose`, `debug` | `info`                              |
@@ -142,7 +142,7 @@ Dtamind support different environment variables to configure your instance. You 
 | DATABASE_SSL_KEY_BASE64            | Database SSL client cert in base64 (takes priority over DATABASE_SSL)            | Boolean                                          | false                               |
 | DATABASE_SSL                       | Database connection overssl (When DATABASE_TYPE is postgre)                      | Boolean                                          | false                               |
 | SECRETKEY_PATH                     | Location where encryption key (used to encrypt/decrypt credentials) is saved     | String                                           | `your-path/Dtamind/packages/server` |
-| FLOWISE_SECRETKEY_OVERWRITE        | Encryption key to be used instead of the key stored in SECRETKEY_PATH            | String                                           |                                     |
+| DTAMIND_SECRETKEY_OVERWRITE        | Encryption key to be used instead of the key stored in SECRETKEY_PATH            | String                                           |                                     |
 | MODEL_LIST_CONFIG_JSON             | File path to load list of models from your local config file                     | String                                           | `/your_model_list_config_file_path` |
 | STORAGE_TYPE                       | Type of storage for uploaded files. default is `local`                           | Enum String: `s3`, `local`, `gcs`                | `local`                             |
 | BLOB_STORAGE_PATH                  | Local folder path where uploaded files are stored when `STORAGE_TYPE` is `local` | String                                           | `your-home-dir/.dtamind/storage`    |
