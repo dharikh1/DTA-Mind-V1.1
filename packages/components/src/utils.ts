@@ -16,7 +16,7 @@ import { GetSecretValueCommand, SecretsManagerClient, SecretsManagerClientConfig
 import { customGet } from '../nodes/sequentialagents/commonUtils'
 import { TextSplitter } from 'langchain/text_splitter'
 import { DocumentLoader } from 'langchain/document_loaders/base'
-import { NodeVM } from '@flowiseai/nodevm'
+import { NodeVM } from 'dtamind-nodevm'
 import { Sandbox } from '@e2b/code-interpreter'
 
 export const numberOrExpressionRegex = '^(\\d+\\.?\\d*|{{.*}})$' //return true if string consists only numbers OR expression {{}}

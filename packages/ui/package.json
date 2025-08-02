@@ -39,7 +39,7 @@
         "dompurify": "^3.2.6",
         "dotenv": "^16.0.0",
         "flowise-embed": "latest",
-        "flowise-embed-react": "latest",
+        "dtamind-embed-react": "latest",
         "flowise-react-json-view": "*",
         "formik": "^2.2.6",
         "framer-motion": "^4.1.13",

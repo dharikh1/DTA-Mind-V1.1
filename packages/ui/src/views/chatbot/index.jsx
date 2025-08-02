@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { FullPageChat } from 'flowise-embed-react'
+import { FullPageChat } from 'dtamind-embed-react'
 
 // API
 import chatflowsApi from '@/api/chatflows'
