@@ -62,7 +62,7 @@ import { Request, Response, NextFunction } from 'express'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { Credential } from '../../database/entities/Credential'
 import { decryptCredentialData, encryptCredentialData } from '../../utils'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 import { generateSuccessPage, generateErrorPage } from './templates'
 

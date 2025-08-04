@@ -3,7 +3,7 @@ import { findAvailableConfigs } from '../../utils'
 import { IReactFlowObject } from '../../Interface'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import chatflowsService from '../chatflows'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 
 const getSingleFlowConfig = async (chatflowId: string): Promise<any> => {

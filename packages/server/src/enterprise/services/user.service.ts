@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import bcrypt from 'bcryptjs'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { Telemetry, TelemetryEventType } from '../../utils/telemetry'
 import { User, UserStatus } from '../database/entities/user.entity'

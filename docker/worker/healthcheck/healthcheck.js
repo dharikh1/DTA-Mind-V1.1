@@ -11,3 +11,4 @@ app.listen(port, () => {
     // eslint-disable-next-line no-console
     console.log(`Healthcheck server listening on port ${port}`)
 })
+

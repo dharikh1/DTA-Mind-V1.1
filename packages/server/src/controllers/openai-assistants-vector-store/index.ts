@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import openAIAssistantVectorStoreService from '../../services/openai-assistants-vector-store'
 
 const getAssistantVectorStore = async (req: Request, res: Response, next: NextFunction) => {

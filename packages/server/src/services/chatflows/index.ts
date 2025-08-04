@@ -1,8 +1,8 @@
-import { ICommonObject, removeFolderFromStorage } from 'flowise-components'
+import { ICommonObject, removeFolderFromStorage } from 'dtamind-components'
 import { StatusCodes } from 'http-status-codes'
 import { In, QueryRunner } from 'typeorm'
 import { ChatflowType, IReactFlowObject } from '../../Interface'
-import { FLOWISE_COUNTER_STATUS, FLOWISE_METRIC_COUNTERS } from '../../Interface.Metrics'
+import { FLOWISE_COUNTER_STATUS, DTAMIND_METRIC_COUNTERS } from '../../Interface.Metrics'
 import { UsageCacheManager } from '../../UsageCacheManager'
 import { ChatFlow } from '../../database/entities/ChatFlow'
 import { ChatMessage } from '../../database/entities/ChatMessage'
@@ -10,7 +10,7 @@ import { ChatMessageFeedback } from '../../database/entities/ChatMessageFeedback
 import { UpsertHistory } from '../../database/entities/UpsertHistory'
 import { Workspace } from '../../enterprise/database/entities/workspace.entity'
 import { getWorkspaceSearchOptions } from '../../enterprise/utils/ControllerServiceUtils'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import documentStoreService from '../../services/documentstore'
 import { constructGraphs, getAppVersion, getEndingNodes, getTelemetryFlowObj, isFlowValidForStream } from '../../utils'
@@ -294,8 +294,8 @@ const saveChatflow = async (
         )
 
         appServer.metricsProvider?.incrementCounter(
-            dbResponse?.type === 'MULTIAGENT' ? FLOWISE_METRIC_COUNTERS.AGENTFLOW_CREATED : FLOWISE_METRIC_COUNTERS.CHATFLOW_CREATED,
-            { status: FLOWISE_COUNTER_STATUS.SUCCESS }
+                    dbResponse?.type === 'MULTIAGENT' ? DTAMIND_METRIC_COUNTERS.AGENTFLOW_CREATED : DTAMIND_METRIC_COUNTERS.CHATFLOW_CREATED,
+        { status: FLOWISE_COUNTER_STATUS.SUCCESS }
         )
 
         return dbResponse

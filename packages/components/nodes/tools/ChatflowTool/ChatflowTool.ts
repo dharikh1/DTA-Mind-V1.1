@@ -338,7 +338,7 @@ class ChatflowTool extends StructuredTool {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'flowise-tool': 'true',
+                'dtamind-tool': 'true',
                 ...this.headers
             },
             body: JSON.stringify(body)

@@ -2,10 +2,10 @@ import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import documentStoreService from '../../services/documentstore'
 import { DocumentStore } from '../../database/entities/DocumentStore'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { DocumentStoreDTO } from '../../Interface'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
-import { FLOWISE_COUNTER_STATUS, FLOWISE_METRIC_COUNTERS } from '../../Interface.Metrics'
+import { FLOWISE_COUNTER_STATUS, DTAMIND_METRIC_COUNTERS } from '../../Interface.Metrics'
 import { getPageAndLimitParams } from '../../utils/pagination'
 
 const createDocumentStore = async (req: Request, res: Response, next: NextFunction) => {
@@ -416,12 +416,12 @@ const insertIntoVectorStore = async (req: Request, res: Response, next: NextFunc
             subscriptionId,
             getRunningExpressApp().usageCacheManager
         )
-        getRunningExpressApp().metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
+        getRunningExpressApp().metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
             status: FLOWISE_COUNTER_STATUS.SUCCESS
         })
         return res.json(DocumentStoreDTO.fromEntity(apiResponse))
     } catch (error) {
-        getRunningExpressApp().metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
+        getRunningExpressApp().metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
             status: FLOWISE_COUNTER_STATUS.FAILURE
         })
         next(error)
@@ -547,12 +547,12 @@ const upsertDocStoreMiddleware = async (req: Request, res: Response, next: NextF
             subscriptionId,
             getRunningExpressApp().usageCacheManager
         )
-        getRunningExpressApp().metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
+        getRunningExpressApp().metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
             status: FLOWISE_COUNTER_STATUS.SUCCESS
         })
         return res.json(apiResponse)
     } catch (error) {
-        getRunningExpressApp().metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
+        getRunningExpressApp().metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
             status: FLOWISE_COUNTER_STATUS.FAILURE
         })
         next(error)
@@ -591,12 +591,12 @@ const refreshDocStoreMiddleware = async (req: Request, res: Response, next: Next
             subscriptionId,
             getRunningExpressApp().usageCacheManager
         )
-        getRunningExpressApp().metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
+        getRunningExpressApp().metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
             status: FLOWISE_COUNTER_STATUS.SUCCESS
         })
         return res.json(apiResponse)
     } catch (error) {
-        getRunningExpressApp().metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
+        getRunningExpressApp().metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
             status: FLOWISE_COUNTER_STATUS.FAILURE
         })
         next(error)

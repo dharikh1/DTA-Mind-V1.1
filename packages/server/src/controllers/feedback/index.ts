@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import feedbackService from '../../services/feedback'
 import { validateFeedbackForCreation, validateFeedbackForUpdate } from '../../services/feedback/validation'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 
 const getAllChatMessageFeedback = async (req: Request, res: Response, next: NextFunction) => {

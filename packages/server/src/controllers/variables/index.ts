@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import variablesService from '../../services/variables'
 import { Variable } from '../../database/entities/Variable'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 import { getPageAndLimitParams } from '../../utils/pagination'
 

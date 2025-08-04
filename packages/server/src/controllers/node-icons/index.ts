@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 
 // Returns specific component node icon via name

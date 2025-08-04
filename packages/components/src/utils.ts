@@ -45,7 +45,7 @@ if (USE_AWS_SECRETS_MANAGER) {
 }
 
 /*
- * List of dependencies allowed to be import in @flowiseai/nodevm
+ * List of dependencies allowed to be import in dtamind-nodevm
  */
 export const availableDependencies = [
     '@aws-sdk/client-bedrock-runtime',

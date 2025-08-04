@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import auditService from '../../services/audit'
-import { InternalDtamindError } from '../../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 
 const fetchLoginActivity = async (req: Request, res: Response, next: NextFunction) => {

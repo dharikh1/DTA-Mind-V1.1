@@ -1,9 +1,9 @@
-import { FLOWISE_METRIC_COUNTERS, IMetricsProvider } from '../Interface.Metrics'
+import { DTAMIND_METRIC_COUNTERS, IMetricsProvider } from '../Interface.Metrics'
 import { Resource } from '@opentelemetry/resources'
 import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions'
 import { MeterProvider, PeriodicExportingMetricReader, Histogram } from '@opentelemetry/sdk-metrics'
 import { diag, DiagLogLevel, DiagConsoleLogger, Attributes, Counter } from '@opentelemetry/api'
-import { getVersion } from 'flowise-components'
+import { getVersion } from 'dtamind-components'
 import express from 'express'
 
 // Create a static map to track created metrics and prevent duplicates
@@ -107,7 +107,7 @@ export class OpenTelemetry implements IMetricsProvider {
             const meter = this.meterProvider.getMeter('flowise-metrics')
             // look at the FLOWISE_COUNTER enum in Interface.Metrics.ts and get all values
             // for each counter in the enum, create a new promClient.Counter and add it to the registry
-            const enumEntries = Object.entries(FLOWISE_METRIC_COUNTERS)
+            const enumEntries = Object.entries(DTAMIND_METRIC_COUNTERS)
             enumEntries.forEach(([name, value]) => {
                 try {
                     // Check if we've already created this metric

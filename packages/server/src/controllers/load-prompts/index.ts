@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import loadPromptsService from '../../services/load-prompts'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 
 const createPrompt = async (req: Request, res: Response, next: NextFunction) => {

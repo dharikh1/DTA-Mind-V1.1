@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { ChatFlow } from '../../database/entities/ChatFlow'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { ChatflowType } from '../../Interface'
 import apiKeyService from '../../services/apikey'
 import chatflowsService from '../../services/chatflows'

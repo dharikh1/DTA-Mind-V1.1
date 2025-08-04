@@ -1,4 +1,4 @@
-import { ICommonObject } from 'flowise-components'
+import { ICommonObject } from 'dtamind-components'
 import { StatusCodes } from 'http-status-codes'
 import { cloneDeep, isEqual, uniqWith } from 'lodash'
 import OpenAI from 'openai'
@@ -8,10 +8,10 @@ import { Credential } from '../../database/entities/Credential'
 import { DocumentStore } from '../../database/entities/DocumentStore'
 import { Workspace } from '../../enterprise/database/entities/workspace.entity'
 import { getWorkspaceSearchOptions } from '../../enterprise/utils/ControllerServiceUtils'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import { AssistantType } from '../../Interface'
-import { FLOWISE_COUNTER_STATUS, FLOWISE_METRIC_COUNTERS } from '../../Interface.Metrics'
+import { FLOWISE_COUNTER_STATUS, DTAMIND_METRIC_COUNTERS } from '../../Interface.Metrics'
 import { databaseEntities, decryptCredentialData, getAppVersion } from '../../utils'
 import { INPUT_PARAMS_TYPE } from '../../utils/constants'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
@@ -43,9 +43,9 @@ const createAssistant = async (requestBody: any, orgId: string): Promise<Assista
                 },
                 orgId
             )
-            appServer.metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.ASSISTANT_CREATED, {
-                status: FLOWISE_COUNTER_STATUS.SUCCESS
-            })
+                    appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.ASSISTANT_CREATED, {
+            status: FLOWISE_COUNTER_STATUS.SUCCESS
+        })
             return dbResponse
         }
 
@@ -149,7 +149,7 @@ const createAssistant = async (requestBody: any, orgId: string): Promise<Assista
             orgId
         )
 
-        appServer.metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.ASSISTANT_CREATED, { status: FLOWISE_COUNTER_STATUS.SUCCESS })
+        appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.ASSISTANT_CREATED, { status: FLOWISE_COUNTER_STATUS.SUCCESS })
 
         return dbResponse
     } catch (error) {
@@ -510,7 +510,7 @@ const generateAssistantInstruction = async (task: string, selectedChatModel: ICo
             const nodeModule = await import(nodeInstanceFilePath)
             const newNodeInstance = new nodeModule.nodeClass()
             const nodeData = {
-                credential: selectedChatModel.credential || selectedChatModel.inputs['FLOWISE_CREDENTIAL_ID'] || undefined,
+                credential: selectedChatModel.credential || selectedChatModel.inputs['DTAMIND_CREDENTIAL_ID'] || undefined,
                 inputs: selectedChatModel.inputs,
                 id: `${selectedChatModel.name}_0`
             }

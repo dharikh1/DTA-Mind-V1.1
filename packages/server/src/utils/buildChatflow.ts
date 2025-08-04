@@ -17,7 +17,7 @@ import {
     removeSpecificFileFromUpload,
     EvaluationRunner,
     handleEscapeCharacters
-} from 'flowise-components'
+} from 'dtamind-components'
 import { StatusCodes } from 'http-status-codes'
 import {
     IncomingInput,
@@ -36,7 +36,7 @@ import {
     IVariableOverride,
     MODE
 } from '../Interface'
-import { InternalDtamindError } from '../errors/internalFlowiseError'
+import { InternalDtamindError } from '../errors/internalDtamindError'
 import { databaseEntities } from '.'
 import { ChatFlow } from '../database/entities/ChatFlow'
 import { ChatMessage } from '../database/entities/ChatMessage'
@@ -63,7 +63,7 @@ import { utilAddChatMessage } from './addChatMesage'
 import { checkPredictions, checkStorage, updatePredictionsUsage, updateStorageUsage } from './quotaUsage'
 import { buildAgentGraph } from './buildAgentGraph'
 import { getErrorMessage } from '../errors/utils'
-import { FLOWISE_METRIC_COUNTERS, FLOWISE_COUNTER_STATUS, IMetricsProvider } from '../Interface.Metrics'
+import { DTAMIND_METRIC_COUNTERS, FLOWISE_COUNTER_STATUS, IMetricsProvider } from '../Interface.Metrics'
 import { getWorkspaceSearchOptions } from '../enterprise/utils/ControllerServiceUtils'
 import { OMIT_QUEUE_JOB_DATA } from './constants'
 import { executeAgentFlow } from './buildAgentflow'
@@ -906,8 +906,8 @@ export const utilBuildChatflow = async (req: Request, isInternal: boolean = fals
     const chatId = incomingInput.chatId ?? incomingInput.overrideConfig?.sessionId ?? uuidv4()
     const files = (req.files as Express.Multer.File[]) || []
     const abortControllerId = `${chatflow.id}_${chatId}`
-    const isTool = req.get('flowise-tool') === 'true'
-    const isEvaluation: boolean = req.headers['X-Flowise-Evaluation'] || req.body.evaluation
+    const isTool = req.get('dtamind-tool') === 'true'
+    const isEvaluation: boolean = req.headers['X-Dtamind-Evaluation'] || req.body.evaluation
     let evaluationRunId = ''
     evaluationRunId = req.body.evaluationRunId
     if (isEvaluation && chatflow.type !== 'AGENTFLOW' && req.body.evaluationRunId) {
@@ -1022,14 +1022,14 @@ export const utilBuildChatflow = async (req: Request, isInternal: boolean = fals
 const incrementSuccessMetricCounter = (metricsProvider: IMetricsProvider, isInternal: boolean, isAgentFlow: boolean) => {
     if (isAgentFlow) {
         metricsProvider?.incrementCounter(
-            isInternal ? FLOWISE_METRIC_COUNTERS.AGENTFLOW_PREDICTION_INTERNAL : FLOWISE_METRIC_COUNTERS.AGENTFLOW_PREDICTION_EXTERNAL,
+            isInternal ? DTAMIND_METRIC_COUNTERS.AGENTFLOW_PREDICTION_INTERNAL : DTAMIND_METRIC_COUNTERS.AGENTFLOW_PREDICTION_EXTERNAL,
             { status: FLOWISE_COUNTER_STATUS.SUCCESS }
         )
-    } else {
-        metricsProvider?.incrementCounter(
-            isInternal ? FLOWISE_METRIC_COUNTERS.CHATFLOW_PREDICTION_INTERNAL : FLOWISE_METRIC_COUNTERS.CHATFLOW_PREDICTION_EXTERNAL,
-            { status: FLOWISE_COUNTER_STATUS.SUCCESS }
-        )
+            } else {
+            metricsProvider?.incrementCounter(
+                isInternal ? DTAMIND_METRIC_COUNTERS.CHATFLOW_PREDICTION_INTERNAL : DTAMIND_METRIC_COUNTERS.CHATFLOW_PREDICTION_EXTERNAL,
+                { status: FLOWISE_COUNTER_STATUS.SUCCESS }
+            )
     }
 }
 
@@ -1040,15 +1040,15 @@ const incrementSuccessMetricCounter = (metricsProvider: IMetricsProvider, isInte
  * @param {boolean} isAgentFlow
  */
 const incrementFailedMetricCounter = (metricsProvider: IMetricsProvider, isInternal: boolean, isAgentFlow: boolean) => {
-    if (isAgentFlow) {
-        metricsProvider?.incrementCounter(
-            isInternal ? FLOWISE_METRIC_COUNTERS.AGENTFLOW_PREDICTION_INTERNAL : FLOWISE_METRIC_COUNTERS.AGENTFLOW_PREDICTION_EXTERNAL,
-            { status: FLOWISE_COUNTER_STATUS.FAILURE }
-        )
-    } else {
-        metricsProvider?.incrementCounter(
-            isInternal ? FLOWISE_METRIC_COUNTERS.CHATFLOW_PREDICTION_INTERNAL : FLOWISE_METRIC_COUNTERS.CHATFLOW_PREDICTION_EXTERNAL,
-            { status: FLOWISE_COUNTER_STATUS.FAILURE }
-        )
+            if (isAgentFlow) {
+            metricsProvider?.incrementCounter(
+                isInternal ? DTAMIND_METRIC_COUNTERS.AGENTFLOW_PREDICTION_INTERNAL : DTAMIND_METRIC_COUNTERS.AGENTFLOW_PREDICTION_EXTERNAL,
+                { status: FLOWISE_COUNTER_STATUS.FAILURE }
+            )
+        } else {
+            metricsProvider?.incrementCounter(
+                isInternal ? DTAMIND_METRIC_COUNTERS.CHATFLOW_PREDICTION_INTERNAL : DTAMIND_METRIC_COUNTERS.CHATFLOW_PREDICTION_EXTERNAL,
+                { status: FLOWISE_COUNTER_STATUS.FAILURE }
+            )
     }
 }

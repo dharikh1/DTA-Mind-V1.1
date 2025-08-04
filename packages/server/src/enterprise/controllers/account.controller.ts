@@ -139,7 +139,7 @@ export class AccountController {
     }
 
     public async getBasicAuth(req: Request, res: Response) {
-        if (process.env.FLOWISE_USERNAME && process.env.FLOWISE_PASSWORD) {
+        if (process.env.DTAMIND_USERNAME && process.env.DTAMIND_PASSWORD) {
             return res.status(StatusCodes.OK).json({
                 isUsernamePasswordSet: true
             })
@@ -152,7 +152,7 @@ export class AccountController {
 
     public async checkBasicAuth(req: Request, res: Response) {
         const { username, password } = req.body
-        if (username === process.env.FLOWISE_USERNAME && password === process.env.FLOWISE_PASSWORD) {
+        if (username === process.env.DTAMIND_USERNAME && password === process.env.DTAMIND_PASSWORD) {
             return res.json({ message: 'Authentication successful' })
         } else {
             return res.json({ message: 'Authentication failed' })

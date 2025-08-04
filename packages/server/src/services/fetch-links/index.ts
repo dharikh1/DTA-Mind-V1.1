@@ -1,6 +1,6 @@
-import { webCrawl, xmlScrape } from 'flowise-components'
+import { webCrawl, xmlScrape } from 'dtamind-components'
 import { StatusCodes } from 'http-status-codes'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 
 const getAllLinks = async (requestUrl: string, relativeLinksMethod: string, queryLimit: string): Promise<any> => {

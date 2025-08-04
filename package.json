@@ -3,13 +3,8 @@
     "version": "3.0.4",
     "private": true,
     "homepage": "https://dtamindai.com",
-
     "workspaces": [
-        "packages/*",
-        
-        
-        
-        
+        "packages/*"
     ],
     "scripts": {
         "build": "turbo run build",
@@ -126,5 +121,8 @@
                 }
             ]
         ]
+    },
+    "dependencies": {
+        "dtamind-components": "^3.0.4"
     }
 }

@@ -1,11 +1,11 @@
 import OpenAI from 'openai'
 import { StatusCodes } from 'http-status-codes'
 import { Credential } from '../../database/entities/Credential'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { decryptCredentialData } from '../../utils'
-import { getFileFromUpload, removeSpecificFileFromUpload } from 'flowise-components'
+import { getFileFromUpload, removeSpecificFileFromUpload } from 'dtamind-components'
 
 const getAssistantVectorStore = async (credentialId: string, vectorStoreId: string) => {
     try {

@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { Lead } from '../../database/entities/Lead'
 import { ILead } from '../../Interface'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 
 const getAllLeads = async (chatflowid: string) => {

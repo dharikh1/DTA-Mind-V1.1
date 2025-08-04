@@ -11,7 +11,7 @@ import { DocumentStoreFileChunk } from '../../database/entities/DocumentStoreFil
 import { Execution } from '../../database/entities/Execution'
 import { Tool } from '../../database/entities/Tool'
 import { Variable } from '../../database/entities/Variable'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import assistantsService from '../../services/assistants'
 import chatflowsService from '../../services/chatflows'

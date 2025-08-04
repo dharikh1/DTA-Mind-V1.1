@@ -3,9 +3,9 @@ import { StatusCodes } from 'http-status-codes'
 import { decryptCredentialData } from '../../utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { Credential } from '../../database/entities/Credential'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
-import { getFileFromUpload, removeSpecificFileFromUpload } from 'flowise-components'
+import { getFileFromUpload, removeSpecificFileFromUpload } from 'dtamind-components'
 
 // ----------------------------------------
 // Assistants

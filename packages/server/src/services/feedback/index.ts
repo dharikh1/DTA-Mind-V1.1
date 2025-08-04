@@ -3,7 +3,7 @@ import { utilGetChatMessageFeedback } from '../../utils/getChatMessageFeedback'
 import { utilAddChatMessageFeedback } from '../../utils/addChatMessageFeedback'
 import { utilUpdateChatMessageFeedback } from '../../utils/updateChatMessageFeedback'
 import { IChatMessageFeedback } from '../../Interface'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 
 // Get all chatmessage feedback from chatflowid

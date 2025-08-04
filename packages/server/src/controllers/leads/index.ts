@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import leadsService from '../../services/leads'
 import { StatusCodes } from 'http-status-codes'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 
 const getAllLeadsForChatflow = async (req: Request, res: Response, next: NextFunction) => {
     try {

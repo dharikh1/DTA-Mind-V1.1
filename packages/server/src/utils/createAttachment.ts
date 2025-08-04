@@ -9,14 +9,14 @@ import {
     removeSpecificFileFromUpload,
     isValidUUID,
     isPathTraversal
-} from 'flowise-components'
+} from 'dtamind-components'
 import { getRunningExpressApp } from './getRunningExpressApp'
 import { getErrorMessage } from '../errors/utils'
 import { checkStorage, updateStorageUsage } from './quotaUsage'
 import { ChatFlow } from '../database/entities/ChatFlow'
 import { Workspace } from '../enterprise/database/entities/workspace.entity'
 import { Organization } from '../enterprise/database/entities/organization.entity'
-import { InternalDtamindError } from '../errors/internalFlowiseError'
+import { InternalDtamindError } from '../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 
 /**

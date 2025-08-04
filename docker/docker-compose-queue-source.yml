@@ -19,15 +19,15 @@ services:
         ports:
             - '${PORT}:${PORT}'
         volumes:
-            # Mount local .flowise to container's default location
-            - ../.flowise:/root/.flowise
+            # Mount local .dtamind to container's default location
+            - ../.dtamind:/root/.dtamind
         environment:
             # --- Essential Flowise Vars ---
             - PORT=${PORT:-3000}
-            - DATABASE_PATH=/root/.flowise
-            - SECRETKEY_PATH=/root/.flowise
-            - LOG_PATH=/root/.flowise/logs
-            - BLOB_STORAGE_PATH=/root/.flowise/storage
+            - DATABASE_PATH=/root/.dtamind
+            - SECRETKEY_PATH=/root/.dtamind
+            - LOG_PATH=/root/.dtamind/logs
+            - BLOB_STORAGE_PATH=/root/.dtamind/storage
             # --- Queue Vars (Main Instance) ---
             - MODE=queue
             - QUEUE_NAME=flowise-queue # Ensure this matches worker
@@ -43,15 +43,15 @@ services:
             context: .. # Build context is still the root
             dockerfile: docker/worker/Dockerfile # Ensure this path is correct
         volumes:
-            # Mount same local .flowise to worker
-            - ../.flowise:/root/.flowise
+            # Mount same local .dtamind to worker
+            - ../.dtamind:/root/.dtamind
         environment:
             # --- Essential Flowise Vars ---
             - WORKER_PORT=${WORKER_PORT:-5566} # Port for worker healthcheck
-            - DATABASE_PATH=/root/.flowise
-            - SECRETKEY_PATH=/root/.flowise
-            - LOG_PATH=/root/.flowise/logs
-            - BLOB_STORAGE_PATH=/root/.flowise/storage
+            - DATABASE_PATH=/root/.dtamind
+            - SECRETKEY_PATH=/root/.dtamind
+            - LOG_PATH=/root/.dtamind/logs
+            - BLOB_STORAGE_PATH=/root/.dtamind/storage
             # --- Queue Vars (Main Instance) ---
             - MODE=queue
             - QUEUE_NAME=flowise-queue # Ensure this matches worker

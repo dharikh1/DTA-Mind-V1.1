@@ -86,7 +86,7 @@ class SimpleStoreUpsert_LlamaIndex_VectorStores implements INode {
             const model = nodeData.inputs?.model
 
             let filePath = ''
-            if (!basePath) filePath = path.join(getUserHome(), '.flowise', 'llamaindex')
+            if (!basePath) filePath = path.join(getUserHome(), '.dtamind', 'llamaindex')
             else filePath = basePath
 
             const flattenDocs = docs && docs.length ? flatten(docs) : []
@@ -120,7 +120,7 @@ class SimpleStoreUpsert_LlamaIndex_VectorStores implements INode {
         const k = topK ? parseFloat(topK) : 4
 
         let filePath = ''
-        if (!basePath) filePath = path.join(getUserHome(), '.flowise', 'llamaindex')
+        if (!basePath) filePath = path.join(getUserHome(), '.dtamind', 'llamaindex')
         else filePath = basePath
 
         const serviceContext = serviceContextFromDefaults({ llm: model, embedModel: embeddings })

@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import { IChatMessageFeedback } from '../../Interface'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { ChatMessage } from '../../database/entities/ChatMessage'
 import { ChatMessageFeedback } from '../../database/entities/ChatMessageFeedback'

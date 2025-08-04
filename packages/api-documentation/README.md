@@ -1,16 +1,16 @@
 <!-- markdownlint-disable MD030 -->
 
-# Flowise API Docs
+# Dtamind API Docs
 
 English | [中文](./README-ZH.md)
 
-A list of Flowise public APIs, allowing users to programmatically execute many of the same tasks as the same in the GUI.
+A list of Dtamind public APIs, allowing users to programmatically execute many of the same tasks as the same in the GUI.
 
 To run this standalone:
 
-1. Spin up Flowise server:
+1. Spin up Dtamind server:
     ```sh
-    cd Flowise
+    cd Dtamind
     pnpm start
     ```
 2. Start API Docs server:
@@ -22,7 +22,7 @@ To run this standalone:
 To run in dev mode:
 
 ```sh
-cd Flowise
+cd Dtamind
 pnpm dev
 ```
 

@@ -1,9 +1,9 @@
 import { StatusCodes } from 'http-status-codes'
-import { INodeParams } from 'flowise-components'
+import { INodeParams } from 'dtamind-components'
 import { ChatFlow } from '../database/entities/ChatFlow'
 import { getRunningExpressApp } from '../utils/getRunningExpressApp'
 import { IUploadFileSizeAndTypes, IReactFlowNode, IReactFlowEdge } from '../Interface'
-import { InternalDtamindError } from '../errors/internalFlowiseError'
+import { InternalDtamindError } from '../errors/internalDtamindError'
 
 type IUploadConfig = {
     isSpeechToTextEnabled: boolean

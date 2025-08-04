@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { GeneralErrorMessage } from '../../utils/constants'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { User } from '../database/entities/user.entity'

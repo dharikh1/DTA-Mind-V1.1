@@ -1,8 +1,8 @@
 <!-- markdownlint-disable MD030 -->
 
 <p align="center">
-<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/flowise_white.svg#gh-light-mode-only">
-<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/flowise_dark.svg#gh-dark-mode-only">
+<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/dtamind_white.svg#gh-light-mode-only">
+<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/dtamind_dark.svg#gh-dark-mode-only">
 </p>
 
 [![Release Notes](https://img.shields.io/github/release/DtamindAI/Dtamind)](https://github.com/DtamindAI/Dtamind/releases)
@@ -15,7 +15,7 @@
 
 <h3>可視化建構 AI/LLM 流程</h3>
 <a href="https://github.com/DtamindAI/Dtamind">
-<img width="100%" src="https://github.com/DtamindAI/Dtamind/blob/main/images/flowise_agentflow.gif?raw=true"></a>
+<img width="100%" src="https://github.com/DtamindAI/Dtamind/blob/main/images/dtamind_agentflow.gif?raw=true"></a>
 
 ## ⚡ 快速開始
 
@@ -23,12 +23,12 @@
 
 1. 安裝 Dtamind
     ```bash
-    npm install -g flowise
+    npm install -g dtamind
     ```
 2. 啟動 Dtamind
 
     ```bash
-    npx flowise start
+    npx dtamind start
     ```
 
 3. 打開 [http://localhost:3000](http://localhost:3000)
@@ -48,17 +48,17 @@
 
 1. 本地構建映像：
     ```bash
-    docker build --no-cache -t flowise .
+    docker build --no-cache -t dtamind .
     ```
 2. 運行映像：
 
     ```bash
-    docker run -d --name flowise -p 3000:3000 flowise
+    docker run -d --name dtamind -p 3000:3000 dtamind
     ```
 
 3. 停止映像：
     ```bash
-    docker stop flowise
+    docker stop dtamind
     ```
 
 ## 👨‍💻 開發者
@@ -164,13 +164,13 @@ Dtamind 支持不同的環境變量來配置您的實例。您可以在 `package
 
         <a href="https://huggingface.co/spaces/DtamindAI/Dtamind"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg" alt="HuggingFace Spaces"></a>
 
-    -   [Elestio](https://elest.io/open-source/flowiseai)
+    -   [Elestio](https://elest.io/open-source/dtamindai)
 
-        [![Deploy on Elestio](https://elest.io/images/logos/deploy-to-elestio-btn.png)](https://elest.io/open-source/flowiseai)
+        [![Deploy on Elestio](https://elest.io/images/logos/deploy-to-elestio-btn.png)](https://elest.io/open-source/dtamindai)
 
-    -   [Sealos](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Dflowise)
+    -   [Sealos](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Ddtamind)
 
-        [![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Dflowise)
+        [![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Ddtamind)
 
     -   [RepoCloud](https://repocloud.io/details/?app_id=29)
 
@@ -200,3 +200,4 @@ Dtamind 支持不同的環境變量來配置您的實例。您可以在 `package
 ## 📄 許可證
 
 此存儲庫中的源代碼根據 [Apache 許可證版本 2.0](../LICENSE.md) 提供。
+

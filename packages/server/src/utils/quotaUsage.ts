@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
-import { InternalDtamindError } from '../errors/internalFlowiseError'
+import { InternalDtamindError } from '../errors/internalDtamindError'
 import { UsageCacheManager } from '../UsageCacheManager'
 import { LICENSE_QUOTAS } from './constants'
 import logger from './logger'

@@ -14,7 +14,7 @@ let appDataSource: DataSource
 
 export const init = async (): Promise<void> => {
     let homePath
-    let flowisePath = path.join(getUserHome(), '.flowise')
+    let flowisePath = path.join(getUserHome(), '.dtamind')
     if (!fs.existsSync(flowisePath)) {
         fs.mkdirSync(flowisePath)
     }

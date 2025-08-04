@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import marketplacesService from '../../services/marketplaces'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 
 // Get all templates for marketplaces

@@ -8,8 +8,8 @@ sed -i '' 's/import { NodeVM } from '\''@flowiseai\/nodevm'\''/\/\/ import { Nod
 # 2. Disable executeJavaScriptCode function
 sed -i '' 's/export const executeJavaScriptCode = async (/\/\/ export const executeJavaScriptCode = async (/g' packages/components/src/utils.ts
 
-# 3. Disable flowise-nim-container-manager in nvidia-nim controller
-sed -i '' 's/const { NimContainerManager } = require('\''flowise-nim-container-manager'\'')/\/\/ const { NimContainerManager } = require('\''flowise-nim-container-manager'\'')/g' packages/server/src/controllers/nvidia-nim/index.ts
+# 3. Disable dtamind-nim-container-manager in nvidia-nim controller
+sed -i '' 's/const { NimContainerManager } = require('\''dtamind-nim-container-manager'\'')/\/\/ const { NimContainerManager } = require('\''dtamind-nim-container-manager'\'')/g' packages/server/src/controllers/nvidia-nim/index.ts
 
 # 4. Disable all NimContainerManager function calls
 sed -i '' 's/await NimContainerManager\./\/\/ await NimContainerManager\./g' packages/server/src/controllers/nvidia-nim/index.ts

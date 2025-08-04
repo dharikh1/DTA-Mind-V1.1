@@ -11,7 +11,7 @@ import {
     IUsedTool,
     IDocument,
     IServerSideEventStreamer
-} from 'flowise-components'
+} from 'dtamind-components'
 import { omit, cloneDeep, flatten, uniq } from 'lodash'
 import { StateGraph, END, START } from '@langchain/langgraph'
 import { Document } from '@langchain/core/documents'
@@ -22,7 +22,7 @@ import { BaseMessage, HumanMessage, AIMessage, AIMessageChunk, ToolMessage } fro
 import { IChatFlow, IComponentNodes, IDepthQueue, IReactFlowNode, IReactFlowEdge, IMessage, IncomingInput, IFlowConfig } from '../Interface'
 import { databaseEntities, clearSessionMemory, getAPIOverrideConfig } from '../utils'
 import { replaceInputsWithConfig, resolveVariables } from '.'
-import { InternalDtamindError } from '../errors/internalFlowiseError'
+import { InternalDtamindError } from '../errors/internalDtamindError'
 import { getErrorMessage } from '../errors/utils'
 import logger from './logger'
 import { Variable } from '../database/entities/Variable'

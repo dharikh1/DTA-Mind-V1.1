@@ -1,7 +1,7 @@
 import path from 'path'
 import * as fs from 'fs'
 import { StatusCodes } from 'http-status-codes'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 
 const getVersion = async () => {

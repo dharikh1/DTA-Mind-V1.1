@@ -1,8 +1,8 @@
 import path from 'path'
 import { NextFunction, Request, Response } from 'express'
-import { getFilesListFromStorage, getStoragePath, removeSpecificFileFromStorage } from 'flowise-components'
+import { getFilesListFromStorage, getStoragePath, removeSpecificFileFromStorage } from 'dtamind-components'
 import { updateStorageUsage } from '../../utils/quotaUsage'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 

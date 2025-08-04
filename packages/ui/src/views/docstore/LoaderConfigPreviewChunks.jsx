@@ -145,7 +145,7 @@ const LoaderConfigPreviewChunks = () => {
                 if (
                     inputParam.type === 'credential' &&
                     !selectedDocumentLoader.credential &&
-                    !selectedDocumentLoader.inputs['FLOWISE_CREDENTIAL_ID']
+                    !selectedDocumentLoader.inputs['DTAMIND_CREDENTIAL_ID']
                 ) {
                     canSubmit = false
                     missingFields.push(inputParam.label || inputParam.name)

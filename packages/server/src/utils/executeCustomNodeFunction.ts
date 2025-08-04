@@ -1,6 +1,6 @@
-import { handleEscapeCharacters, ICommonObject } from 'flowise-components'
+import { handleEscapeCharacters, ICommonObject } from 'dtamind-components'
 import { databaseEntities } from '.'
-import { InternalDtamindError } from '../errors/internalFlowiseError'
+import { InternalDtamindError } from '../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 import { getErrorMessage } from '../errors/utils'
 import { DataSource } from 'typeorm'

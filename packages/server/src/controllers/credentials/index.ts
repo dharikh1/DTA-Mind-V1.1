@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import credentialsService from '../../services/credentials'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 
 const createCredential = async (req: Request, res: Response, next: NextFunction) => {

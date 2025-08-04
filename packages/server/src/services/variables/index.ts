@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { Variable } from '../../database/entities/Variable'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import { getAppVersion } from '../../utils'
 import { QueryRunner } from 'typeorm'

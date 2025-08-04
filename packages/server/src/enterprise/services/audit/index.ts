@@ -1,6 +1,6 @@
 import { getRunningExpressApp } from '../../../utils/getRunningExpressApp'
 import { LoginActivity } from '../../database/entities/EnterpriseEntities'
-import { InternalDtamindError } from '../../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 import { getErrorMessage } from '../../../errors/utils'
 import { Between, In } from 'typeorm'

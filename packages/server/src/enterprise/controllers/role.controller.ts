@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { Role } from '../database/entities/role.entity'
 import { RoleService } from '../services/role.service'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 
 export class RoleController {
     public async create(req: Request, res: Response, next: NextFunction) {

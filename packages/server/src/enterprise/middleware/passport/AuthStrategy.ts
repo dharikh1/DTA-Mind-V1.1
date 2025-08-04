@@ -2,7 +2,7 @@ import { JwtFromRequestFunction, Strategy as JwtStrategy, VerifiedCallback } fro
 import { decryptToken } from '../../utils/tempTokenUtils'
 import { Strategy } from 'passport'
 import { Request } from 'express'
-import { ICommonObject } from 'flowise-components'
+import { ICommonObject } from 'dtamind-components'
 
 const _cookieExtractor = (req: any) => {
     let jwt = null

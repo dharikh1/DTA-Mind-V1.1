@@ -187,7 +187,7 @@ class LLMNode_SeqAgents implements INode {
         this.category = 'Sequential Agents'
         this.description = 'Run Chat Model and return the output'
         this.baseClasses = [this.type]
-        this.documentation = 'https://docs.flowiseai.com/using-flowise/agentflows/sequential-agents#id-5.-llm-node'
+        this.documentation = 'https://docs.dtamindai.com/using-dtamind/agentflows/sequential-agents#id-5.-llm-node'
         this.inputs = [
             {
                 label: 'Name',

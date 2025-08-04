@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import { ChatFlow } from '../database/entities/ChatFlow'
-import { InternalDtamindError } from '../errors/internalFlowiseError'
+import { InternalDtamindError } from '../errors/internalDtamindError'
 import { getRunningExpressApp } from '../utils/getRunningExpressApp'
 import { getErrorMessage } from '../errors/utils'
 

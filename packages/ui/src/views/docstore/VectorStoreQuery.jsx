@@ -140,7 +140,7 @@ const VectorStoreQuery = () => {
             data.vectorStoreConfig = {}
             data.vectorStoreName = selectedVectorStoreProvider.name
             Object.keys(selectedVectorStoreProvider.inputs).map((key) => {
-                if (key === 'FLOWISE_CREDENTIAL_ID') {
+                if (key === 'DTAMIND_CREDENTIAL_ID') {
                     data.vectorStoreConfig['credential'] = selectedVectorStoreProvider.inputs[key]
                 } else {
                     data.vectorStoreConfig[key] = selectedVectorStoreProvider.inputs[key]

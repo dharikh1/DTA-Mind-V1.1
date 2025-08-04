@@ -1,7 +1,7 @@
 import { DataSource, QueryRunner } from 'typeorm'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { isInvalidName, isInvalidUUID } from '../utils/validation.util'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 import { LoginMethod, LoginMethodStatus } from '../database/entities/login-method.entity'
 import { decrypt, encrypt } from '../utils/encryption.util'

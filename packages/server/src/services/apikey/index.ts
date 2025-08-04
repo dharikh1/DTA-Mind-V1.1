@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes'
 import { generateAPIKey, generateSecretHash } from '../../utils/apiKey'
 import { addChatflowsCount } from '../../utils/addChatflowsCount'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { ApiKey } from '../../database/entities/ApiKey'

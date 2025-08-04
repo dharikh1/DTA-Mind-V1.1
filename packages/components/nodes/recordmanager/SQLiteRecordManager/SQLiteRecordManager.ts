@@ -30,7 +30,7 @@ class SQLiteRecordManager_RecordManager implements INode {
                 label: 'Database File Path',
                 name: 'databaseFilePath',
                 type: 'string',
-                placeholder: 'C:\\Users\\User\\.flowise\\database.sqlite'
+                placeholder: 'C:\\Users\\User\\.dtamind\\database.sqlite'
             },*/
             {
                 label: 'Additional Connection Configuration',
@@ -116,7 +116,7 @@ class SQLiteRecordManager_RecordManager implements INode {
             }
         }
 
-        const database = path.join(process.env.DATABASE_PATH ?? path.join(getUserHome(), '.flowise'), 'database.sqlite')
+        const database = path.join(process.env.DATABASE_PATH ?? path.join(getUserHome(), '.dtamind'), 'database.sqlite')
 
         const sqliteOptions = {
             database,

@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 import { Request, Response, NextFunction } from 'express'
 import statsService from '../../services/stats'
 import { ChatMessageRatingType, ChatType } from '../../Interface'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 
 const getChatflowStats = async (req: Request, res: Response, next: NextFunction) => {
     try {

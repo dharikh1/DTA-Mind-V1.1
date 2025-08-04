@@ -1,9 +1,9 @@
 import { StatusCodes } from 'http-status-codes'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { ChatFlow } from '../../database/entities/ChatFlow'
-import { INodeParams } from 'flowise-components'
+import { INodeParams } from 'dtamind-components'
 import { IReactFlowEdge, IReactFlowNode } from '../../Interface'
 
 interface IValidationResult {
@@ -241,7 +241,7 @@ const checkFlowValidation = async (flowId: string, workspaceId?: string): Promis
 
                             // Check for credential requirement in the component
                             if (componentNodes[componentName].credential && !componentNodes[componentName].credential.optional) {
-                                if (!configValue.FLOWISE_CREDENTIAL_ID && !configValue.credential) {
+                                if (!configValue.DTAMIND_CREDENTIAL_ID && !configValue.credential) {
                                     nodeIssues.push(`${param.label} requires a credential`)
                                 }
                             }

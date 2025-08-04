@@ -17,7 +17,7 @@ import nodesApi from '@/api/nodes'
 // const
 import { initNode, showHideInputParams, initializeDefaultNodeData } from '@/utils/genericHelper'
 import { flowContext } from '@/store/context/ReactFlowContext'
-import { FLOWISE_CREDENTIAL_ID } from '@/store/constant'
+import { DTAMIND_CREDENTIAL_ID } from '@/store/constant'
 
 export const ConfigInput = ({ data, inputParam, disabled = false, arrayIndex = null, parentParamForArray = null }) => {
     const theme = useTheme()
@@ -56,7 +56,7 @@ export const ConfigInput = ({ data, inputParam, disabled = false, arrayIndex = n
             }
         })
 
-        const credential = updatedInputs.credential || updatedInputs[FLOWISE_CREDENTIAL_ID]
+        const credential = updatedInputs.credential || updatedInputs[DTAMIND_CREDENTIAL_ID]
 
         nodeData = {
             ...nodeData,
@@ -148,7 +148,7 @@ export const ConfigInput = ({ data, inputParam, disabled = false, arrayIndex = n
                 inputs: componentNodeData.inputs
             })
 
-            const credential = componentNodeData.inputs.credential || componentNodeData.inputs[FLOWISE_CREDENTIAL_ID]
+            const credential = componentNodeData.inputs.credential || componentNodeData.inputs[DTAMIND_CREDENTIAL_ID]
             componentNodeData.credential = credential ? credential : undefined
 
             setSelectedComponentNodeData(componentNodeData)
@@ -229,7 +229,7 @@ export const ConfigInput = ({ data, inputParam, disabled = false, arrayIndex = n
                 inputs: updatedComponentData.inputs
             })
 
-            const credential = updatedComponentData.inputs.credential || updatedComponentData.inputs[FLOWISE_CREDENTIAL_ID]
+            const credential = updatedComponentData.inputs.credential || updatedComponentData.inputs[DTAMIND_CREDENTIAL_ID]
             updatedComponentData.credential = credential ? credential : undefined
 
             setSelectedComponentNodeData(updatedComponentData)

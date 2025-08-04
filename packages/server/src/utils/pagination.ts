@@ -1,4 +1,4 @@
-import { InternalDtamindError } from '../errors/internalFlowiseError'
+import { InternalDtamindError } from '../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 import { Request } from 'express'
 

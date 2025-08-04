@@ -36,10 +36,9 @@ import {
     ICommonObject,
     IDatabaseEntity,
     IMessage,
-    DtamindMemory,
     IFileUpload,
     getS3Config
-} from 'flowise-components'
+} from 'dtamind-components'
 import { randomBytes } from 'crypto'
 import { AES, enc } from 'crypto-js'
 import multer from 'multer'
@@ -56,7 +55,7 @@ import { CachePool } from '../CachePool'
 import { Variable } from '../database/entities/Variable'
 import { DocumentStore } from '../database/entities/DocumentStore'
 import { DocumentStoreFileChunk } from '../database/entities/DocumentStoreFileChunk'
-import { InternalDtamindError } from '../errors/internalFlowiseError'
+import { InternalDtamindError } from '../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 import {
     CreateSecretCommand,
@@ -70,7 +69,7 @@ export const FILE_ATTACHMENT_PREFIX = 'file_attachment'
 export const CHAT_HISTORY_VAR_PREFIX = 'chat_history'
 export const RUNTIME_MESSAGES_LENGTH_VAR_PREFIX = 'runtime_messages_length'
 export const CURRENT_DATE_TIME_VAR_PREFIX = 'current_date_time'
-export const REDACTED_CREDENTIAL_VALUE = '_FLOWISE_BLANK_07167752-1a71-43b1-bf8f-4f32252165db'
+export const REDACTED_CREDENTIAL_VALUE = '_DTAMIND_BLANK_07167752-1a71-43b1-bf8f-4f32252165db'
 
 let secretsManagerClient: SecretsManagerClient | null = null
 const USE_AWS_SECRETS_MANAGER = process.env.SECRETKEY_STORAGE_TYPE === 'aws'
@@ -790,7 +789,7 @@ export const clearSessionMemory = async (
                 await newNodeInstance.clearChatMessages(node.data, options, { type: 'threadId', id: sessionId })
             } else {
                 node.data.inputs.sessionId = sessionId
-                const initializedInstance: DtamindMemory = await newNodeInstance.init(node.data, '', options)
+                const initializedInstance: any = await newNodeInstance.init(node.data, '', options)
                 await initializedInstance.clearChatMessages(sessionId)
             }
         } else if (chatId && node.data.inputs) {
@@ -798,7 +797,7 @@ export const clearSessionMemory = async (
                 await newNodeInstance.clearChatMessages(node.data, options, { type: 'chatId', id: chatId })
             } else {
                 node.data.inputs.sessionId = chatId
-                const initializedInstance: DtamindMemory = await newNodeInstance.init(node.data, '', options)
+                const initializedInstance: any = await newNodeInstance.init(node.data, '', options)
                 await initializedInstance.clearChatMessages(chatId)
             }
         }
@@ -1549,8 +1548,8 @@ export const isFlowValidForStream = (reactFlowNodes: IReactFlowNode[], endingNod
  * @returns {Promise<string>}
  */
 export const getEncryptionKey = async (): Promise<string> => {
-    if (process.env.FLOWISE_SECRETKEY_OVERWRITE !== undefined && process.env.FLOWISE_SECRETKEY_OVERWRITE !== '') {
-        return process.env.FLOWISE_SECRETKEY_OVERWRITE
+    if (process.env.DTAMIND_SECRETKEY_OVERWRITE !== undefined && process.env.DTAMIND_SECRETKEY_OVERWRITE !== '') {
+    return process.env.DTAMIND_SECRETKEY_OVERWRITE
     }
     if (USE_AWS_SECRETS_MANAGER && secretsManagerClient) {
         const secretId = process.env.SECRETKEY_AWS_NAME || 'FlowiseEncryptionKey'
@@ -1581,7 +1580,7 @@ export const getEncryptionKey = async (): Promise<string> => {
         const encryptKey = generateEncryptKey()
         const defaultLocation = process.env.SECRETKEY_PATH
             ? path.join(process.env.SECRETKEY_PATH, 'encryption.key')
-            : path.join(getUserHome(), '.flowise', 'encryption.key')
+            : path.join(getUserHome(), '.dtamind', 'encryption.key')
         await fs.promises.writeFile(defaultLocation, encryptKey)
         return encryptKey
     }
@@ -1780,7 +1779,7 @@ export const getSessionChatHistory = async (
         memoryNode.data.inputs.sessionId = sessionId
     }
 
-    const initializedInstance: DtamindMemory = await newNodeInstance.init(memoryNode.data, '', {
+    const initializedInstance: any = await newNodeInstance.init(memoryNode.data, '', {
         chatflowid,
         appDataSource,
         databaseEntities,
@@ -1913,7 +1912,7 @@ export const getAPIOverrideConfig = (chatflow: IChatFlow) => {
 export const getUploadPath = (): string => {
     return process.env.BLOB_STORAGE_PATH
         ? path.join(process.env.BLOB_STORAGE_PATH, 'uploads')
-        : path.join(getUserHome(), '.flowise', 'uploads')
+        : path.join(getUserHome(), '.dtamind', 'uploads')
 }
 
 export function generateId() {
@@ -2031,7 +2030,7 @@ export const _removeCredentialId = (obj: any): any => {
 
     const newObj: Record<string, any> = {}
     for (const [key, value] of Object.entries(obj)) {
-        if (key === 'FLOWISE_CREDENTIAL_ID') continue
+        if (key === 'DTAMIND_CREDENTIAL_ID') continue
         newObj[key] = _removeCredentialId(value)
     }
     return newObj

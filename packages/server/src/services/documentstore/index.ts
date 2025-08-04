@@ -11,7 +11,7 @@ import {
     removeFilesFromStorage,
     removeSpecificFileFromStorage,
     removeSpecificFileFromUpload
-} from 'flowise-components'
+} from 'dtamind-components'
 import { StatusCodes } from 'http-status-codes'
 import { cloneDeep, omit } from 'lodash'
 import * as path from 'path'
@@ -44,7 +44,7 @@ import { DocumentStore } from '../../database/entities/DocumentStore'
 import { DocumentStoreFileChunk } from '../../database/entities/DocumentStoreFileChunk'
 import { UpsertHistory } from '../../database/entities/UpsertHistory'
 import { getWorkspaceSearchOptions } from '../../enterprise/utils/ControllerServiceUtils'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import { databaseEntities, getAppVersion, saveUpsertFlowData } from '../../utils'
 import { DOCUMENT_STORE_BASE_FOLDER, INPUT_PARAMS_TYPE, OMIT_QUEUE_JOB_DATA } from '../../utils/constants'

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import exportImportService from '../../services/export-import'
 
 const exportData = async (req: Request, res: Response, next: NextFunction) => {

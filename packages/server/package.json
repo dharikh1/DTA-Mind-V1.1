@@ -106,7 +106,6 @@
         "express-rate-limit": "^6.9.0",
         "express-session": "^1.18.1",
         "dtamind-components": "workspace:^",
-        "flowise-nim-container-manager": "^1.0.11",
         "dtamind-ui": "workspace:^",
         "global-agent": "^3.0.0",
         "gulp": "^4.0.2",
@@ -147,7 +146,8 @@
         "typeorm": "^0.3.6",
         "uuid": "^9.0.1",
         "winston": "^3.9.0",
-        "winston-daily-rotate-file": "^5.0.0"
+        "winston-daily-rotate-file": "^5.0.0",
+        "dtamind-nim-container-manager": "^1.0.11"
     },
     "devDependencies": {
         "@types/content-disposition": "0.5.8",

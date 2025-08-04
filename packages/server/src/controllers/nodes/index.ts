@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import _ from 'lodash'
 import nodesService from '../../services/nodes'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 import { getWorkspaceSearchOptionsFromReq } from '../../enterprise/utils/ControllerServiceUtils'
 

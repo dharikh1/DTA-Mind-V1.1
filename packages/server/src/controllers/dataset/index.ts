@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import datasetService from '../../services/dataset'
 import { StatusCodes } from 'http-status-codes'
 import { getPageAndLimitParams } from '../../utils/pagination'

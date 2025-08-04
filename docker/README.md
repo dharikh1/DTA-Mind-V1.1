@@ -1,6 +1,6 @@
-# Flowise Docker Hub Image
+# Dtamind Docker Hub Image
 
-Starts Flowise from [DockerHub Image](https://hub.docker.com/r/flowiseai/flowise)
+Starts Dtamind from [DockerHub Image](https://hub.docker.com/r/dtamindai/dtamind)
 
 ## Usage
 
@@ -13,12 +13,12 @@ Starts Flowise from [DockerHub Image](https://hub.docker.com/r/flowiseai/flowise
 
 If you like to persist your data (flows, logs, credentials, storage), set these variables in the `.env` file inside `docker` folder:
 
--   DATABASE_PATH=/root/.flowise
--   LOG_PATH=/root/.flowise/logs
--   SECRETKEY_PATH=/root/.flowise
--   BLOB_STORAGE_PATH=/root/.flowise/storage
+-   DATABASE_PATH=/root/.dtamind
+-   LOG_PATH=/root/.dtamind/logs
+-   SECRETKEY_PATH=/root/.dtamind
+-   BLOB_STORAGE_PATH=/root/.dtamind/storage
 
-Flowise also support different environment variables to configure your instance. Read [more](https://docs.flowiseai.com/environment-variables)
+Dtamind also support different environment variables to configure your instance. Read [more](https://docs.dtamindai.com/environment-variables)
 
 ## Queue Mode:
 
@@ -49,3 +49,4 @@ Monitor Health:
 ```
 docker compose -f docker-compose-queue-prebuilt.yml ps
 ```
+

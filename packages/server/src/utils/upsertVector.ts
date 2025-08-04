@@ -8,7 +8,7 @@ import {
     mapExtToInputField,
     getFileFromUpload,
     removeSpecificFileFromUpload
-} from 'flowise-components'
+} from 'dtamind-components'
 import logger from '../utils/logger'
 import {
     buildFlow,
@@ -26,12 +26,12 @@ import { IncomingInput, INodeDirectedGraph, IReactFlowObject, ChatType, IExecute
 import { ChatFlow } from '../database/entities/ChatFlow'
 import { getRunningExpressApp } from '../utils/getRunningExpressApp'
 import { UpsertHistory } from '../database/entities/UpsertHistory'
-import { InternalDtamindError } from '../errors/internalFlowiseError'
+import { InternalDtamindError } from '../errors/internalDtamindError'
 import { StatusCodes } from 'http-status-codes'
 import { checkStorage, updateStorageUsage } from './quotaUsage'
 import { getErrorMessage } from '../errors/utils'
 import { v4 as uuidv4 } from 'uuid'
-import { FLOWISE_COUNTER_STATUS, FLOWISE_METRIC_COUNTERS } from '../Interface.Metrics'
+import { FLOWISE_COUNTER_STATUS, DTAMIND_METRIC_COUNTERS } from '../Interface.Metrics'
 import { Variable } from '../database/entities/Variable'
 import { getWorkspaceSearchOptions } from '../enterprise/utils/ControllerServiceUtils'
 import { OMIT_QUEUE_JOB_DATA } from './constants'
@@ -309,21 +309,21 @@ export const upsertVector = async (req: Request, isInternal: boolean = false) =>
                 throw new Error('Job execution failed')
             }
 
-            appServer.metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
+            appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
                 status: FLOWISE_COUNTER_STATUS.SUCCESS
             })
             return result
         } else {
             const result = await executeUpsert(executeData)
 
-            appServer.metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
+            appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
                 status: FLOWISE_COUNTER_STATUS.SUCCESS
             })
             return result
         }
     } catch (e) {
         logger.error('[server]: Error:', e)
-        appServer.metricsProvider?.incrementCounter(FLOWISE_METRIC_COUNTERS.VECTORSTORE_UPSERT, { status: FLOWISE_COUNTER_STATUS.FAILURE })
+        appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, { status: FLOWISE_COUNTER_STATUS.FAILURE })
 
         if (e instanceof InternalDtamindError && e.statusCode === StatusCodes.UNAUTHORIZED) {
             throw e

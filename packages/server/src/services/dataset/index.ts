@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import { Dataset } from '../../database/entities/Dataset'
 import { DatasetRow } from '../../database/entities/DatasetRow'

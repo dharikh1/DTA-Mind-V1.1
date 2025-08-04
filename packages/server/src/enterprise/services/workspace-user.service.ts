@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import { DataSource, QueryRunner } from 'typeorm'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { GeneralErrorMessage, GeneralSuccessMessage } from '../../utils/constants'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { OrganizationUser } from '../database/entities/organization-user.entity'

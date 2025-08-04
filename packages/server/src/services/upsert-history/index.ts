@@ -2,7 +2,7 @@ import { MoreThanOrEqual, LessThanOrEqual, Between } from 'typeorm'
 import { StatusCodes } from 'http-status-codes'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { UpsertHistory } from '../../database/entities/UpsertHistory'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 
 const getAllUpsertHistory = async (

@@ -1,7 +1,7 @@
 import { Client } from 'langchainhub'
 import { StatusCodes } from 'http-status-codes'
 import { parsePrompt } from '../../utils/hub'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 
 const createPrompt = async (promptName: string): Promise<any> => {

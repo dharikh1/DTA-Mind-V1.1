@@ -1,8 +1,8 @@
 <!-- markdownlint-disable MD030 -->
 
 <p align="center">
-<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/flowise_white.svg#gh-light-mode-only">
-<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/flowise_dark.svg#gh-dark-mode-only">
+<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/dtamind_white.svg#gh-light-mode-only">
+<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/dtamind_dark.svg#gh-dark-mode-only">
 </p>
 
 [![Release Notes](https://img.shields.io/github/release/DtamindAI/Dtamind)](https://github.com/DtamindAI/Dtamind/releases)
@@ -15,7 +15,7 @@
 
 <h3>AI 에이전트를 시각적으로 구축하세요</h3>
 <a href="https://github.com/DtamindAI/Dtamind">
-<img width="100%" src="https://github.com/DtamindAI/Dtamind/blob/main/images/flowise_agentflow.gif?raw=true"></a>
+<img width="100%" src="https://github.com/DtamindAI/Dtamind/blob/main/images/dtamind_agentflow.gif?raw=true"></a>
 
 ## ⚡빠른 시작 가이드
 
@@ -23,12 +23,12 @@
 
 1. Dtamind 설치
     ```bash
-    npm install -g flowise
+    npm install -g dtamind
     ```
 2. Dtamind 시작하기
 
     ```bash
-    npx flowise start
+    npx dtamind start
     ```
 
 3. [http://localhost:3000](http://localhost:3000) URL 열기
@@ -47,17 +47,17 @@
 
 1. 로컬에서 이미지 빌드하기:
     ```bash
-    docker build --no-cache -t flowise .
+    docker build --no-cache -t dtamind .
     ```
 2. 이미지 실행하기:
 
     ```bash
-    docker run -d --name flowise -p 3000:3000 flowise
+    docker run -d --name dtamind -p 3000:3000 dtamind
     ```
 
 3. 이미지 종료하기:
     ```bash
-    docker stop flowise
+    docker stop dtamind
     ```
 
 ## 👨‍💻 개발자들을 위한 가이드
@@ -152,13 +152,13 @@ Dtamind는 인스턴스 구성을 위한 다양한 환경 변수를 지원합니
 
         <a href="https://huggingface.co/spaces/DtamindAI/Dtamind"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg" alt="HuggingFace Spaces"></a>
 
-    -   [Elestio](https://elest.io/open-source/flowiseai)
+    -   [Elestio](https://elest.io/open-source/dtamindai)
 
-        [![Deploy](https://pub-da36157c854648669813f3f76c526c2b.r2.dev/deploy-on-elestio-black.png)](https://elest.io/open-source/flowiseai)
+        [![Deploy](https://pub-da36157c854648669813f3f76c526c2b.r2.dev/deploy-on-elestio-black.png)](https://elest.io/open-source/dtamindai)
 
-    -   [Sealos](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Dflowise)
+    -   [Sealos](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Ddtamind)
 
-        [![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Dflowise)
+        [![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Ddtamind)
 
     -   [RepoCloud](https://repocloud.io/details/?app_id=29)
 
@@ -188,3 +188,4 @@ Dtamind는 인스턴스 구성을 위한 다양한 환경 변수를 지원합니
 ## 📄 라이센스
 
 본 리포지토리의 소스코드는 [Apache License Version 2.0](../LICENSE.md) 라이센스가 적용됩니다.
+

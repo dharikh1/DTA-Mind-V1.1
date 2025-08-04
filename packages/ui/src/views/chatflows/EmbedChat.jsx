@@ -40,7 +40,7 @@ function a11yProps(index) {
 
 const embedPopupHtmlCode = (chatflowid) => {
     return `<script type="module">
-    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    import Chatbot from "https://cdn.jsdelivr.net/npm/dtamind-embed-react/dist/web.js"
     Chatbot.init({
         chatflowid: "${chatflowid}",
         apiHost: "${baseURL}",
@@ -62,9 +62,9 @@ const App = () => {
 }
 
 const embedFullpageHtmlCode = (chatflowid) => {
-    return `<flowise-fullchatbot></flowise-fullchatbot>
+    return `<dtamind-fullchatbot></dtamind-fullchatbot>
 <script type="module">
-    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    import Chatbot from "https://cdn.jsdelivr.net/npm/dtamind-embed-react/dist/web.js"
     Chatbot.initFull({
         chatflowid: "${chatflowid}",
         apiHost: "${baseURL}",
@@ -193,7 +193,7 @@ const customStringify = (obj) => {
 
 const embedPopupHtmlCodeCustomization = (chatflowid) => {
     return `<script type="module">
-    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    import Chatbot from "https://cdn.jsdelivr.net/npm/dtamind-embed-react/dist/web.js"
     Chatbot.init({
         chatflowid: "${chatflowid}",
         apiHost: "${baseURL}",
@@ -244,9 +244,9 @@ const getFullPageThemeConfig = () => {
 }
 
 const embedFullpageHtmlCodeCustomization = (chatflowid) => {
-    return `<flowise-fullchatbot></flowise-fullchatbot>
+    return `<dtamind-fullchatbot></dtamind-fullchatbot>
 <script type="module">
-    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    import Chatbot from "https://cdn.jsdelivr.net/npm/dtamind-embed-react/dist/web.js"
     Chatbot.initFull({
         chatflowid: "${chatflowid}",
         apiHost: "${baseURL}",
@@ -351,11 +351,11 @@ const EmbedChat = ({ chatflowid }) => {
                                     <a
                                         rel='noreferrer'
                                         target='_blank'
-                                        href='https://www.npmjs.com/package/flowise-embed?activeTab=versions'
+                                        href='https://www.npmjs.com/package/dtamind-embed-react?activeTab=versions'
                                     >
                                         version
                                     </a>
-                                    :&nbsp;<code>{`https://cdn.jsdelivr.net/npm/flowise-embed@<version>/dist/web.js`}</code>
+                                    :&nbsp;<code>{`https://cdn.jsdelivr.net/npm/dtamind-embed-react@<version>/dist/web.js`}</code>
                                 </p>
                             </span>
                             <div style={{ height: 10 }}></div>

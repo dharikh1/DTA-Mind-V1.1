@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import { DataSource, QueryRunner } from 'typeorm'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { generateId } from '../../utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { Telemetry } from '../../utils/telemetry'

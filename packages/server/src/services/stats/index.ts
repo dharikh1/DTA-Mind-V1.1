@@ -3,7 +3,7 @@ import { ChatMessageRatingType, ChatType } from '../../Interface'
 import { ChatMessage } from '../../database/entities/ChatMessage'
 import { utilGetChatMessage } from '../../utils/getChatMessage'
 import { ChatMessageFeedback } from '../../database/entities/ChatMessageFeedback'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 
 // get stats for showing in chatflow

@@ -1,7 +1,7 @@
 import { Request } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { createFileAttachment } from '../../utils/createAttachment'
-import { InternalDtamindError } from '../../errors/internalFlowiseError'
+import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 
 const createAttachment = async (req: Request) => {

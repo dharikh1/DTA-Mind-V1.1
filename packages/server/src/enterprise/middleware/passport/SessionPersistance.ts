@@ -81,7 +81,7 @@ export const initializeDBClientAndStore: any = () => {
         case 'sqlite': {
             const expressSession = require('express-session')
             const sqlSession = require('connect-sqlite3')(expressSession)
-            let flowisePath = path.join(getUserHome(), '.flowise')
+            let flowisePath = path.join(getUserHome(), '.dtamind')
             const homePath = process.env.DATABASE_PATH ?? flowisePath
             return new sqlSession({
                 db: 'database.sqlite',
