@@ -60,7 +60,7 @@ class PromptLangfuse_Prompts implements INode {
             secretKey: langFuseSecretKey,
             publicKey: langFusePublicKey,
             baseUrl: langFuseEndpoint ?? 'https://cloud.langfuse.com',
-            sdkIntegration: 'Flowise'
+            sdkIntegration: 'Dtamind'
         })
 
         const langfusePrompt = await langfuse.getPrompt(nodeData.inputs?.template as string)

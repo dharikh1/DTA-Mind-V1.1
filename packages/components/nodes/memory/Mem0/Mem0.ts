@@ -156,11 +156,11 @@ class Mem0_Memory implements INode {
 
 const initializeMem0 = async (nodeData: INodeData, input: string, options: ICommonObject): Promise<BaseMem0Memory> => {
     const initialUserId = nodeData.inputs?.user_id as string
-    const useFlowiseChatId = nodeData.inputs?.useFlowiseChatId as boolean
+    const useDtamindChatId = nodeData.inputs?.useDtamindChatId as boolean
     const orgId = options.orgId as string
 
-    if (!useFlowiseChatId && !initialUserId) {
-        throw new Error('User ID field cannot be empty when "Use Flowise Chat ID" is OFF.')
+    if (!useDtamindChatId && !initialUserId) {
+        throw new Error('User ID field cannot be empty when "Use Dtamind Chat ID" is OFF.')
     }
 
     const credentialData = await getCredentialData(nodeData.credential ?? '', options)
@@ -175,7 +175,7 @@ const initializeMem0 = async (nodeData: INodeData, input: string, options: IComm
 
     const memOptionsUserId = initialUserId
 
-    const constructorSessionId = initialUserId || (useFlowiseChatId ? 'flowise-chat-id-placeholder' : '')
+    const constructorSessionId = initialUserId || (useDtamindChatId ? 'dtamind-chat-id-placeholder' : '')
 
     const memoryOptions: MemoryOptions & SearchOptions = {
         user_id: memOptionsUserId,
@@ -204,7 +204,7 @@ const initializeMem0 = async (nodeData: INodeData, input: string, options: IComm
         databaseEntities: options.databaseEntities as IDatabaseEntity,
         chatflowid: options.chatflowid as string,
         searchOnly: (nodeData.inputs?.searchOnly as boolean) || false,
-        useFlowiseChatId: useFlowiseChatId,
+        useDtamindChatId: useDtamindChatId,
         input: input,
         orgId: orgId
     }
