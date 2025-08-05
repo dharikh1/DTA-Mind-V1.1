@@ -1,8 +1,35 @@
 import { BaseCache } from '@langchain/core/caches'
 import { ChatXAIInput } from '@langchain/xai'
-import { ICommonObject, IMultiModalOption, INode, INodeData, INodeParams } from '../../../src/Interface'
+import { ChatXAI as LCChatXAI } from '@langchain/xai'
+import { ICommonObject, IMultiModalOption, INode, INodeData, INodeParams, IVisionChatModal } from '../../../src/Interface'
 import { getBaseClasses, getCredentialData, getCredentialParam } from '../../../src/utils'
-import { ChatXAI } from './FlowiseChatXAI'
+
+export class ChatXAI extends LCChatXAI implements IVisionChatModal {
+    configuredModel: string
+    configuredMaxToken?: number
+    multiModalOption: IMultiModalOption
+    id: string
+
+    constructor(id: string, fields?: ChatXAIInput) {
+        super(fields)
+        this.id = id
+        this.configuredModel = fields?.model ?? ''
+        this.configuredMaxToken = fields?.maxTokens
+    }
+
+    revertToOriginalModel(): void {
+        this.modelName = this.configuredModel
+        this.maxTokens = this.configuredMaxToken
+    }
+
+    setMultiModalOption(multiModalOption: IMultiModalOption): void {
+        this.multiModalOption = multiModalOption
+    }
+
+    setVisionModel(): void {
+        // pass
+    }
+}
 
 class ChatXAI_ChatModels implements INode {
     label: string
