@@ -63,7 +63,7 @@ import { utilAddChatMessage } from './addChatMesage'
 import { checkPredictions, checkStorage, updatePredictionsUsage, updateStorageUsage } from './quotaUsage'
 import { buildAgentGraph } from './buildAgentGraph'
 import { getErrorMessage } from '../errors/utils'
-import { DTAMIND_METRIC_COUNTERS, FLOWISE_COUNTER_STATUS, IMetricsProvider } from '../Interface.Metrics'
+import { DTAMIND_METRIC_COUNTERS, DTAMIND_COUNTER_STATUS, IMetricsProvider } from '../Interface.Metrics'
 import { getWorkspaceSearchOptions } from '../enterprise/utils/ControllerServiceUtils'
 import { OMIT_QUEUE_JOB_DATA } from './constants'
 import { executeAgentFlow } from './buildAgentflow'
@@ -1023,12 +1023,12 @@ const incrementSuccessMetricCounter = (metricsProvider: IMetricsProvider, isInte
     if (isAgentFlow) {
         metricsProvider?.incrementCounter(
             isInternal ? DTAMIND_METRIC_COUNTERS.AGENTFLOW_PREDICTION_INTERNAL : DTAMIND_METRIC_COUNTERS.AGENTFLOW_PREDICTION_EXTERNAL,
-            { status: FLOWISE_COUNTER_STATUS.SUCCESS }
+            { status: DTAMIND_COUNTER_STATUS.SUCCESS }
         )
             } else {
             metricsProvider?.incrementCounter(
                 isInternal ? DTAMIND_METRIC_COUNTERS.CHATFLOW_PREDICTION_INTERNAL : DTAMIND_METRIC_COUNTERS.CHATFLOW_PREDICTION_EXTERNAL,
-                { status: FLOWISE_COUNTER_STATUS.SUCCESS }
+                { status: DTAMIND_COUNTER_STATUS.SUCCESS }
             )
     }
 }
@@ -1043,12 +1043,12 @@ const incrementFailedMetricCounter = (metricsProvider: IMetricsProvider, isInter
             if (isAgentFlow) {
             metricsProvider?.incrementCounter(
                 isInternal ? DTAMIND_METRIC_COUNTERS.AGENTFLOW_PREDICTION_INTERNAL : DTAMIND_METRIC_COUNTERS.AGENTFLOW_PREDICTION_EXTERNAL,
-                { status: FLOWISE_COUNTER_STATUS.FAILURE }
+                { status: DTAMIND_COUNTER_STATUS.FAILURE }
             )
         } else {
             metricsProvider?.incrementCounter(
                 isInternal ? DTAMIND_METRIC_COUNTERS.CHATFLOW_PREDICTION_INTERNAL : DTAMIND_METRIC_COUNTERS.CHATFLOW_PREDICTION_EXTERNAL,
-                { status: FLOWISE_COUNTER_STATUS.FAILURE }
+                { status: DTAMIND_COUNTER_STATUS.FAILURE }
             )
     }
 }

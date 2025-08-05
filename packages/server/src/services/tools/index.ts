@@ -4,7 +4,7 @@ import { getAppVersion } from '../../utils'
 import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
-import { DTAMIND_METRIC_COUNTERS, FLOWISE_COUNTER_STATUS } from '../../Interface.Metrics'
+import { DTAMIND_METRIC_COUNTERS, DTAMIND_COUNTER_STATUS } from '../../Interface.Metrics'
 import { QueryRunner } from 'typeorm'
 import { validate } from 'uuid'
 
@@ -24,7 +24,7 @@ const createTool = async (requestBody: any, orgId: string): Promise<any> => {
             },
             orgId
         )
-        appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.TOOL_CREATED, { status: FLOWISE_COUNTER_STATUS.SUCCESS })
+        appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.TOOL_CREATED, { status: DTAMIND_COUNTER_STATUS.SUCCESS })
         return dbResponse
     } catch (error) {
         throw new InternalDtamindError(StatusCodes.INTERNAL_SERVER_ERROR, `Error: toolsService.createTool - ${getErrorMessage(error)}`)

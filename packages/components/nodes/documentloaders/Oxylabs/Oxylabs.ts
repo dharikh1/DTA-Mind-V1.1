@@ -82,7 +82,7 @@ export class OxylabsLoader extends BaseDocumentLoader {
         const response = await axios.post<R>('https://realtime.oxylabs.io/v1/queries', params, {
             headers: {
                 'Content-Type': 'application/json',
-                'x-oxylabs-sdk': 'oxylabs-integration-flowise/1.0.0 (1.0.0; 64bit)',
+                'x-oxylabs-sdk': 'oxylabs-integration-dtamind/1.0.0 (1.0.0; 64bit)',
                 Authorization: `Basic ${auth}`
             }
         })

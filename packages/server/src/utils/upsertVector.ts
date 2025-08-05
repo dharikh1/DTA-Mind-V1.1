@@ -31,7 +31,7 @@ import { StatusCodes } from 'http-status-codes'
 import { checkStorage, updateStorageUsage } from './quotaUsage'
 import { getErrorMessage } from '../errors/utils'
 import { v4 as uuidv4 } from 'uuid'
-import { FLOWISE_COUNTER_STATUS, DTAMIND_METRIC_COUNTERS } from '../Interface.Metrics'
+import { DTAMIND_COUNTER_STATUS, DTAMIND_METRIC_COUNTERS } from '../Interface.Metrics'
 import { Variable } from '../database/entities/Variable'
 import { getWorkspaceSearchOptions } from '../enterprise/utils/ControllerServiceUtils'
 import { OMIT_QUEUE_JOB_DATA } from './constants'
@@ -310,20 +310,20 @@ export const upsertVector = async (req: Request, isInternal: boolean = false) =>
             }
 
             appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
-                status: FLOWISE_COUNTER_STATUS.SUCCESS
+                status: DTAMIND_COUNTER_STATUS.SUCCESS
             })
             return result
         } else {
             const result = await executeUpsert(executeData)
 
             appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, {
-                status: FLOWISE_COUNTER_STATUS.SUCCESS
+                status: DTAMIND_COUNTER_STATUS.SUCCESS
             })
             return result
         }
     } catch (e) {
         logger.error('[server]: Error:', e)
-        appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, { status: FLOWISE_COUNTER_STATUS.FAILURE })
+        appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.VECTORSTORE_UPSERT, { status: DTAMIND_COUNTER_STATUS.FAILURE })
 
         if (e instanceof InternalDtamindError && e.statusCode === StatusCodes.UNAUTHORIZED) {
             throw e

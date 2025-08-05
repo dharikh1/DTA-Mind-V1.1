@@ -86,7 +86,7 @@ const initializeMongoDB = async (nodeData: INodeData, options: ICommonObject): P
 
     const credentialData = await getCredentialData(nodeData.credential ?? '', options)
     const mongoDBConnectUrl = getCredentialParam('mongoDBConnectUrl', credentialData, nodeData)
-    const driverInfo = { name: 'Flowise', version: (await getVersion()).version }
+            const driverInfo = { name: 'Dtamind', version: (await getVersion()).version }
 
     const orgId = options.orgId as string
 

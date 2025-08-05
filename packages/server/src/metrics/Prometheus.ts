@@ -28,7 +28,7 @@ export class Prometheus implements IMetricsProvider {
             app: serviceName
         })
 
-        // look at the FLOWISE_COUNTER enum in Interface.Metrics.ts and get all values
+        // look at the DTAMIND_COUNTER enum in Interface.Metrics.ts and get all values
         // for each counter in the enum, create a new promClient.Counter and add it to the registry
         this.counters = new Map<string, promClient.Counter<string> | promClient.Gauge<string> | promClient.Histogram<string>>()
         const enumEntries = Object.entries(DTAMIND_METRIC_COUNTERS)
@@ -58,20 +58,20 @@ export class Prometheus implements IMetricsProvider {
         // version, http_request_duration_ms, http_requests_total
         try {
             const versionGaugeCounter = new promClient.Gauge({
-                name: 'flowise_version_info',
-                help: 'Flowise version info.',
+                        name: 'dtamind_version_info',
+        help: 'Dtamind version info.',
                 labelNames: ['version'],
                 registers: [this.register] // Explicitly set the registry
             })
 
             const { version } = await getVersion()
             versionGaugeCounter.set({ version: 'v' + version }, 1)
-            this.counters.set('flowise_version', versionGaugeCounter)
+            this.counters.set('dtamind_version', versionGaugeCounter)
         } catch (error) {
             // If metric already exists, get it from the registry
-            const existingMetric = this.register.getSingleMetric('flowise_version')
+            const existingMetric = this.register.getSingleMetric('dtamind_version')
             if (existingMetric) {
-                this.counters.set('flowise_version', existingMetric as promClient.Gauge<string>)
+                this.counters.set('dtamind_version', existingMetric as promClient.Gauge<string>)
             }
         }
 
@@ -159,7 +159,7 @@ export class Prometheus implements IMetricsProvider {
             // and ensure they're only registered with our custom registry
             promClient.collectDefaultMetrics({
                 register: this.register,
-                prefix: 'flowise_' // Add a prefix to avoid conflicts
+                prefix: 'dtamind_' // Add a prefix to avoid conflicts
             })
         }
 

@@ -221,7 +221,7 @@ class HumanInput_Agentflow implements INode {
                     const newNodeInstance = new nodeModule.nodeClass()
                     const newNodeData = {
                         ...nodeData,
-                        credential: modelConfig['FLOWISE_CREDENTIAL_ID'],
+                        credential: modelConfig['DTAMIND_CREDENTIAL_ID'],
                         inputs: {
                             ...nodeData.inputs,
                             ...modelConfig

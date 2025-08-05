@@ -11,7 +11,7 @@ import { getWorkspaceSearchOptions } from '../../enterprise/utils/ControllerServ
 import { InternalDtamindError } from '../../errors/internalDtamindError'
 import { getErrorMessage } from '../../errors/utils'
 import { AssistantType } from '../../Interface'
-import { FLOWISE_COUNTER_STATUS, DTAMIND_METRIC_COUNTERS } from '../../Interface.Metrics'
+import { DTAMIND_COUNTER_STATUS, DTAMIND_METRIC_COUNTERS } from '../../Interface.Metrics'
 import { databaseEntities, decryptCredentialData, getAppVersion } from '../../utils'
 import { INPUT_PARAMS_TYPE } from '../../utils/constants'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
@@ -44,7 +44,7 @@ const createAssistant = async (requestBody: any, orgId: string): Promise<Assista
                 orgId
             )
                     appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.ASSISTANT_CREATED, {
-            status: FLOWISE_COUNTER_STATUS.SUCCESS
+            status: DTAMIND_COUNTER_STATUS.SUCCESS
         })
             return dbResponse
         }
@@ -149,7 +149,7 @@ const createAssistant = async (requestBody: any, orgId: string): Promise<Assista
             orgId
         )
 
-        appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.ASSISTANT_CREATED, { status: FLOWISE_COUNTER_STATUS.SUCCESS })
+        appServer.metricsProvider?.incrementCounter(DTAMIND_METRIC_COUNTERS.ASSISTANT_CREATED, { status: DTAMIND_COUNTER_STATUS.SUCCESS })
 
         return dbResponse
     } catch (error) {

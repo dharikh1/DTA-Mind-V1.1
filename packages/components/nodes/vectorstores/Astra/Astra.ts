@@ -123,7 +123,7 @@ class Astra_VectorStores implements INode {
             const astraConfig: AstraLibArgs = {
                 ...clientConfig,
                 namespace: astraNamespace ?? 'default_keyspace',
-                collection: astraCollection ?? credentialData.collectionName ?? 'flowise_test',
+                collection: astraCollection ?? credentialData.collectionName ?? 'dtamind_test',
                 collectionOptions: {
                     vector: {
                         dimension: vectorDimension ?? 1536,
@@ -170,7 +170,7 @@ class Astra_VectorStores implements INode {
         const astraConfig: AstraLibArgs = {
             ...clientConfig,
             namespace: astraNamespace ?? 'default_keyspace',
-            collection: astraCollection ?? credentialData.collectionName ?? 'flowise_test',
+            collection: astraCollection ?? credentialData.collectionName ?? 'dtamind_test',
             collectionOptions: {
                 vector: {
                     dimension: vectorDimension ?? 1536,

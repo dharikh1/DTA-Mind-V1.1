@@ -22,9 +22,9 @@ import { getWorkspaceSearchOptions } from '../../enterprise/utils/ControllerServ
 import { Workspace } from '../../enterprise/database/entities/workspace.entity'
 import { Organization } from '../../enterprise/database/entities/organization.entity'
 
-const SOURCE_DOCUMENTS_PREFIX = '\n\n----FLOWISE_SOURCE_DOCUMENTS----\n\n'
-const ARTIFACTS_PREFIX = '\n\n----FLOWISE_ARTIFACTS----\n\n'
-const TOOL_ARGS_PREFIX = '\n\n----FLOWISE_TOOL_ARGS----\n\n'
+const SOURCE_DOCUMENTS_PREFIX = '\n\n----DTAMIND_SOURCE_DOCUMENTS----\n\n'
+const ARTIFACTS_PREFIX = '\n\n----DTAMIND_ARTIFACTS----\n\n'
+const TOOL_ARGS_PREFIX = '\n\n----DTAMIND_TOOL_ARGS----\n\n'
 
 const buildAndInitTool = async (chatflowid: string, _chatId?: string, _apiMessageId?: string) => {
     const appServer = getRunningExpressApp()

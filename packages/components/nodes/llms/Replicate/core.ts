@@ -110,7 +110,7 @@ export class Replicate extends LLM implements ReplicateInput {
         const imports = await Replicate.imports()
 
         return new imports.Replicate({
-            userAgent: 'flowise',
+            userAgent: 'dtamind',
             auth: this.apiKey
         })
     }

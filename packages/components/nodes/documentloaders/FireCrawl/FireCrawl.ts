@@ -186,7 +186,7 @@ class FirecrawlApp {
         try {
             const parameters = {
                 ...validParams,
-                integration: 'flowise'
+                integration: 'dtamind'
             }
             const response: AxiosResponse = await this.postRequest(this.apiUrl + '/v1/scrape', parameters, headers)
             if (response.status === 200) {
@@ -288,7 +288,7 @@ class FirecrawlApp {
         try {
             const parameters = {
                 ...validParams,
-                integration: 'flowise'
+                integration: 'dtamind'
             }
             const response: AxiosResponse = await this.postRequest(this.apiUrl + '/v1/crawl', parameters, headers)
             if (response.status === 200) {
@@ -400,7 +400,7 @@ class FirecrawlApp {
         try {
             const parameters = {
                 ...validParams,
-                integration: 'flowise'
+                integration: 'dtamind'
             }
             const response: AxiosResponse = await this.postRequest(this.apiUrl + '/v1/extract', parameters, headers)
             if (response.status === 200) {
@@ -439,7 +439,7 @@ class FirecrawlApp {
         try {
             const parameters = {
                 ...validParams,
-                integration: 'flowise'
+                integration: 'dtamind'
             }
             const response: AxiosResponse = await this.postRequest(this.apiUrl + '/v1/search', parameters, headers)
             if (response.status === 200) {

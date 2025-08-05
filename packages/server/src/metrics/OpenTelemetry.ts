@@ -45,11 +45,11 @@ export class OpenTelemetry implements IMetricsProvider {
     async initializeCounters(): Promise<void> {
         try {
             // Define the resource with the service name for trace grouping
-            const flowiseVersion = await getVersion()
+            const dtamindVersion = await getVersion()
 
             this.resource = new Resource({
                 [ATTR_SERVICE_NAME]: process.env.METRICS_SERVICE_NAME || 'DtamindAI',
-                [ATTR_SERVICE_VERSION]: flowiseVersion.version // Version as a label
+                [ATTR_SERVICE_VERSION]: dtamindVersion.version // Version as a label
             })
 
             const metricProtocol = process.env.METRICS_OPEN_TELEMETRY_PROTOCOL || 'http' // Default to 'http'
@@ -104,8 +104,8 @@ export class OpenTelemetry implements IMetricsProvider {
 
             this.meterProvider = new MeterProvider({ resource: this.resource, readers: [this.metricReader] })
 
-            const meter = this.meterProvider.getMeter('flowise-metrics')
-            // look at the FLOWISE_COUNTER enum in Interface.Metrics.ts and get all values
+            const meter = this.meterProvider.getMeter('dtamind-metrics')
+            // look at the DTAMIND_COUNTER enum in Interface.Metrics.ts and get all values
             // for each counter in the enum, create a new promClient.Counter and add it to the registry
             const enumEntries = Object.entries(DTAMIND_METRIC_COUNTERS)
             enumEntries.forEach(([name, value]) => {
@@ -130,14 +130,14 @@ export class OpenTelemetry implements IMetricsProvider {
 
             try {
                 // Add version gauge if not already created
-                if (!createdMetrics.has('flowise_version')) {
-                    const versionGuage = meter.createGauge('flowise_version', {
-                        description: 'Flowise version'
-                    })
+                        if (!createdMetrics.has('dtamind_version')) {
+            const versionGuage = meter.createGauge('dtamind_version', {
+                description: 'Dtamind version'
+            })
                     // remove the last dot from the version string, e.g. 2.1.3 -> 2.13 (gauge needs a number - float)
-                    const formattedVersion = flowiseVersion.version.replace(/\.(\d+)$/, '$1')
+                    const formattedVersion = dtamindVersion.version.replace(/\.(\d+)$/, '$1')
                     versionGuage.record(parseFloat(formattedVersion))
-                    createdMetrics.set('flowise_version', true)
+                    createdMetrics.set('dtamind_version', true)
                 }
             } catch (error) {
                 console.error('Error creating version gauge:', error)

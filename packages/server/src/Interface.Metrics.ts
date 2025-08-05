@@ -5,7 +5,7 @@ export interface IMetricsProvider {
     incrementCounter(counter: DTAMIND_METRIC_COUNTERS, payload: any): void
 }
 
-export enum FLOWISE_COUNTER_STATUS {
+export enum DTAMIND_COUNTER_STATUS {
     SUCCESS = 'success',
     FAILURE = 'failure'
 }

@@ -2,7 +2,7 @@ import { ICommonObject, removeFolderFromStorage } from 'dtamind-components'
 import { StatusCodes } from 'http-status-codes'
 import { In, QueryRunner } from 'typeorm'
 import { ChatflowType, IReactFlowObject } from '../../Interface'
-import { FLOWISE_COUNTER_STATUS, DTAMIND_METRIC_COUNTERS } from '../../Interface.Metrics'
+import { DTAMIND_COUNTER_STATUS, DTAMIND_METRIC_COUNTERS } from '../../Interface.Metrics'
 import { UsageCacheManager } from '../../UsageCacheManager'
 import { ChatFlow } from '../../database/entities/ChatFlow'
 import { ChatMessage } from '../../database/entities/ChatMessage'
@@ -295,7 +295,7 @@ const saveChatflow = async (
 
         appServer.metricsProvider?.incrementCounter(
                     dbResponse?.type === 'MULTIAGENT' ? DTAMIND_METRIC_COUNTERS.AGENTFLOW_CREATED : DTAMIND_METRIC_COUNTERS.CHATFLOW_CREATED,
-        { status: FLOWISE_COUNTER_STATUS.SUCCESS }
+        { status: DTAMIND_COUNTER_STATUS.SUCCESS }
         )
 
         return dbResponse

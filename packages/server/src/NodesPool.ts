@@ -25,7 +25,7 @@ export class NodesPool {
      */
     private async initializeNodes() {
         const disabled_nodes = process.env.DISABLED_NODES ? process.env.DISABLED_NODES.split(',') : []
-        const packagePath = getNodeModulesPackagePath('flowise-components')
+        const packagePath = getNodeModulesPackagePath('dtamind-components')
         const nodesPath = path.join(packagePath, 'dist', 'nodes')
         const nodeFiles = await this.getFiles(nodesPath)
         return Promise.all(
@@ -84,7 +84,7 @@ export class NodesPool {
      * Initialize credentials
      */
     private async initializeCredentials() {
-        const packagePath = getNodeModulesPackagePath('flowise-components')
+        const packagePath = getNodeModulesPackagePath('dtamind-components')
         const nodesPath = path.join(packagePath, 'dist', 'credentials')
         const nodeFiles = await this.getFiles(nodesPath)
         return Promise.all(
