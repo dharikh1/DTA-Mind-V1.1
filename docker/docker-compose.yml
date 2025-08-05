@@ -133,4 +133,4 @@ services:
             start_period: 30s
         volumes:
             - ~/.dtamind:/root/.dtamind
-        entrypoint: /bin/sh -c "sleep 3; flowise start"
+        entrypoint: /bin/sh -c "sleep 3; dtamind start"

@@ -11,8 +11,8 @@ services:
         networks:
             - dtamind-net
 
-    flowise:
-        container_name: flowise-main
+    dtamind:
+        container_name: dtamind-main
         build:
             context: .. # Build using the Dockerfile in the root directory
             dockerfile: docker/Dockerfile
@@ -22,7 +22,7 @@ services:
             # Mount local .dtamind to container's default location
             - ../.dtamind:/root/.dtamind
         environment:
-            # --- Essential Flowise Vars ---
+            # --- Essential Dtamind Vars ---
             - PORT=${PORT:-3000}
             - DATABASE_PATH=/root/.dtamind
             - SECRETKEY_PATH=/root/.dtamind
@@ -30,15 +30,15 @@ services:
             - BLOB_STORAGE_PATH=/root/.dtamind/storage
             # --- Queue Vars (Main Instance) ---
             - MODE=queue
-            - QUEUE_NAME=flowise-queue # Ensure this matches worker
+            - QUEUE_NAME=dtamind-queue # Ensure this matches worker
             - REDIS_URL=redis://redis:6379 # Use service name 'redis'
         depends_on:
             - redis
         networks:
             - dtamind-net
 
-    flowise-worker:
-        container_name: flowise-worker
+    dtamind-worker:
+        container_name: dtamind-worker
         build:
             context: .. # Build context is still the root
             dockerfile: docker/worker/Dockerfile # Ensure this path is correct
@@ -46,7 +46,7 @@ services:
             # Mount same local .dtamind to worker
             - ../.dtamind:/root/.dtamind
         environment:
-            # --- Essential Flowise Vars ---
+            # --- Essential Dtamind Vars ---
             - WORKER_PORT=${WORKER_PORT:-5566} # Port for worker healthcheck
             - DATABASE_PATH=/root/.dtamind
             - SECRETKEY_PATH=/root/.dtamind
@@ -54,11 +54,11 @@ services:
             - BLOB_STORAGE_PATH=/root/.dtamind/storage
             # --- Queue Vars (Main Instance) ---
             - MODE=queue
-            - QUEUE_NAME=flowise-queue # Ensure this matches worker
+            - QUEUE_NAME=dtamind-queue # Ensure this matches worker
             - REDIS_URL=redis://redis:6379 # Use service name 'redis'
         depends_on:
             - redis
-            - flowise
+            - dtamind
         networks:
             - dtamind-net
 

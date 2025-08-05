@@ -3,25 +3,25 @@ version: '3.1'
 services:
     redis:
         image: redis:alpine
-        container_name: flowise-redis
+        container_name: dtamind-redis
         ports:
             - '6379:6379'
         volumes:
             - redis_data:/data
         networks:
-            - flowise-net
+            - dtamind-net
         restart: always
 
-    flowise:
-        image: flowiseai/flowise:latest
-        container_name: flowise-main
+    dtamind:
+        image: dtamindai/dtamind:latest
+        container_name: dtamind-main
         restart: always
         ports:
             - '${PORT:-3000}:${PORT:-3000}'
         volumes:
             - ~/.dtamind:/root/.dtamind
         environment:
-            # --- Essential Flowise Vars ---
+            # --- Essential Dtamind Vars ---
             - PORT=${PORT:-3000}
             - DATABASE_PATH=${DATABASE_PATH:-/root/.dtamind}
             - DATABASE_TYPE=${DATABASE_TYPE}
@@ -144,20 +144,20 @@ services:
             timeout: 5s
             retries: 5
             start_period: 30s
-        entrypoint: /bin/sh -c "sleep 3; flowise start"
+        entrypoint: /bin/sh -c "sleep 3; dtamind start"
         depends_on:
             - redis
         networks:
-            - flowise-net
+            - dtamind-net
 
-    flowise-worker:
-        image: flowiseai/flowise-worker:latest
-        container_name: flowise-worker
+    dtamind-worker:
+        image: dtamindai/dtamind-worker:latest
+        container_name: dtamind-worker
         restart: always
         volumes:
             - ~/.dtamind:/root/.dtamind
         environment:
-            # --- Essential Flowise Vars ---
+            # --- Essential Dtamind Vars ---
             - WORKER_PORT=${WORKER_PORT:-5566}
             - DATABASE_PATH=${DATABASE_PATH:-/root/.dtamind}
             - DATABASE_TYPE=${DATABASE_TYPE}
@@ -283,14 +283,14 @@ services:
         entrypoint: /bin/sh -c "node /app/healthcheck/healthcheck.js & sleep 5 && pnpm run start-worker"
         depends_on:
             - redis
-            - flowise
+            - dtamind
         networks:
-            - flowise-net
+            - dtamind-net
 
 volumes:
     redis_data:
         driver: local
 
 networks:
-    flowise-net:
+    dtamind-net:
         driver: bridge
