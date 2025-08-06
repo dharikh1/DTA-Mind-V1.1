@@ -104,6 +104,15 @@ const dashboard = {
                     icon: icons.IconMessage,
                     breadcrumbs: true,
                     permission: 'chatflows:view'
+                },
+                {
+                    id: 'assistants',
+                    title: 'Assistants',
+                    type: 'item',
+                    url: '/assistants',
+                    icon: icons.IconUsers,
+                    breadcrumbs: true,
+                    permission: 'assistants:view'
                 }
             ]
         },
