@@ -1115,6 +1115,9 @@ importers:
       yup:
         specifier: ^0.32.9
         version: 0.32.11
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@babel/eslint-parser':
         specifier: ^7.15.8
