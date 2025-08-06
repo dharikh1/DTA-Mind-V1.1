@@ -18,14 +18,17 @@ COPY packages/components/package*.json ./packages/components/
 COPY packages/ui/package*.json ./packages/ui/
 COPY packages/api-documentation/package*.json ./packages/api-documentation/
 
+# Copy lockfile
+COPY pnpm-lock.yaml ./
+
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 # Copy source code
 COPY . .
 
-# Build the application
-RUN pnpm build
+# Build the application with increased memory
+RUN NODE_OPTIONS="--max-old-space-size=8192" pnpm build
 
 # Create necessary directories
 RUN mkdir -p /app/packages/server/logs && \
