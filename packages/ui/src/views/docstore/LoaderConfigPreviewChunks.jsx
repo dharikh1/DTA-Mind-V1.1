@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { validate as uuidValidate, v4 as uuidv4 } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import ReactJson from 'dtamind-react-json-view'
+import ReactJson from 'flowise-react-json-view'
 
 // Hooks
 import useApi from '@/hooks/useApi'

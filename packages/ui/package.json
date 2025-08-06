@@ -38,7 +38,7 @@
         "clsx": "^1.1.1",
         "dompurify": "^3.2.6",
         "dotenv": "^16.0.0",
-        "dtamind-embed-react": "latest",
+        "flowise-embed-react": "3.0.3",
         "flowise-react-json-view": "^1.21.7",
         "formik": "^2.2.6",
         "framer-motion": "^4.1.13",
