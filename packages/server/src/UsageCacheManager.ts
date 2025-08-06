@@ -1,4 +1,4 @@
-import { Keyv } from 'keyv'
+import Keyv from 'keyv'
 import KeyvRedis from '@keyv/redis'
 import { Cache, createCache } from 'cache-manager'
 import { MODE } from './Interface'
@@ -34,34 +34,7 @@ export class UsageCacheManager {
     }
 
     private async initialize(): Promise<void> {
-        if (process.env.MODE === MODE.QUEUE) {
-            let redisConfig: string | Record<string, any>
-            if (process.env.REDIS_URL) {
-                redisConfig = process.env.REDIS_URL
-            } else {
-                redisConfig = {
-                    username: process.env.REDIS_USERNAME || undefined,
-                    password: process.env.REDIS_PASSWORD || undefined,
-                    socket: {
-                        host: process.env.REDIS_HOST || 'localhost',
-                        port: parseInt(process.env.REDIS_PORT || '6379'),
-                        tls: process.env.REDIS_TLS === 'true',
-                        cert: process.env.REDIS_CERT ? Buffer.from(process.env.REDIS_CERT, 'base64') : undefined,
-                        key: process.env.REDIS_KEY ? Buffer.from(process.env.REDIS_KEY, 'base64') : undefined,
-                        ca: process.env.REDIS_CA ? Buffer.from(process.env.REDIS_CA, 'base64') : undefined
-                    }
-                }
-            }
-            this.cache = createCache({
-                stores: [
-                    new Keyv({
-                        store: new KeyvRedis(redisConfig)
-                    })
-                ]
-            })
-        } else {
-            this.cache = createCache()
-        }
+        this.cache = createCache()
     }
 
     public async getSubscriptionDetails(subscriptionId: string, withoutCache: boolean = false): Promise<Record<string, any>> {

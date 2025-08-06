@@ -1,4 +1,4 @@
-# Use Node.js 18
+# Use Node.js 20 Alpine for smaller image size
 FROM node:20-alpine
 
 # Set working directory
@@ -7,7 +7,7 @@ WORKDIR /app
 # Install pnpm globally
 RUN npm install -g pnpm@latest
 
-# Copy workspace configuration files
+# Copy package files first for better caching
 COPY package*.json ./
 COPY pnpm-workspace.yaml ./
 COPY turbo.json ./
@@ -16,29 +16,39 @@ COPY turbo.json ./
 COPY packages/server/package*.json ./packages/server/
 COPY packages/components/package*.json ./packages/components/
 COPY packages/ui/package*.json ./packages/ui/
+COPY packages/api-documentation/package*.json ./packages/api-documentation/
 
-# Install all dependencies at workspace level
-RUN pnpm install --frozen-lockfile=false
+# Install dependencies
+RUN pnpm install --frozen-lockfile
 
-# Copy the entire project (including pre-built files)
+# Copy source code
 COPY . .
 
-# Create logs directory and set permissions
+# Build the application
+RUN pnpm build
+
+# Create necessary directories
 RUN mkdir -p /app/packages/server/logs && \
     mkdir -p /app/packages/server/.dtamind && \
     mkdir -p /app/packages/server/.dtamind/logs
-
-# Expose port
-EXPOSE 3000
 
 # Set environment variables
 ENV HOME=/app/packages/server
 ENV DTAMIND_USER_HOME=/app/packages/server
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV DTAMIND_USERNAME=admin
+ENV DTAMIND_PASSWORD=admin123
+
+# Expose port
+EXPOSE 3000
 
 # Set the working directory to the server package
 WORKDIR /app/packages/server
-RUN pnpm build
-# Start the server directly
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD node -e "require('http').get('http://localhost:3000/api/v1/ping', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+
+# Start the application
 CMD ["node", "dist/index.js"]

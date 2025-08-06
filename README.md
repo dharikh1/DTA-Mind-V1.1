@@ -1,225 +1,179 @@
-<!-- markdownlint-disable MD030 -->
+# DTA Mind
 
-<p align="center">
-<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/dtamind_white.svg#gh-light-mode-only">
-<img src="https://github.com/DtamindAI/Dtamind/blob/main/images/dtamind_dark.svg#gh-dark-mode-only">
-</p>
+A powerful AI workflow automation platform built with Node.js and React.
 
-<div align="center">
+## 🚀 Quick Start
 
-[![Release Notes](https://img.shields.io/github/release/DtamindAI/Dtamind)](https://github.com/DtamindAI/Dtamind/releases)
-[![Discord](https://img.shields.io/discord/1087698854775881778?label=Discord&logo=discord)](https://discord.gg/jbaHfsRVBW)
-[![Twitter Follow](https://img.shields.io/twitter/follow/DtamindAI?style=social)](https://twitter.com/DtamindAI)
-[![GitHub star chart](https://img.shields.io/github/stars/DtamindAI/Dtamind?style=social)](https://star-history.com/#DtamindAI/Dtamind)
-[![GitHub fork](https://img.shields.io/github/forks/DtamindAI/Dtamind?style=social)](https://github.com/DtamindAI/Dtamind/fork)
+### Option 1: Docker (Recommended)
 
-English | [繁體中文](./i18n/README-TW.md) | [简体中文](./i18n/README-ZH.md) | [日本語](./i18n/README-JA.md) | [한국어](./i18n/README-KR.md)
+The easiest way to run DTA Mind is using Docker:
 
-</div>
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/DTA-Mind-01.git
+cd DTA-Mind-01
 
-<h3>Build AI Agents, Visually</h3>
-<a href="https://github.com/DtamindAI/Dtamind">
-<img width="100%" src="https://github.com/DtamindAI/Dtamind/blob/main/images/dtamind_agentflow.gif?raw=true"></a>
+# Run with Docker Compose
+docker-compose up -d
 
-## 📚 Table of Contents
+# Access the application
+# Open http://localhost:3000 in your browser
+```
 
-- [⚡ Quick Start](#-quick-start)
-- [🐳 Docker](#-docker)
-- [👨‍💻 Developers](#-developers)
-- [🌱 Env Variables](#-env-variables)
-- [📖 Documentation](#-documentation)
-- [🌐 Self Host](#-self-host)
-- [☁️ Dtamind Cloud](#️-dtamind-cloud)
-- [🙋 Support](#-support)
-- [🙌 Contributing](#-contributing)
-- [📄 License](#-license)
+**Docker Features:**
+- ✅ **One-command setup**: `docker-compose up -d`
+- ✅ **Automatic restarts**: Container restarts if it crashes
+- ✅ **Health checks**: Monitors application health
+- ✅ **Persistent data**: Your data survives container restarts
+- ✅ **Production ready**: Optimized for production use
 
-## ⚡Quick Start
+### Option 2: Local Development
 
-Download and Install [NodeJS](https://nodejs.org/en/download) >= 18.15.0
+If you prefer to run locally:
 
-1. Install Dtamind
-    ```bash
-    npm install -g dtamind
-    ```
-2. Start Dtamind
+```bash
+# 1. Install dependencies
+pnpm install
 
-    ```bash
-    npx dtamind start
-    ```
+# 2. Build the application
+pnpm build
 
-3. Open [http://localhost:3000](http://localhost:3000)
+# 3. Start the server
+pnpm start
 
-## 🐳 Docker
+# 4. Access at http://localhost:3000
+```
 
-### Docker Compose
+## 🔐 Authentication
 
-1. Clone the Dtamind project
-2. Go to `docker` folder at the root of the project
-3. Copy `.env.example` file, paste it into the same location, and rename to `.env` file
-4. `docker compose up -d`
-5. Open [http://localhost:3000](http://localhost:3000)
-6. You can bring the containers down by `docker compose stop`
+The app requires authentication to access models and create flows:
 
-### Docker Image
+1. **Register a new account** through the web interface
+2. **Login** with your credentials
+3. **Access models** and create your AI workflows
 
-1. Build the image locally:
-   
-    ```bash
-    docker build --no-cache -t dtamind .
-    ```
-2. Run image:
-   
-    ```bash
-    docker run -d --name dtamind -p 3000:3000 dtamind
-    ```
+**Default Admin Credentials** (for Docker):
+- Username: `admin`
+- Password: `admin123`
 
-3. Stop image:
-   
-    ```bash
-    docker stop dtamind
-    ```
+## 🐳 Docker Commands
 
-## 👨‍💻 Developers
+```bash
+# Start the application
+docker-compose up -d
 
-Dtamind has 3 different modules in a single mono repository.
+# View logs
+docker-compose logs -f
 
--   `server`: Node backend to serve API logics
--   `ui`: React frontend
--   `components`: Third-party nodes integrations
--   `api-documentation`: Auto-generated swagger-ui API docs from express
+# Stop the application
+docker-compose down
 
-### Prerequisite
+# Rebuild and start
+docker-compose up -d --build
 
--   Install [PNPM](https://pnpm.io/installation)
-    ```bash
-    npm i -g pnpm
-    ```
+# Remove all data (WARNING: This will delete your data)
+docker-compose down -v
+```
 
-### Setup
+## 📁 Project Structure
 
-1.  Clone the repository:
+```
+DTA-Mind-01/
+├── packages/
+│   ├── server/          # Backend API server
+│   ├── ui/             # React frontend
+│   ├── components/     # AI components and nodes
+│   └── api-documentation/ # API documentation
+├── docker-compose.yml  # Docker configuration
+├── Dockerfile         # Docker image definition
+└── README.md         # This file
+```
 
-    ```bash
-    git clone https://github.com/DtamindAI/Dtamind.git
-    ```
+## 🔧 Configuration
 
-2.  Go into repository folder:
+### Environment Variables
 
-    ```bash
-    cd Dtamind
-    ```
+Key environment variables you can customize:
 
-3.  Install all dependencies of all modules:
+```bash
+# Authentication
+DTAMIND_USERNAME=admin
+DTAMIND_PASSWORD=admin123
 
-    ```bash
-    pnpm install
-    ```
+# Database
+DATABASE_TYPE=sqlite
+DATABASE_PATH=/app/packages/server/.dtamind/database.sqlite
 
-4.  Build all the code:
+# Security (Change these in production!)
+JWT_AUTH_TOKEN_SECRET=your-secret-key-change-this
+JWT_REFRESH_TOKEN_SECRET=your-refresh-secret-key-change-this
+EXPRESS_SESSION_SECRET=your-session-secret-change-this
+TOKEN_HASH_SECRET=your-token-hash-secret-change-this
+```
 
-    ```bash
-    pnpm build
-    ```
+### Customizing Docker
 
-    <details>
-    <summary>Exit code 134 (JavaScript heap out of memory)</summary>  
-      If you get this error when running the above `build` script, try increasing the Node.js heap size and run the script again:
+To customize the Docker setup, edit `docker-compose.yml`:
 
-        export NODE_OPTIONS="--max-old-space-size=4096"
-        pnpm build
+```yaml
+environment:
+  - DTAMIND_USERNAME=your-username
+  - DTAMIND_PASSWORD=your-password
+  - JWT_AUTH_TOKEN_SECRET=your-secret-key
+```
 
-    </details>
+## 🛠️ Development
 
-5.  Start the app:
+### Prerequisites
 
-    ```bash
-    pnpm start
-    ```
+- Node.js 20+
+- pnpm
+- Docker (for Docker deployment)
 
-    You can now access the app on [http://localhost:3000](http://localhost:3000)
+### Local Development Setup
 
-6.  For development build:
+```bash
+# Install dependencies
+pnpm install
 
-    -   Create `.env` file and specify the `VITE_PORT` (refer to `.env.example`) in `packages/ui`
-    -   Create `.env` file and specify the `PORT` (refer to `.env.example`) in `packages/server`
-    -   Run:
+# Build all packages
+pnpm build
 
-        ```bash
-        pnpm dev
-        ```
+# Start development server
+pnpm start
 
-    Any code changes will reload the app automatically on [http://localhost:8080](http://localhost:8080)
+# Run tests
+pnpm test
+```
 
-## 🌱 Env Variables
+## 📊 Monitoring
 
-Dtamind supports different environment variables to configure your instance. You can specify the following variables in the `.env` file inside `packages/server` folder. Read [more](https://github.com/DtamindAI/Dtamind/blob/main/CONTRIBUTING.md#-env-variables)
+The application includes health checks and monitoring:
 
-## 📖 Documentation
+- **Health Check**: `http://localhost:3000/api/v1/ping`
+- **Logs**: Check Docker logs with `docker-compose logs -f`
+- **Database**: SQLite database stored in Docker volume
 
-You can view the Dtamind Docs [here](https://docs.dtamindai.com/)
+## 🤝 Contributing
 
-## 🌐 Self Host
-
-Deploy Dtamind self-hosted in your existing infrastructure, we support various [deployments](https://docs.dtamindai.com/configuration/deployment)
-
--   [AWS](https://docs.dtamindai.com/configuration/deployment/aws)
--   [Azure](https://docs.dtamindai.com/configuration/deployment/azure)
--   [Digital Ocean](https://docs.dtamindai.com/configuration/deployment/digital-ocean)
--   [GCP](https://docs.dtamindai.com/configuration/deployment/gcp)
--   [Alibaba Cloud](https://computenest.console.aliyun.com/service/instance/create/default?type=user&ServiceName=Dtamind社区版)
--   <details>
-      <summary>Others</summary>
-
-    -   [Railway](https://docs.dtamindai.com/configuration/deployment/railway)
-
-        [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/pn4G8S?referralCode=WVNPD9)
-
-    -   [Render](https://docs.dtamindai.com/configuration/deployment/render)
-
-        [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://docs.dtamindai.com/configuration/deployment/render)
-
-    -   [HuggingFace Spaces](https://docs.dtamindai.com/deployment/hugging-face)
-
-        <a href="https://huggingface.co/spaces/DtamindAI/Dtamind"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg" alt="HuggingFace Spaces"></a>
-
-    -   [Elestio](https://elest.io/open-source/dtamindai)
-
-        [![Deploy on Elestio](https://elest.io/images/logos/deploy-to-elestio-btn.png)](https://elest.io/open-source/dtamindai)
-
-    -   [Sealos](https://template.sealos.io/deploy?templateName=dtamind)
-
-        [![Deploy on Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://template.sealos.io/deploy?templateName=dtamind)
-
-    -   [RepoCloud](https://repocloud.io/details/?app_id=29)
-
-        [![Deploy on RepoCloud](https://d16t0pc4846x52.cloudfront.net/deploy.png)](https://repocloud.io/details/?app_id=29)
-
-      </details>
-
-## ☁️ Dtamind Cloud
-
-Get Started with [Dtamind Cloud](https://dtamindai.com/).
-
-## 🙋 Support
-
-Feel free to ask any questions, raise problems, and request new features in [Discussion](https://github.com/DtamindAI/Dtamind/discussions).
-
-## 🙌 Contributing
-
-Thanks go to these awesome contributors
-
-<a href="https://github.com/DtamindAI/Dtamind/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=DtamindAI/Dtamind" />
-</a><br><br>
-
-See [Contributing Guide](CONTRIBUTING.md). Reach out to us at [Discord](https://discord.gg/jbaHfsRVBW) if you have any questions or issues.
-
-[![Star History Chart](https://api.star-history.com/svg?repos=DtamindAI/Dtamind&type=Timeline)](https://star-history.com/#DtamindAI/Dtamind&Date)
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## 📄 License
 
-Source code in this repository is made available under the [Apache License Version 2.0](LICENSE.md).
-"# dtamind-new" 
-"# Dhari1" 
-"# Dhari1" 
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+If you encounter any issues:
+
+1. Check the logs: `docker-compose logs -f`
+2. Ensure port 3000 is available
+3. Verify Docker is running
+4. Check the health endpoint: `http://localhost:3000/api/v1/ping`
+
+---
+
+**Note**: The app requires authentication. Register a new account through the web interface to access models and create flows. 

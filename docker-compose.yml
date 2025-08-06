@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  dtamind:
+    build: .
+    container_name: dtamind-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DTAMIND_USERNAME=admin
+      - DTAMIND_PASSWORD=admin123
+      - DATABASE_TYPE=sqlite
+      - DATABASE_PATH=/app/packages/server/.dtamind/database.sqlite
+      - LOG_PATH=/app/packages/server/logs
+      - LOG_LEVEL=info
+      - DEBUG=false
+      - DISABLE_DTAMIND_TELEMETRY=true
+      - SHOW_COMMUNITY_NODES=true
+      - CORS_ORIGINS=*
+      - IFRAME_ORIGINS=*
+      - DTAMIND_FILE_SIZE_LIMIT=10
+      - JWT_AUTH_TOKEN_SECRET=your-secret-key-change-this
+      - JWT_REFRESH_TOKEN_SECRET=your-refresh-secret-key-change-this
+      - JWT_ISSUER=dtamind
+      - JWT_AUDIENCE=dtamind
+      - JWT_TOKEN_EXPIRY_IN_MINUTES=60
+      - JWT_REFRESH_TOKEN_EXPIRY_IN_MINUTES=1440
+      - EXPIRE_AUTH_TOKENS_ON_RESTART=false
+      - EXPRESS_SESSION_SECRET=your-session-secret-change-this
+      - PASSWORD_RESET_TOKEN_EXPIRY_IN_MINS=15
+      - PASSWORD_SALT_HASH_ROUNDS=10
+      - TOKEN_HASH_SECRET=your-token-hash-secret-change-this
+    volumes:
+      - dtamind_data:/app/packages/server/.dtamind
+      - dtamind_logs:/app/packages/server/logs
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/v1/ping', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  dtamind_data:
+    driver: local
+  dtamind_logs:
+    driver: local 
