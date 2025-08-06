@@ -51,54 +51,40 @@ const NavGroup = ({ item }) => {
         return true
     }
 
-    const renderPrimaryItems = () => {
-        const primaryGroup = item.children.find((child) => child.id === 'primary')
-        return primaryGroup.children
-    }
-
-    const renderNonPrimaryGroups = () => {
-        let nonprimaryGroups = item.children.filter((child) => child.id !== 'primary')
-        // Display chilren based on permission and display
-        nonprimaryGroups = nonprimaryGroups.map((group) => {
+    const renderGroups = () => {
+        let groups = item.children
+        // Display children based on permission and display
+        groups = groups.map((group) => {
             const children = group.children.filter((menu) => shouldDisplayMenu(menu))
             return { ...group, children }
         })
         // Get rid of group with empty children
-        nonprimaryGroups = nonprimaryGroups.filter((group) => group.children.length > 0)
-        return nonprimaryGroups
+        groups = groups.filter((group) => group.children.length > 0)
+        return groups
     }
 
     return (
         <>
-            <List
-                subheader={
-                    item.title && (
-                        <Typography variant='caption' sx={{ ...theme.typography.menuCaption }} display='block' gutterBottom>
-                            {item.title}
-                            {item.caption && (
-                                <Typography variant='caption' sx={{ ...theme.typography.subMenuCaption }} display='block' gutterBottom>
-                                    {item.caption}
-                                </Typography>
-                            )}
-                        </Typography>
-                    )
-                }
-                sx={{ p: '16px', py: 2, display: 'flex', flexDirection: 'column', gap: 1 }}
-            >
-                {renderPrimaryItems().map((menu) => listItems(menu))}
-            </List>
-
-            {renderNonPrimaryGroups().map((group) => {
+            {renderGroups().map((group, index) => {
                 const groupPermissions = group.children.map((menu) => menu.permission).join(',')
                 return (
                     <Available key={group.id} permission={groupPermissions}>
                         <>
-                            <Divider sx={{ height: '1px', borderColor: theme.palette.grey[900] + 25, my: 0 }} />
+                            {index > 0 && (
+                                <Divider sx={{ height: '1px', borderColor: theme.palette.grey[900] + 25, my: 0 }} />
+                            )}
                             <List
                                 subheader={
-                                    <Typography variant='caption' sx={{ ...theme.typography.subMenuCaption }} display='block' gutterBottom>
-                                        {group.title}
-                                    </Typography>
+                                    group.title && (
+                                        <Typography variant='caption' sx={{ ...theme.typography.menuCaption }} display='block' gutterBottom>
+                                            {group.title}
+                                            {group.caption && (
+                                                <Typography variant='caption' sx={{ ...theme.typography.subMenuCaption }} display='block' gutterBottom>
+                                                    {group.caption}
+                                                </Typography>
+                                            )}
+                                        </Typography>
+                                    )
                                 }
                                 sx={{ p: '16px', py: 2, display: 'flex', flexDirection: 'column', gap: 1 }}
                             >

@@ -74,8 +74,8 @@ const dashboard = {
     type: 'group',
     children: [
         {
-            id: 'primary',
-            title: '',
+            id: 'workflows',
+            title: 'WORKFLOWS',
             type: 'group',
             children: [
                 {
@@ -97,15 +97,6 @@ const dashboard = {
                     permission: 'agentflows:view'
                 },
                 {
-                    id: 'assistants',
-                    title: 'Assistants',
-                    type: 'item',
-                    url: '/assistants',
-                    icon: icons.IconUsers,
-                    breadcrumbs: true,
-                    permission: 'assistants:view'
-                },
-                {
                     id: 'chatflows',
                     title: 'Chatbot',
                     type: 'item',
@@ -113,33 +104,22 @@ const dashboard = {
                     icon: icons.IconMessage,
                     breadcrumbs: true,
                     permission: 'chatflows:view'
-                },
+                }
+            ]
+        },
+        {
+            id: 'configuration',
+            title: 'CONFIGURATION',
+            type: 'group',
+            children: [
                 {
-                    id: 'tools',
-                    title: 'Tools',
+                    id: 'apikey',
+                    title: 'API Keys',
                     type: 'item',
-                    url: '/tools',
-                    icon: icons.IconCode,
+                    url: '/apikey',
+                    icon: icons.IconKey,
                     breadcrumbs: true,
-                    permission: 'tools:view'
-                },
-                {
-                    id: 'executions',
-                    title: 'Schedule',
-                    type: 'item',
-                    url: '/schedule',
-                    icon: icons.IconCalendar,
-                    breadcrumbs: true,
-                    permission: 'executions:view'
-                },
-                {
-                    id: 'marketplaces',
-                    title: 'Templates',
-                    type: 'item',
-                    url: '/templates',
-                    icon: icons.IconBuildingStore,
-                    breadcrumbs: true,
-                    permission: 'templates:marketplace,templates:custom'
+                    permission: 'apikeys:view'
                 },
                 {
                     id: 'credentials',
@@ -151,24 +131,6 @@ const dashboard = {
                     permission: 'credentials:view'
                 },
                 {
-                    id: 'variables',
-                    title: 'Variables',
-                    type: 'item',
-                    url: '/variables',
-                    icon: icons.IconVariable,
-                    breadcrumbs: true,
-                    permission: 'variables:view'
-                },
-                {
-                    id: 'apikey',
-                    title: 'API Keys',
-                    type: 'item',
-                    url: '/apikey',
-                    icon: icons.IconKey,
-                    breadcrumbs: true,
-                    permission: 'apikeys:view'
-                },
-                {
                     id: 'document-stores',
                     title: 'Document Stores',
                     type: 'item',
@@ -176,6 +138,49 @@ const dashboard = {
                     icon: icons.IconSearch,
                     breadcrumbs: true,
                     permission: 'documentStores:view'
+                },
+                {
+                    id: 'variables',
+                    title: 'Variables',
+                    type: 'item',
+                    url: '/variables',
+                    icon: icons.IconVariable,
+                    breadcrumbs: true,
+                    permission: 'variables:view'
+                }
+            ]
+        },
+        {
+            id: 'extensions',
+            title: 'EXTENSIONS',
+            type: 'group',
+            children: [
+                {
+                    id: 'tools',
+                    title: 'Tools',
+                    type: 'item',
+                    url: '/tools',
+                    icon: icons.IconCode,
+                    breadcrumbs: true,
+                    permission: 'tools:view'
+                },
+                {
+                    id: 'marketplaces',
+                    title: 'Templates',
+                    type: 'item',
+                    url: '/templates',
+                    icon: icons.IconBuildingStore,
+                    breadcrumbs: true,
+                    permission: 'templates:marketplace,templates:custom'
+                },
+                {
+                    id: 'executions',
+                    title: 'Schedule',
+                    type: 'item',
+                    url: '/schedule',
+                    icon: icons.IconCalendar,
+                    breadcrumbs: true,
+                    permission: 'executions:view'
                 }
             ]
         },
