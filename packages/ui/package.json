@@ -76,6 +76,7 @@
     },
     "scripts": {
         "dev": "vite",
+        "dev:8080": "vite --port 8080",
         "start": "vite",
         "build": "vite build",
         "clean": "rimraf build",
