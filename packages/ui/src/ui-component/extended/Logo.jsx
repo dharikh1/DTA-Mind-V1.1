@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { Box, Typography } from '@mui/material'
-import { IconBrain } from '@tabler/icons-react'
+import { IconRobot } from '@tabler/icons-react'
 
 // ==============================|| LOGO ||============================== //
 
@@ -17,12 +17,12 @@ const Logo = () => {
                 gap: 1.5
             }}
         >
-            <IconBrain 
+            <IconRobot 
                 size={40} 
                 color={customization.isDarkMode ? '#ffffff' : '#1976d2'} 
             />
             <Typography 
-                variant="h4" 
+                variant="h3" 
                 sx={{ 
                     fontWeight: 700,
                     color: customization.isDarkMode ? '#ffffff' : '#1976d2',
