@@ -1,7 +1,6 @@
-import logo from '@/assets/images/flowise_white.svg'
-import logoDark from '@/assets/images/flowise_dark.svg'
-
 import { useSelector } from 'react-redux'
+import { Box, Typography } from '@mui/material'
+import { IconBrain } from '@tabler/icons-react'
 
 // ==============================|| LOGO ||============================== //
 
@@ -9,13 +8,30 @@ const Logo = () => {
     const customization = useSelector((state) => state.customization)
 
     return (
-        <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: '10px' }}>
-            <img
-                style={{ objectFit: 'contain', height: 'auto', width: 150 }}
-                src={customization.isDarkMode ? logoDark : logo}
-                alt='Dtamind'
+        <Box 
+            sx={{ 
+                alignItems: 'center', 
+                display: 'flex', 
+                flexDirection: 'row', 
+                marginLeft: '10px',
+                gap: 1
+            }}
+        >
+            <IconBrain 
+                size={32} 
+                color={customization.isDarkMode ? '#ffffff' : '#1976d2'} 
             />
-        </div>
+            <Typography 
+                variant="h5" 
+                sx={{ 
+                    fontWeight: 700,
+                    color: customization.isDarkMode ? '#ffffff' : '#1976d2',
+                    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
+                }}
+            >
+                DTA Mind
+            </Typography>
+        </Box>
     )
 }
 
