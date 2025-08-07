@@ -12,8 +12,21 @@ services:
       - PORT=3000
       - DTAMIND_USERNAME=admin
       - DTAMIND_PASSWORD=admin123
-      - DATABASE_TYPE=sqlite
-      - DATABASE_PATH=/app/packages/server/.dtamind/database.sqlite
+      
+      # Database Configuration - Supabase PostgreSQL
+      - DATABASE_TYPE=postgres
+      - DATABASE_HOST=db.oczrlzxfnjmnmilgsrnm.supabase.co
+      - DATABASE_PORT=5432
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=ccnpCcie1!sase
+      - DATABASE_NAME=postgres
+      - DATABASE_SSL=true
+      
+      # Supabase Configuration
+      - NEXT_PUBLIC_SUPABASE_URL=https://oczrlzxfnjmnmilgsrnm.supabase.co
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jenJsenhmbmptbm1pbGdzcm5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1MzA1NjUsImV4cCI6MjA3MDEwNjU2NX0.AKhgRPYHAVkzO4BIhSGTkDytIUmecC7bphEjXZuuNoQ
+      
+      # Application Configuration
       - LOG_PATH=/app/packages/server/logs
       - LOG_LEVEL=info
       - DEBUG=false
@@ -22,6 +35,8 @@ services:
       - CORS_ORIGINS=*
       - IFRAME_ORIGINS=*
       - DTAMIND_FILE_SIZE_LIMIT=10
+      
+      # Security Configuration
       - JWT_AUTH_TOKEN_SECRET=your-secret-key-change-this
       - JWT_REFRESH_TOKEN_SECRET=your-refresh-secret-key-change-this
       - JWT_ISSUER=dtamind
@@ -33,9 +48,14 @@ services:
       - PASSWORD_RESET_TOKEN_EXPIRY_IN_MINS=15
       - PASSWORD_SALT_HASH_ROUNDS=10
       - TOKEN_HASH_SECRET=your-token-hash-secret-change-this
+      
+      # Node.js Memory Configuration
+      - NODE_OPTIONS=--max-old-space-size=8192
+      
     volumes:
       - dtamind_data:/app/packages/server/.dtamind
       - dtamind_logs:/app/packages/server/logs
+      - dtamind_storage:/app/packages/server/storage
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/v1/ping', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
       interval: 30s
@@ -47,4 +67,6 @@ volumes:
   dtamind_data:
     driver: local
   dtamind_logs:
+    driver: local
+  dtamind_storage:
     driver: local 
