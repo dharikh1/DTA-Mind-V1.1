@@ -14,15 +14,15 @@ const Logo = () => {
                 display: 'flex', 
                 flexDirection: 'row', 
                 marginLeft: '10px',
-                gap: 1
+                gap: 1.5
             }}
         >
             <IconBrain 
-                size={32} 
+                size={40} 
                 color={customization.isDarkMode ? '#ffffff' : '#1976d2'} 
             />
             <Typography 
-                variant="h5" 
+                variant="h4" 
                 sx={{ 
                     fontWeight: 700,
                     color: customization.isDarkMode ? '#ffffff' : '#1976d2',
