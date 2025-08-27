@@ -1,0 +1,19 @@
+# Use the official Flowise image as base
+FROM flowiseai/flowise:latest
+
+# Copy your custom UI files
+COPY packages/ui/dist/index.html /usr/local/lib/node_modules/flowise/node_modules/flowise-ui/build/index.html
+COPY packages/ui/dist/index.html /usr/local/lib/node_modules/flowise/node_modules/flowise-ui/index.html
+
+# Set environment variables
+ENV PORT=3000
+ENV DATABASE_PATH=/root/.flowise
+ENV SECRETKEY_PATH=/root/.flowise
+ENV LOG_PATH=/root/.flowise/logs
+ENV BLOB_STORAGE_PATH=/root/.flowise/storage
+
+# Expose port
+EXPOSE 3000
+
+# Start Flowise
+CMD ["flowise", "start"]
