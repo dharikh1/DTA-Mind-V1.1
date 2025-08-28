@@ -11,13 +11,15 @@ import {
     SET_DIRTY,
     SET_CHATFLOW,
     enqueueSnackbar as enqueueSnackbarAction,
-    closeSnackbar as closeSnackbarAction
+    closeSnackbar as closeSnackbarAction,
+    SET_DARKMODE
 } from '@/store/actions'
 import { omit, cloneDeep } from 'lodash'
 
 // material-ui
-import { Toolbar, Box, AppBar, Button, Fab } from '@mui/material'
+import { Toolbar, Box, AppBar, Button, Fab, Tabs, Tab, Typography, Card, CardContent, Grid, Switch } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 
 // project imports
 import CanvasNode from './AgentFlowNode'
@@ -25,6 +27,7 @@ import IterationNode from './IterationNode'
 import AgentFlowEdge from './AgentFlowEdge'
 import ConnectionLine from './ConnectionLine'
 import StickyNote from './StickyNote'
+import Logo from '@/ui-component/extended/Logo'
 import CanvasHeader from '@/views/canvas/CanvasHeader'
 import AddNodes from '@/views/canvas/AddNodes'
 import ConfirmDialog from '@/ui-component/dialog/ConfirmDialog'
@@ -42,7 +45,7 @@ import useApi from '@/hooks/useApi'
 import useConfirm from '@/hooks/useConfirm'
 
 // icons
-import { IconX, IconRefreshAlert, IconMagnetFilled, IconMagnetOff } from '@tabler/icons-react'
+import { IconX, IconRefreshAlert, IconMagnetFilled, IconMagnetOff, IconKey, IconShield, IconDatabase } from '@tabler/icons-react'
 
 // utils
 import {
@@ -67,7 +70,9 @@ const edgeTypes = { agentFlow: AgentFlowEdge }
 const AgentflowCanvas = () => {
     const theme = useTheme()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const customization = useSelector((state) => state.customization)
+    const canvas = useSelector((state) => state.canvas)
 
     const { state } = useLocation()
     const templateFlowData = state ? state.templateFlowData : ''
@@ -79,8 +84,6 @@ const AgentflowCanvas = () => {
 
     const { confirm } = useConfirm()
 
-    const dispatch = useDispatch()
-    const canvas = useSelector((state) => state.canvas)
     const [canvasDataStore, setCanvasDataStore] = useState(canvas)
     const [chatflow, setChatflow] = useState(null)
     const { reactFlowInstance, setReactFlowInstance } = useContext(flowContext)
@@ -101,8 +104,34 @@ const AgentflowCanvas = () => {
     const [editNodeDialogOpen, setEditNodeDialogOpen] = useState(false)
     const [editNodeDialogProps, setEditNodeDialogProps] = useState({})
     const [isSnappingEnabled, setIsSnappingEnabled] = useState(false)
+    const [activeTab, setActiveTab] = useState('workflow') // Default to workflow tab
 
     const reactFlowWrapper = useRef(null)
+
+    // ==============================|| Tab Handler ||============================== //
+
+    const handleTabChange = (event, newValue) => {
+        setActiveTab(newValue)
+        
+        // Navigate to specific pages for certain tabs
+        if (newValue === 'templates') {
+            navigate('/templates')
+        } else if (newValue === 'schedule') {
+            navigate('/schedule')
+        } else if (newValue === 'assistants') {
+            navigate('/assistants')
+        } else if (newValue === 'agents') {
+            navigate('/agent')
+        } else if (newValue === 'chatbot') {
+            navigate('/canvas')
+        } else if (newValue === 'configuration') {
+            // Stay on current page for configuration
+            setActiveTab('configuration')
+        } else if (newValue === 'workflow') {
+            // Stay on current page for workflow
+            setActiveTab('workflow')
+        }
+    }
 
     // ==============================|| Chatflow API ||============================== //
 
@@ -679,16 +708,64 @@ const AgentflowCanvas = () => {
             />
 
             <Box>
+                {/* Tab Navigation */}
                 <AppBar
                     enableColorOnDark
                     position='fixed'
                     color='inherit'
                     elevation={1}
                     sx={{
-                        bgcolor: theme.palette.background.default
+                        bgcolor: theme.palette.background.default,
+                        top: 0,
+                        height: '64px'
                     }}
                 >
-                    <Toolbar>
+                    <Toolbar sx={{ height: '64px', minHeight: '64px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        {/* Left side - DTA Mind Logo */}
+                        <Box sx={{ display: 'flex', alignItems: 'center', minWidth: '228px' }}>
+                            <Logo />
+                        </Box>
+                        
+                        {/* Center - Tab Navigation */}
+                        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+                            <Tabs
+                                value={activeTab}
+                                onChange={handleTabChange}
+                                sx={{ height: '64px' }}
+                            >
+                                <Tab label="Workflow" value="workflow" sx={{ height: '64px' }} />
+                                <Tab label="Configuration" value="configuration" sx={{ height: '64px' }} />
+                                <Tab label="Templates" value="templates" sx={{ height: '64px' }} />
+                                <Tab label="Schedule" value="schedule" sx={{ height: '64px' }} />
+                                <Tab label="Assistants" value="assistants" sx={{ height: '64px' }} />
+                                <Tab label="Agents" value="agents" sx={{ height: '64px' }} />
+                                <Tab label="Chatbot" value="chatbot" sx={{ height: '64px' }} />
+                            </Tabs>
+                        </Box>
+                        
+                        {/* Right side - Dark/Light Mode Toggle */}
+                        <Box sx={{ display: 'flex', alignItems: 'center', minWidth: '228px', justifyContent: 'flex-end' }}>
+                            <Switch 
+                                checked={customization.isDarkMode} 
+                                onChange={() => dispatch({ type: SET_DARKMODE, isDarkMode: !customization.isDarkMode })}
+                            />
+                        </Box>
+                    </Toolbar>
+                </AppBar>
+
+                {/* Canvas Header - positioned below tabs */}
+                <AppBar
+                    enableColorOnDark
+                    position='fixed'
+                    color='inherit'
+                    elevation={1}
+                    sx={{
+                        bgcolor: theme.palette.background.default,
+                        top: '64px',
+                        height: '64px'
+                    }}
+                >
+                    <Toolbar sx={{ height: '64px', minHeight: '64px' }}>
                         <CanvasHeader
                             chatflow={chatflow}
                             handleSaveFlow={handleSaveFlow}
@@ -699,97 +776,236 @@ const AgentflowCanvas = () => {
                         />
                     </Toolbar>
                 </AppBar>
-                <Box sx={{ pt: '70px', height: '100vh', width: '100%' }}>
-                    <div className='reactflow-parent-wrapper'>
-                        <div className='reactflow-wrapper' ref={reactFlowWrapper}>
-                            <ReactFlow
-                                nodes={nodes}
-                                edges={edges}
-                                onNodesChange={onNodesChange}
-                                onNodeClick={onNodeClick}
-                                onNodeDoubleClick={onNodeDoubleClick}
-                                onEdgesChange={onEdgesChange}
-                                onDrop={onDrop}
-                                onDragOver={onDragOver}
-                                onNodeDragStop={setDirty}
-                                nodeTypes={nodeTypes}
-                                edgeTypes={edgeTypes}
-                                onConnect={onConnect}
-                                onInit={setReactFlowInstance}
-                                fitView
-                                deleteKeyCode={canvas.canvasDialogShow ? null : ['Delete']}
-                                minZoom={0.5}
-                                snapGrid={[25, 25]}
-                                snapToGrid={isSnappingEnabled}
-                                connectionLineComponent={ConnectionLine}
-                            >
-                                <Controls
-                                    className={customization.isDarkMode ? 'dark-mode-controls' : ''}
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        left: '50%',
-                                        transform: 'translate(-50%, -50%)'
-                                    }}
+                <Box sx={{ pt: '128px', height: '100vh', width: '100%' }}> {/* 64px + 64px = 128px padding */}
+                    {/* Tab Content */}
+                    {activeTab === 'workflow' && (
+                        <div className='reactflow-parent-wrapper'>
+                            <div className='reactflow-wrapper' ref={reactFlowWrapper}>
+                                <ReactFlow
+                                    nodes={nodes}
+                                    edges={edges}
+                                    onNodesChange={onNodesChange}
+                                    onNodeClick={onNodeClick}
+                                    onNodeDoubleClick={onNodeDoubleClick}
+                                    onEdgesChange={onEdgesChange}
+                                    onDrop={onDrop}
+                                    onDragOver={onDragOver}
+                                    onNodeDragStop={setDirty}
+                                    nodeTypes={nodeTypes}
+                                    edgeTypes={edgeTypes}
+                                    onConnect={onConnect}
+                                    onInit={setReactFlowInstance}
+                                    fitView
+                                    deleteKeyCode={canvas.canvasDialogShow ? null : ['Delete']}
+                                    minZoom={0.5}
+                                    snapGrid={[25, 25]}
+                                    snapToGrid={isSnappingEnabled}
+                                    connectionLineComponent={ConnectionLine}
                                 >
-                                    <button
-                                        className='react-flow__controls-button react-flow__controls-interactive'
-                                        onClick={() => {
-                                            setIsSnappingEnabled(!isSnappingEnabled)
+                                    <Controls
+                                        className={customization.isDarkMode ? 'dark-mode-controls' : ''}
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)'
                                         }}
-                                        title='toggle snapping'
-                                        aria-label='toggle snapping'
                                     >
-                                        {isSnappingEnabled ? <IconMagnetFilled /> : <IconMagnetOff />}
-                                    </button>
-                                </Controls>
-                                <MiniMap
-                                    nodeStrokeWidth={3}
-                                    nodeColor={customization.isDarkMode ? '#2d2d2d' : '#e2e2e2'}
-                                    nodeStrokeColor={customization.isDarkMode ? '#525252' : '#fff'}
-                                    maskColor={customization.isDarkMode ? 'rgb(45, 45, 45, 0.6)' : 'rgb(240, 240, 240, 0.6)'}
-                                    style={{
-                                        backgroundColor: customization.isDarkMode ? theme.palette.background.default : '#fff'
-                                    }}
-                                />
-                                <Background color='#aaa' gap={16} />
-                                <AddNodes
-                                    isAgentCanvas={true}
-                                    isAgentflowv2={true}
-                                    nodesData={getNodesApi.data}
-                                    node={selectedNode}
-                                    onFlowGenerated={triggerConfetti}
-                                />
-                                <EditNodeDialog
-                                    show={editNodeDialogOpen}
-                                    dialogProps={editNodeDialogProps}
-                                    onCancel={() => setEditNodeDialogOpen(false)}
-                                />
-                                {isSyncNodesButtonEnabled && (
-                                    <Fab
-                                        sx={{
-                                            left: 60,
-                                            top: 20,
-                                            color: 'white',
-                                            background: 'orange',
-                                            '&:hover': {
+                                        <button
+                                            className='react-flow__controls-button react-flow__controls-interactive'
+                                            onClick={() => {
+                                                setIsSnappingEnabled(!isSnappingEnabled)
+                                            }}
+                                            title='toggle snapping'
+                                            aria-label='toggle snapping'
+                                        >
+                                            {isSnappingEnabled ? <IconMagnetFilled /> : <IconMagnetOff />}
+                                        </button>
+                                    </Controls>
+                                    <MiniMap
+                                        nodeStrokeWidth={3}
+                                        nodeColor={customization.isDarkMode ? '#2d2d2d' : '#e2e2e2'}
+                                        nodeStrokeColor={customization.isDarkMode ? '#525252' : '#fff'}
+                                        maskColor={customization.isDarkMode ? 'rgb(45, 45, 45, 0.6)' : 'rgb(240, 240, 240, 0.6)'}
+                                        style={{
+                                            backgroundColor: customization.isDarkMode ? theme.palette.background.default : '#fff'
+                                        }}
+                                    />
+                                    <Background color='#aaa' gap={16} />
+                                    <AddNodes
+                                        isAgentCanvas={true}
+                                        isAgentflowv2={true}
+                                        nodesData={getNodesApi.data}
+                                        node={selectedNode}
+                                        onFlowGenerated={triggerConfetti}
+                                    />
+                                    <EditNodeDialog
+                                        show={editNodeDialogOpen}
+                                        dialogProps={editNodeDialogProps}
+                                        onCancel={() => setEditNodeDialogOpen(false)}
+                                    />
+                                    {isSyncNodesButtonEnabled && (
+                                        <Fab
+                                            sx={{
+                                                left: 60,
+                                                top: 20,
+                                                color: 'white',
                                                 background: 'orange',
-                                                backgroundImage: `linear-gradient(rgb(0 0 0/10%) 0 0)`
-                                            }
-                                        }}
-                                        size='small'
-                                        aria-label='sync'
-                                        title='Sync Nodes'
-                                        onClick={() => syncNodes()}
-                                    >
-                                        <IconRefreshAlert />
-                                    </Fab>
-                                )}
-                                <ChatPopUp isAgentCanvas={true} chatflowid={chatflowId} onOpenChange={setChatPopupOpen} />
-                                {!chatPopupOpen && <ValidationPopUp isAgentCanvas={true} chatflowid={chatflowId} />}
-                            </ReactFlow>
+                                                '&:hover': {
+                                                    background: 'orange',
+                                                    backgroundImage: `linear-gradient(rgb(0 0 0/10%) 0 0)`
+                                                }
+                                            }}
+                                            size='small'
+                                            aria-label='sync'
+                                            title='Sync Nodes'
+                                            onClick={() => syncNodes()}
+                                        >
+                                            <IconRefreshAlert />
+                                        </Fab>
+                                    )}
+                                    <ChatPopUp isAgentCanvas={true} chatflowid={chatflowId} onOpenChange={setChatPopupOpen} />
+                                    {!chatPopupOpen && <ValidationPopUp isAgentCanvas={true} chatflowid={chatflowId} />}
+                                </ReactFlow>
+                            </div>
                         </div>
-                    </div>
+                    )}
+
+                    {activeTab === 'configuration' && (
+                        <Box sx={{ p: 3 }}>
+                            <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
+                                Configuration
+                            </Typography>
+                            <Grid container spacing={3}>
+                                {/* API Keys Section */}
+                                <Grid item xs={12} md={4}>
+                                    <Card 
+                                        sx={{ 
+                                            height: '100%', 
+                                            cursor: 'pointer', 
+                                            '&:hover': { boxShadow: 3 },
+                                            transition: 'box-shadow 0.3s ease-in-out'
+                                        }}
+                                        onClick={() => navigate('/apikey')}
+                                    >
+                                        <CardContent sx={{ textAlign: 'center', p: 3 }}>
+                                            <IconKey size={48} style={{ marginBottom: '16px', color: theme.palette.primary.main }} />
+                                            <Typography variant="h6" gutterBottom>
+                                                API Keys
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Manage your API keys and external service connections
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+
+                                {/* Credentials Section */}
+                                <Grid item xs={12} md={4}>
+                                    <Card 
+                                        sx={{ 
+                                            height: '100%', 
+                                            cursor: 'pointer', 
+                                            '&:hover': { boxShadow: 3 },
+                                            transition: 'box-shadow 0.3s ease-in-out'
+                                        }}
+                                        onClick={() => navigate('/credentials')}
+                                    >
+                                        <CardContent sx={{ textAlign: 'center', p: 3 }}>
+                                            <IconShield size={48} style={{ marginBottom: '16px', color: theme.palette.primary.main }} />
+                                            <Typography variant="h6" gutterBottom>
+                                                Credentials
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Secure storage for your authentication credentials
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+
+                                {/* Document Store Section */}
+                                <Grid item xs={12} md={4}>
+                                    <Card 
+                                        sx={{ 
+                                            height: '100%', 
+                                            cursor: 'pointer', 
+                                            '&:hover': { boxShadow: 3 },
+                                            transition: 'box-shadow 0.3s ease-in-out'
+                                        }}
+                                        onClick={() => navigate('/document-stores')}
+                                    >
+                                        <CardContent sx={{ textAlign: 'center', p: 3 }}>
+                                            <IconDatabase size={48} style={{ marginBottom: '16px', color: theme.palette.primary.main }} />
+                                            <Typography variant="h6" gutterBottom>
+                                                Document Store
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Manage your document collections and storage
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    )}
+
+                    {activeTab === 'templates' && (
+                        <Box sx={{ p: 3 }}>
+                            <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
+                                Templates
+                            </Typography>
+                            <Grid container spacing={3}>
+                                <Grid item xs={12} md={6}>
+                                    <Card 
+                                        sx={{ 
+                                            height: '100%', 
+                                            cursor: 'pointer', 
+                                            '&:hover': { boxShadow: 3 },
+                                            transition: 'box-shadow 0.3s ease-in-out'
+                                        }}
+                                        onClick={() => navigate('/templates')}
+                                    >
+                                        <CardContent sx={{ textAlign: 'center', p: 3 }}>
+                                            <Typography variant="h6" gutterBottom>
+                                                Workflow Templates
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Access and manage your workflow templates
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    )}
+
+                    {activeTab === 'schedule' && (
+                        <Box sx={{ p: 3 }}>
+                            <Typography variant="h4" gutterBottom>Schedule</Typography>
+                            <Typography variant="body1" gutterBottom>Schedule your workflows</Typography>
+                        </Box>
+                    )}
+
+                    {activeTab === 'assistants' && (
+                        <Box sx={{ p: 3 }}>
+                            <Typography variant="h4" gutterBottom>Assistants</Typography>
+                            <Typography variant="body1" gutterBottom>Manage your AI assistants</Typography>
+                        </Box>
+                    )}
+
+                    {activeTab === 'agents' && (
+                        <Box sx={{ p: 3 }}>
+                            <Typography variant="h4" gutterBottom>Agents</Typography>
+                            <Typography variant="body1" gutterBottom>Manage your AI agents</Typography>
+                        </Box>
+                    )}
+
+                    {activeTab === 'chatbot' && (
+                        <Box sx={{ p: 3 }}>
+                            <Typography variant="h4" gutterBottom>Chatbot</Typography>
+                            <Typography variant="body1" gutterBottom>Configure your chatbot settings</Typography>
+                        </Box>
+                    )}
                 </Box>
                 <ConfirmDialog />
             </Box>
