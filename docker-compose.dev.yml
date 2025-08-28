@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  dtamind:
+    build: .
+    container_name: dtamind-dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DTAMIND_USERNAME=admin
+      - DTAMIND_PASSWORD=admin123
+      
+      # Database Configuration - SQLite
+      - DATABASE_TYPE=sqlite
+      - DATABASE_DATABASE_PATH=/app/packages/server/.dtamind/database.sqlite
+      
+      # Development settings
+      - DEBUG=true
+      - LOG_LEVEL=debug
+      - DISABLE_DTAMIND_TELEMETRY=true
+      - SHOW_COMMUNITY_NODES=true
+      - CORS_ORIGINS=*
+      - IFRAME_ORIGINS=*
+      
+    volumes:
+      - dtamind_data:/app/packages/server/.dtamind
+      - dtamind_logs:/app/packages/server/logs
+      - dtamind_storage:/app/packages/server/storage
+      # Mount source code for development
+      - ./packages:/app/packages
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/v1/ping', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  dtamind_data:
+    driver: local
+  dtamind_logs:
+    driver: local
+  dtamind_storage:
+    driver: local

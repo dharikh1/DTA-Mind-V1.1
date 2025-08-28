@@ -7,24 +7,16 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+      - "8080:8080"
     environment:
       - NODE_ENV=production
       - PORT=3000
       - DTAMIND_USERNAME=admin
       - DTAMIND_PASSWORD=admin123
       
-      # Database Configuration - Supabase PostgreSQL
-      - DATABASE_TYPE=postgres
-      - DATABASE_HOST=db.oczrlzxfnjmnmilgsrnm.supabase.co
-      - DATABASE_PORT=5432
-      - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=ccnpCcie1!sase
-      - DATABASE_NAME=postgres
-      - DATABASE_SSL=true
-      
-      # Supabase Configuration
-      - NEXT_PUBLIC_SUPABASE_URL=https://oczrlzxfnjmnmilgsrnm.supabase.co
-      - NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jenJsenhmbmptbm1pbGdzcm5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1MzA1NjUsImV4cCI6MjA3MDEwNjU2NX0.AKhgRPYHAVkzO4BIhSGTkDytIUmecC7bphEjXZuuNoQ
+      # Database Configuration - SQLite (matching local setup)
+      - DATABASE_TYPE=sqlite
+      - DATABASE_DATABASE_PATH=/app/packages/server/.dtamind/database.sqlite
       
       # Application Configuration
       - LOG_PATH=/app/packages/server/logs
@@ -56,6 +48,8 @@ services:
       - dtamind_data:/app/packages/server/.dtamind
       - dtamind_logs:/app/packages/server/logs
       - dtamind_storage:/app/packages/server/storage
+      # Mount UI build for development
+      - ../packages/ui/dist:/app/packages/ui/dist
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/v1/ping', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
       interval: 30s
