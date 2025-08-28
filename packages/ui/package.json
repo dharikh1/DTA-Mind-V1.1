@@ -33,7 +33,7 @@
         "@tiptap/starter-kit": "^2.11.5",
         "@uiw/codemirror-theme-sublime": "^4.21.21",
         "@uiw/codemirror-theme-vscode": "^4.21.21",
-        "@uiw/react-codemirror": "^4.21.21",
+        "@uiw/react-codemirror": "^4.21.24",
         "axios": "1.7.9",
         "clsx": "^1.1.1",
         "dompurify": "^3.2.6",
