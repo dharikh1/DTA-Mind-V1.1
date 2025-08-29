@@ -3,7 +3,7 @@ import { ICommonObject, IMultiModalOption, INode, INodeData, INodeOptionsValue, 
 import { getBaseClasses, getCredentialData, getCredentialParam } from '../../../src/utils'
 import { getModels, getRegions, MODEL_TYPE } from '../../../src/modelLoader'
 import { ChatBedrockConverseInput, ChatBedrockConverse } from '@langchain/aws'
-import { BedrockChat } from './FlowiseAWSChatBedrock'
+import { BedrockChat } from './DtamindAWSChatBedrock'
 
 /**
  * @author Michael Connor <mlconnor@yahoo.com>

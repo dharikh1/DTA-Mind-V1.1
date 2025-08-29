@@ -2,7 +2,7 @@ import { ChatPerplexity as LangchainChatPerplexity, PerplexityChatInput } from '
 import { BaseCache } from '@langchain/core/caches'
 import { ICommonObject, INode, INodeData, INodeOptionsValue, INodeParams } from '../../../src/Interface'
 import { getBaseClasses, getCredentialData, getCredentialParam } from '../../../src/utils'
-import { ChatPerplexity } from './FlowiseChatPerplexity'
+import { ChatPerplexity } from './DtamindChatPerplexity'
 import { getModels, MODEL_TYPE } from '../../../src/modelLoader'
 
 class ChatPerplexity_ChatModels implements INode {
@@ -226,7 +226,7 @@ class ChatPerplexity_ChatModels implements INode {
         }
 
         if (proxyUrl) {
-            console.warn('Proxy configuration for ChatPerplexity might require adjustments to FlowiseChatPerplexity wrapper.')
+            console.warn('Proxy configuration for ChatPerplexity might require adjustments to DtamindChatPerplexity wrapper.')
         }
 
         const perplexityModel = new ChatPerplexity(nodeData.id, obj)

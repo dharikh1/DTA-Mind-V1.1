@@ -3,7 +3,7 @@ import { BaseChatModelParams } from '@langchain/core/language_models/chat_models
 import { BaseCache } from '@langchain/core/caches'
 import { IMultiModalOption, INode, INodeData, INodeParams } from '../../../src/Interface'
 import { getBaseClasses } from '../../../src/utils'
-import { ChatOllama } from './FlowiseChatOllama'
+import { ChatOllama } from './DtamindChatOllama'
 
 class ChatOllama_ChatModels implements INode {
     label: string

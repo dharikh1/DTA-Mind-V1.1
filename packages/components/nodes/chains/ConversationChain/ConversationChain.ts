@@ -15,7 +15,7 @@ import { ConsoleCallbackHandler as LCConsoleCallbackHandler } from '@langchain/c
 import { checkInputs, Moderation, streamResponse } from '../../moderation/Moderation'
 import { formatResponse } from '../../outputparsers/OutputParserHelpers'
 import { addImagesToMessages, llmSupportsVision } from '../../../src/multiModalUtils'
-import { ChatOpenAI } from '../../chatmodels/ChatOpenAI/FlowiseChatOpenAI'
+import { ChatOpenAI } from '../../chatmodels/ChatOpenAI/DtamindChatOpenAI'
 import {
     IVisionChatModal,
     DtamindMemory,
