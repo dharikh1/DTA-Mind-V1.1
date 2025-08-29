@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  dtamind:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dtamind-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_TYPE=sqlite
+      - DATABASE_PATH=/app/storage/database.sqlite
+    volumes:
+      - dtamind-storage:/app/storage
+      - dtamind-uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/v1/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  dtamind-nginx:
+    image: nginx:alpine
+    container_name: dtamind-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - dtamind-storage:/app/storage:ro
+    depends_on:
+      - dtamind
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  dtamind-storage:
+    driver: local
+  dtamind-uploads:
+    driver: local
+
+networks:
+  default:
+    name: dtamind-network

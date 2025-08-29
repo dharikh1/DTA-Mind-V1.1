@@ -1,271 +1,273 @@
-# Docker Setup Guide for DTA Mind
+# DTA Mind Docker Guide
 
-## 🚀 **Updated Docker Configuration**
+This guide explains how to deploy and run DTA Mind using Docker.
 
-This guide covers the complete Docker setup for DTA Mind with all recent updates including:
-- ✅ **Supabase PostgreSQL Database**
-- ✅ **Updated Logo with Robot Icon**
-- ✅ **Memory Optimizations**
-- ✅ **Enhanced Security Configuration**
+## 🚀 Quick Start
 
-## 📋 **Prerequisites**
-
+### Prerequisites
 - Docker Desktop installed and running
-- Docker Compose installed
-- At least 8GB RAM available for Docker
+- Docker Compose available
+- At least 4GB RAM available for Docker
 
-## 🔧 **Quick Start**
-
-### 1. **Build and Start the Application**
-
+### Production Deployment
 ```bash
-# Build the Docker image
-docker-compose build
+# Start production environment
+./docker-setup.sh prod
 
-# Start the application
+# Or manually
 docker-compose up -d
-
-# Check the status
-docker-compose ps
 ```
 
-### 2. **Access the Application**
-
-- **URL**: http://localhost:3000
-- **Username**: admin
-- **Password**: admin123
-
-## 🗄️ **Database Configuration**
-
-### **Supabase PostgreSQL Database**
-
-The application now uses Supabase PostgreSQL instead of SQLite:
-
-```yaml
-# Database Configuration
-DATABASE_TYPE=postgres
-DATABASE_HOST=db.oczrlzxfnjmnmilgsrnm.supabase.co
-DATABASE_PORT=5432
-DATABASE_USER=postgres
-DATABASE_PASSWORD=ccnpCcie1!sase
-DATABASE_NAME=postgres
-DATABASE_SSL=true
-
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=https://oczrlzxfnjmnmilgsrnm.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-```
-
-### **Database Benefits**
-
-- ✅ **Cloud-hosted**: No local database management
-- ✅ **Scalable**: Handles growth automatically
-- ✅ **Secure**: SSL encryption
-- ✅ **Reliable**: 99.9% uptime guarantee
-- ✅ **Backup**: Automatic backups
-
-## 🎨 **UI Updates**
-
-### **Updated Logo**
-- 🤖 **Robot Icon**: Modern AI representation
-- 📝 **Bigger Text**: "DTA Mind" in larger font
-- 🎨 **Dynamic Colors**: Adapts to light/dark mode
-
-### **Menu Structure**
-- **WORKFLOWS**: Agent, Multi Agents, Chatbot, Assistants
-- **CONFIGURATION**: API Key, Credentials, Document Store, Variable
-- **EXTENSIONS**: Tools, Templates, Schedules
-
-## ⚙️ **Performance Optimizations**
-
-### **Memory Configuration**
-```yaml
-NODE_OPTIONS=--max-old-space-size=8192
-```
-
-### **Build Optimizations**
-- ✅ **Multi-stage builds** for smaller images
-- ✅ **Dependency caching** for faster builds
-- ✅ **Memory allocation** for complex builds
-
-## 🔒 **Security Features**
-
-### **JWT Configuration**
-```yaml
-JWT_AUTH_TOKEN_SECRET=your-secret-key-change-this
-JWT_REFRESH_TOKEN_SECRET=your-refresh-secret-key-change-this
-JWT_TOKEN_EXPIRY_IN_MINUTES=60
-JWT_REFRESH_TOKEN_EXPIRY_IN_MINUTES=1440
-```
-
-### **CORS and Security**
-```yaml
-CORS_ORIGINS=*
-IFRAME_ORIGINS=*
-```
-
-## 📊 **Monitoring and Health Checks**
-
-### **Health Check Configuration**
-```yaml
-healthcheck:
-  test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/v1/ping', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
-  interval: 30s
-  timeout: 10s
-  retries: 3
-  start_period: 60s
-```
-
-### **Logging**
-- 📁 **Log Path**: `/app/packages/server/logs`
-- 📊 **Log Level**: info
-- 🔍 **Debug Mode**: false (production)
-
-## 🗂️ **Volume Management**
-
-### **Persistent Data**
-```yaml
-volumes:
-  - dtamind_data:/app/packages/server/.dtamind
-  - dtamind_logs:/app/packages/server/logs
-  - dtamind_storage:/app/packages/server/storage
-```
-
-### **Data Backup**
-- ✅ **Application Data**: Stored in `dtamind_data`
-- ✅ **Log Files**: Stored in `dtamind_logs`
-- ✅ **File Storage**: Stored in `dtamind_storage`
-
-## 🛠️ **Development Commands**
-
-### **Basic Operations**
+### Development Environment
 ```bash
-# Start the application
-docker-compose up -d
+# Start development environment
+./docker-setup.sh dev
 
-# Stop the application
-docker-compose down
+# Or manually
+docker-compose -f docker-compose.dev.yml up -d
+```
+
+## 📁 Docker Files Structure
+
+```
+DTA-Mind-03/
+├── Dockerfile                 # Production multi-stage build
+├── Dockerfile.dev            # Development environment
+├── docker-compose.yml        # Production services
+├── docker-compose.dev.yml    # Development services
+├── nginx.conf               # Nginx reverse proxy config
+├── .dockerignore            # Files to exclude from build
+├── docker-setup.sh          # Automated setup script
+└── DOCKER_GUIDE.md          # This guide
+```
+
+## 🏗️ Architecture
+
+### Production Environment
+- **DTA Mind App**: Node.js application with SQLite database
+- **Nginx**: Reverse proxy with rate limiting and security headers
+- **Volumes**: Persistent storage for database and uploads
+
+### Development Environment
+- **DTA Mind Dev**: Development container with hot reloading
+- **Volume Mounts**: Live code synchronization
+- **Port Mapping**: Direct access to backend (3000) and frontend (8080)
+
+## 🔧 Configuration
+
+### Environment Variables
+```bash
+NODE_ENV=production          # Environment mode
+PORT=3000                    # Backend port
+DATABASE_TYPE=sqlite         # Database type
+DATABASE_PATH=/app/storage/database.sqlite
+```
+
+### Ports
+- **Production**: Backend (3000), Frontend (80/443 via Nginx)
+- **Development**: Backend (3000), Frontend (8080)
+
+## 📊 Health Checks
+
+### Application Health
+```bash
+# Production
+curl http://localhost/health
+
+# Development
+curl http://localhost:3000/api/v1/health
+```
+
+### Docker Health Status
+```bash
+# Check service status
+./docker-setup.sh status
 
 # View logs
+./docker-setup.sh logs
+```
+
+## 🛠️ Management Commands
+
+### Using the Setup Script
+```bash
+./docker-setup.sh prod      # Start production
+./docker-setup.sh dev       # Start development
+./docker-setup.sh stop      # Stop all services
+./docker-setup.sh status    # Show status
+./docker-setup.sh logs      # Show logs
+./docker-setup.sh cleanup   # Clean up everything
+```
+
+### Manual Docker Commands
+```bash
+# Production
+docker-compose up -d
+docker-compose down
 docker-compose logs -f
 
-# Rebuild after changes
-docker-compose build --no-cache
-docker-compose up -d
+# Development
+docker-compose -f docker-compose.dev.yml up -d
+docker-compose -f docker-compose.dev.yml down
+docker-compose -f docker-compose.dev.yml logs -f
 ```
 
-### **Database Operations**
+## 🔒 Security Features
+
+### Nginx Security Headers
+- X-Frame-Options: SAMEORIGIN
+- X-Content-Type-Options: nosniff
+- X-XSS-Protection: 1; mode=block
+- Referrer-Policy: strict-origin-when-cross-origin
+
+### Rate Limiting
+- API endpoints: 10 requests/second
+- Login endpoint: 5 requests/minute
+
+### Non-root User
+- Application runs as `dtamind` user (UID 1001)
+- No privileged operations
+
+## 📈 Performance Optimizations
+
+### Multi-stage Build
+- Separate build and runtime stages
+- Optimized production image size
+- Development tools excluded from production
+
+### Nginx Optimizations
+- Gzip compression enabled
+- Static asset caching (1 year)
+- Keep-alive connections (32)
+
+### Volume Management
+- Persistent storage for database
+- Separate volumes for uploads
+- Named volumes for easy backup
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+#### Port Already in Use
 ```bash
-# Check database connection
-docker-compose exec dtamind node -e "
-const { Client } = require('pg');
-const client = new Client({
-  host: 'db.oczrlzxfnjmnmilgsrnm.supabase.co',
-  port: 5432,
-  user: 'postgres',
-  password: 'ccnpCcie1!sase',
-  database: 'postgres',
-  ssl: { rejectUnauthorized: false }
-});
-client.connect().then(() => {
-  console.log('✅ Database connected!');
-  client.end();
-}).catch(err => {
-  console.error('❌ Database error:', err.message);
-});
-"
+# Check what's using the port
+lsof -i :3000
+lsof -i :80
+
+# Stop conflicting services
+./docker-setup.sh stop
 ```
 
-## 🔍 **Troubleshooting**
-
-### **Common Issues**
-
-#### **1. Memory Issues**
-```bash
-# Increase Docker memory allocation
-# In Docker Desktop: Settings > Resources > Memory > 8GB
-```
-
-#### **2. Database Connection Issues**
-```bash
-# Check database connectivity
-curl -X GET http://localhost:3000/api/v1/ping
-```
-
-#### **3. Build Failures**
+#### Build Failures
 ```bash
 # Clean build
-docker-compose down
-docker system prune -f
 docker-compose build --no-cache
-docker-compose up -d
+
+# Check logs
+docker-compose logs build
 ```
 
-### **Log Analysis**
+#### Database Issues
 ```bash
-# View application logs
-docker-compose logs dtamind
+# Check database volume
+docker volume ls | grep dtamind
 
-# View specific log file
-docker-compose exec dtamind cat /app/packages/server/logs/server.log
+# Reset database (WARNING: data loss)
+docker volume rm dtamind_dtamind-storage
 ```
 
-## 📈 **Performance Monitoring**
-
-### **Resource Usage**
+### Logs and Debugging
 ```bash
-# Check container resources
-docker stats dtamind-app
+# Application logs
+./docker-setup.sh logs dtamind
 
-# Check disk usage
-docker system df
+# Nginx logs
+docker-compose logs dtamind-nginx
+
+# All logs
+./docker-setup.sh logs
 ```
 
-### **Application Metrics**
-- ✅ **Response Time**: < 200ms average
-- ✅ **Memory Usage**: Optimized with 8GB allocation
-- ✅ **Database Queries**: Supabase performance monitoring
-- ✅ **Uptime**: 99.9% availability
+## 🔄 Updates and Maintenance
 
-## 🚀 **Production Deployment**
-
-### **Environment Variables**
+### Updating the Application
 ```bash
-# Production environment
-NODE_ENV=production
-DEBUG=false
-LOG_LEVEL=info
+# Stop services
+./docker-setup.sh stop
+
+# Pull latest code
+git pull origin main
+
+# Rebuild and restart
+./docker-setup.sh prod
 ```
 
-### **Security Checklist**
-- ✅ **SSL Enabled**: Database connection secure
-- ✅ **JWT Secrets**: Configured and secure
-- ✅ **CORS Policy**: Properly configured
-- ✅ **Health Checks**: Active monitoring
+### Backup and Restore
+```bash
+# Backup volumes
+docker run --rm -v dtamind_dtamind-storage:/data -v $(pwd):/backup alpine tar czf /backup/dtamind-backup-$(date +%Y%m%d).tar.gz -C /data .
 
-## 📝 **Recent Updates**
+# Restore volumes
+docker run --rm -v dtamind_dtamind-storage:/data -v $(pwd):/backup alpine tar xzf /backup/backup-file.tar.gz -C /data
+```
 
-### **v3.0.4 Changes**
-- ✅ **Database Migration**: SQLite → Supabase PostgreSQL
-- ✅ **Logo Update**: Robot icon with bigger text
-- ✅ **Menu Restructure**: Organized into categories
-- ✅ **Memory Optimization**: 8GB allocation
-- ✅ **Security Enhancements**: Updated JWT configuration
+## 🌐 Production Deployment
 
-## 🎯 **Next Steps**
+### SSL/HTTPS Setup
+1. Add SSL certificates to `./ssl/` directory
+2. Update `nginx.conf` with SSL configuration
+3. Update `docker-compose.yml` to mount SSL directory
 
-1. **Deploy to Production**: Use the updated Docker configuration
-2. **Monitor Performance**: Check logs and metrics regularly
-3. **Backup Strategy**: Supabase provides automatic backups
-4. **Scale as Needed**: Supabase scales automatically
+### Load Balancer Integration
+- Nginx can be placed behind a load balancer
+- Health check endpoint: `/health`
+- Rate limiting configured for API endpoints
 
-## 📞 **Support**
+### Monitoring
+- Docker health checks enabled
+- Nginx access and error logs
+- Application logs via Docker logs
 
-For issues or questions:
-- 📧 **Email**: Check application logs for detailed error messages
-- 🔍 **Debug**: Enable debug mode for detailed logging
-- 📊 **Monitor**: Use health checks for application status
+## 📚 Additional Resources
 
----
+### Docker Commands Reference
+```bash
+# View running containers
+docker ps
 
-**🎉 Your DTA Mind application is now ready for production with Supabase database!** 
+# View all containers
+docker ps -a
+
+# View images
+docker images
+
+# View volumes
+docker volume ls
+
+# View networks
+docker network ls
+```
+
+### Useful Docker Compose Commands
+```bash
+# Scale services
+docker-compose up -d --scale dtamind=3
+
+# View service dependencies
+docker-compose config
+
+# Execute commands in running containers
+docker-compose exec dtamind sh
+```
+
+## 🆘 Support
+
+If you encounter issues:
+
+1. Check the logs: `./docker-setup.sh logs`
+2. Verify Docker is running: `docker info`
+3. Check system resources: `docker stats`
+4. Review this guide for common solutions
+
+For additional help, check the main project documentation or create an issue in the project repository. 

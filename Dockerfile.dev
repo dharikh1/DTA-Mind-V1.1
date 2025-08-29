@@ -1,0 +1,44 @@
+# DTA Mind - Development Environment
+# Development Dockerfile with hot reloading
+
+FROM node:20-alpine
+
+# Install development dependencies
+RUN apk add --no-cache git
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY packages/*/package*.json ./packages/
+COPY pnpm-workspace.yaml ./
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Install dependencies
+RUN pnpm install
+
+# Copy source code
+COPY . .
+
+# Set environment variables
+ENV NODE_ENV=development
+ENV PORT=3000
+ENV UI_PORT=8080
+
+# Expose ports
+EXPOSE 3000 8080
+
+# Create development script
+RUN echo '#!/bin/sh\n\
+echo "🚀 Starting DTA Mind Development Environment..."\n\
+echo "📦 Backend: http://localhost:3000"\n\
+echo "🎨 Frontend: http://localhost:8080"\n\
+echo "🔄 Hot reloading enabled"\n\
+exec pnpm dev:full\n\
+' > /app/dev.sh && chmod +x /app/dev.sh
+
+# Start development environment
+CMD ["/app/dev.sh"]

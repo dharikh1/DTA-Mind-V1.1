@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  dtamind-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: dtamind-dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - UI_PORT=8080
+      - DATABASE_TYPE=sqlite
+      - DATABASE_PATH=/app/storage/database.sqlite
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/packages/*/node_modules
+      - dtamind-dev-storage:/app/storage
+      - dtamind-dev-uploads:/app/uploads
+    stdin_open: true
+    tty: true
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  dtamind-dev-storage:
+    driver: local
+  dtamind-dev-uploads:
+    driver: local
+
+networks:
+  default:
+    name: dtamind-dev-network
