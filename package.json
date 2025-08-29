@@ -11,7 +11,7 @@
         "build-force": "pnpm clean && turbo run build --force",
         "dev": "turbo run dev --parallel --no-cache",
         "dev:ui": "cd packages/ui && pnpm dev:8080",
-        "dev:server": "cd packages/server && pnpm dev",
+        "dev:server": "cd packages/server && pnpm dev:direct",
         "dev:full": "concurrently \"pnpm dev:server\" \"pnpm dev:ui\"",
         "start": "run-script-os",
         "start:windows": "cd packages/server/bin && run start",
@@ -127,9 +127,9 @@
         ]
     },
     "dependencies": {
-        "dtamind-components": "^3.0.4",
-        "dtamind-embed": "^1.0.0",
-        "dtamind-nim-container-manager": "^1.0.11",
-        "dtamind-react-json-view": "^1.21.7"
+        "flowise-components": "^3.0.4",
+        "flowise-embed": "^3.0.3",
+        "flowise-nim-container-manager": "^1.0.11",
+        "flowise-react-json-view": "^1.21.7"
     }
 }

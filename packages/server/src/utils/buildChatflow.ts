@@ -588,8 +588,8 @@ export const executeFlow = async ({
                     appDataSource,
                     databaseEntities
                 })
-                if (generatedFollowUpPrompts?.questions) {
-                    apiMessage.followUpPrompts = JSON.stringify(generatedFollowUpPrompts.questions)
+                if ((generatedFollowUpPrompts as any)?.questions) {
+                    apiMessage.followUpPrompts = JSON.stringify((generatedFollowUpPrompts as any).questions)
                 }
             }
             const chatMessage = await utilAddChatMessage(apiMessage, appDataSource)
@@ -793,8 +793,8 @@ export const executeFlow = async ({
                 appDataSource,
                 databaseEntities
             })
-            if (followUpPrompts?.questions) {
-                apiMessage.followUpPrompts = JSON.stringify(followUpPrompts.questions)
+            if ((followUpPrompts as any)?.questions) {
+                apiMessage.followUpPrompts = JSON.stringify((followUpPrompts as any).questions)
             }
         }
 
@@ -857,23 +857,23 @@ const checkIfStreamValid = async (
     for (const endingNode of endingNodes) {
         const endingNodeData = endingNode.data || {} // Ensure endingNodeData is never undefined
 
-        const isEndingNode = endingNodeData?.outputs?.output === 'EndingNode'
+        const isEndingNode = (endingNodeData as any)?.outputs?.output === 'EndingNode'
 
         // Once custom function ending node exists, no need to do follow-up checks.
         if (isEndingNode) continue
 
         if (
-            endingNodeData.outputs &&
-            Object.keys(endingNodeData.outputs).length &&
-            !Object.values(endingNodeData.outputs ?? {}).includes(endingNodeData.name)
+            (endingNodeData as any).outputs &&
+            Object.keys((endingNodeData as any).outputs).length &&
+            !Object.values((endingNodeData as any).outputs ?? {}).includes((endingNodeData as any).name)
         ) {
             throw new InternalDtamindError(
                 StatusCodes.INTERNAL_SERVER_ERROR,
-                `Output of ${endingNodeData.label} (${endingNodeData.id}) must be ${endingNodeData.label}, can't be an Output Prediction`
+                `Output of ${(endingNodeData as any).label} (${(endingNodeData as any).id}) must be ${(endingNodeData as any).label}, can't be an Output Prediction`
             )
         }
 
-        isStreamValid = isFlowValidForStream(nodes, endingNodeData)
+        isStreamValid = isFlowValidForStream(nodes, endingNodeData as any)
     }
 
     isStreamValid = (streaming === 'true' || streaming === true) && isStreamValid

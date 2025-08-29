@@ -79,6 +79,3 @@ temp/
 # Backup files
 *.bak
 *.backup
-
-# Rollback script
-rollback-emergency.sh

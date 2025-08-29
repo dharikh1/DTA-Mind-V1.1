@@ -114,7 +114,7 @@ function createToolConfig(
     if (toolChoice && ['any', 'auto', 'none'].includes(toolChoice as string)) {
         return {
             functionCallingConfig: {
-                mode: modeMap[toolChoice as keyof typeof modeMap] ?? 'MODE_UNSPECIFIED',
+                mode: modeMap[toolChoice as keyof typeof modeMap] ?? FunctionCallingMode.AUTO,
                 allowedFunctionNames
             }
         }

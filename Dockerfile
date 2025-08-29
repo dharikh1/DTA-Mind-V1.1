@@ -4,7 +4,7 @@
 # Stage 1: Build components package
 FROM node:20-alpine AS components-builder
 WORKDIR /app/components
-COPY packages/components/package*.json ./
+COPY packages/components/package.json ./
 RUN npm ci --only=production
 COPY packages/components/ ./
 RUN npm run build
@@ -12,7 +12,7 @@ RUN npm run build
 # Stage 2: Build UI package
 FROM node:20-alpine AS ui-builder
 WORKDIR /app/ui
-COPY packages/ui/package*.json ./
+COPY packages/ui/package.json ./
 RUN npm ci
 COPY packages/ui/ ./
 RUN npm run build
@@ -20,7 +20,7 @@ RUN npm run build
 # Stage 3: Build server package
 FROM node:20-alpine AS server-builder
 WORKDIR /app/server
-COPY packages/server/package*.json ./
+COPY packages/server/package.json ./
 RUN npm ci --only=production
 COPY packages/server/ ./
 COPY --from=components-builder /app/components/dist ./node_modules/dtamind-components

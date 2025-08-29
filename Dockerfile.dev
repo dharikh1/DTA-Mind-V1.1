@@ -11,8 +11,11 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-COPY packages/*/package*.json ./packages/
 COPY pnpm-workspace.yaml ./
+COPY packages/components/package.json ./packages/components/
+COPY packages/ui/package.json ./packages/ui/
+COPY packages/server/package.json ./packages/server/
+COPY packages/api-documentation/package.json ./packages/api-documentation/
 
 # Install pnpm globally
 RUN npm install -g pnpm
@@ -23,6 +26,12 @@ RUN pnpm install
 # Copy source code
 COPY . .
 
+# Install ts-node for direct TypeScript execution
+RUN pnpm add -D ts-node typescript @types/node
+
+# Install dependencies only (no build step)
+RUN echo "Dependencies installed successfully"
+
 # Set environment variables
 ENV NODE_ENV=development
 ENV PORT=3000
@@ -31,14 +40,5 @@ ENV UI_PORT=8080
 # Expose ports
 EXPOSE 3000 8080
 
-# Create development script
-RUN echo '#!/bin/sh\n\
-echo "🚀 Starting DTA Mind Development Environment..."\n\
-echo "📦 Backend: http://localhost:3000"\n\
-echo "🎨 Frontend: http://localhost:8080"\n\
-echo "🔄 Hot reloading enabled"\n\
-exec pnpm dev:full\n\
-' > /app/dev.sh && chmod +x /app/dev.sh
-
 # Start development environment
-CMD ["/app/dev.sh"]
+CMD ["sh", "-c", "echo '🚀 Starting DTA Mind Development Environment...' && echo '📦 Backend: http://localhost:3000' && echo '🎨 Frontend: http://localhost:8080' && echo '🔄 Hot reloading enabled' && exec pnpm dev:full"]

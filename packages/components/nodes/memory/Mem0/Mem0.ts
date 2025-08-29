@@ -222,8 +222,8 @@ class Mem0MemoryExtended extends BaseMem0Memory implements MemoryMethods {
     initialUserId: string
     userId: string
     orgId: string
-    memoryKey: string
-    inputKey: string
+    declare memoryKey: string
+    declare inputKey: string
     appDataSource: DataSource
     databaseEntities: IDatabaseEntity
     chatflowid: string

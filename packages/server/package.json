@@ -20,7 +20,7 @@
         "commands": "./dist/commands"
     },
     "scripts": {
-        "build": "tsc && rimraf dist/enterprise/emails && gulp",
+        "build": "tsc && rimraf dist/enterprise/emails && gulp && oclif manifest",
         "start": "run-script-os",
         "clean": "rimraf dist",
         "nuke": "rimraf dist node_modules .turbo",
@@ -32,6 +32,7 @@
         "user:windows": "cd bin && run user",
         "user:default": "cd bin && ./run user",
         "dev": "nodemon",
+        "dev:direct": "cd bin && ./run start",
         "oclif-dev": "run-script-os",
         "oclif-dev:windows": "cd bin && dev start",
         "oclif-dev:default": "cd bin && ./dev start",
@@ -100,13 +101,14 @@
         "crypto-js": "^4.1.1",
         "csv-parser": "^3.0.0",
         "dotenv": "^16.0.0",
+        "dtamind-nim-container-manager": "^1.0.11",
+        "dtamind-ui": "workspace:^",
         "express": "^4.17.3",
         "express-basic-auth": "^1.2.1",
         "express-mysql-session": "^3.0.3",
         "express-rate-limit": "^6.9.0",
         "express-session": "^1.18.1",
-        "dtamind-components": "workspace:^",
-        "dtamind-ui": "workspace:^",
+        "flowise-components": "workspace:^",
         "global-agent": "^3.0.0",
         "gulp": "^4.0.2",
         "handlebars": "^4.7.8",
@@ -146,8 +148,7 @@
         "typeorm": "^0.3.6",
         "uuid": "^9.0.1",
         "winston": "^3.9.0",
-        "winston-daily-rotate-file": "^5.0.0",
-        "dtamind-nim-container-manager": "^1.0.11"
+        "winston-daily-rotate-file": "^5.0.0"
     },
     "devDependencies": {
         "@types/content-disposition": "0.5.8",
@@ -159,6 +160,7 @@
         "@types/jsonwebtoken": "^9.0.6",
         "@types/multer": "^1.4.7",
         "@types/multer-s3": "^3.0.3",
+        "@types/node": "^24.3.0",
         "@types/nodemailer": "^6.4.15",
         "@types/passport-auth0": "^1.0.9",
         "@types/passport-github": "^1.1.12",
@@ -177,8 +179,8 @@
         "start-server-and-test": "^2.0.3",
         "supertest": "^7.1.0",
         "ts-jest": "^29.3.2",
-        "ts-node": "^10.7.0",
+        "ts-node": "^10.9.2",
         "tsc-watch": "^6.0.4",
-        "typescript": "^5.4.5"
+        "typescript": "^5.9.2"
     }
 }

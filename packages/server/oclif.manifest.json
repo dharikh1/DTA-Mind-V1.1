@@ -1,0 +1,1582 @@
+{
+  "commands": {
+    "base": {
+      "aliases": [],
+      "args": {},
+      "flags": {
+        "DTAMIND_FILE_SIZE_LIMIT": {
+          "name": "DTAMIND_FILE_SIZE_LIMIT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "PORT": {
+          "name": "PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "CORS_ORIGINS": {
+          "name": "CORS_ORIGINS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "IFRAME_ORIGINS": {
+          "name": "IFRAME_ORIGINS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DEBUG": {
+          "name": "DEBUG",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "BLOB_STORAGE_PATH": {
+          "name": "BLOB_STORAGE_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LOG_PATH": {
+          "name": "LOG_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LOG_LEVEL": {
+          "name": "LOG_LEVEL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "TOOL_FUNCTION_BUILTIN_DEP": {
+          "name": "TOOL_FUNCTION_BUILTIN_DEP",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "TOOL_FUNCTION_EXTERNAL_DEP": {
+          "name": "TOOL_FUNCTION_EXTERNAL_DEP",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "NUMBER_OF_PROXIES": {
+          "name": "NUMBER_OF_PROXIES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_TYPE": {
+          "name": "DATABASE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PATH": {
+          "name": "DATABASE_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PORT": {
+          "name": "DATABASE_PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_HOST": {
+          "name": "DATABASE_HOST",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_NAME": {
+          "name": "DATABASE_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_USER": {
+          "name": "DATABASE_USER",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PASSWORD": {
+          "name": "DATABASE_PASSWORD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_SSL": {
+          "name": "DATABASE_SSL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_SSL_KEY_BASE64": {
+          "name": "DATABASE_SSL_KEY_BASE64",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_TRACING_V2": {
+          "name": "LANGCHAIN_TRACING_V2",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_ENDPOINT": {
+          "name": "LANGCHAIN_ENDPOINT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_API_KEY": {
+          "name": "LANGCHAIN_API_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_PROJECT": {
+          "name": "LANGCHAIN_PROJECT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "MODEL_LIST_CONFIG_JSON": {
+          "name": "MODEL_LIST_CONFIG_JSON",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "STORAGE_TYPE": {
+          "name": "STORAGE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_BUCKET_NAME": {
+          "name": "S3_STORAGE_BUCKET_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_ACCESS_KEY_ID": {
+          "name": "S3_STORAGE_ACCESS_KEY_ID",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_SECRET_ACCESS_KEY": {
+          "name": "S3_STORAGE_SECRET_ACCESS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_REGION": {
+          "name": "S3_STORAGE_REGION",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_ENDPOINT_URL": {
+          "name": "S3_ENDPOINT_URL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_FORCE_PATH_STYLE": {
+          "name": "S3_FORCE_PATH_STYLE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_CREDENTIAL": {
+          "name": "GOOGLE_CLOUD_STORAGE_CREDENTIAL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_PROJ_ID": {
+          "name": "GOOGLE_CLOUD_STORAGE_PROJ_ID",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_BUCKET_NAME": {
+          "name": "GOOGLE_CLOUD_STORAGE_BUCKET_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_UNIFORM_BUCKET_ACCESS": {
+          "name": "GOOGLE_CLOUD_UNIFORM_BUCKET_ACCESS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SHOW_COMMUNITY_NODES": {
+          "name": "SHOW_COMMUNITY_NODES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_STORAGE_TYPE": {
+          "name": "SECRETKEY_STORAGE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_PATH": {
+          "name": "SECRETKEY_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DTAMIND_SECRETKEY_OVERWRITE": {
+          "name": "DTAMIND_SECRETKEY_OVERWRITE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_ACCESS_KEY": {
+          "name": "SECRETKEY_AWS_ACCESS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_SECRET_KEY": {
+          "name": "SECRETKEY_AWS_SECRET_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_REGION": {
+          "name": "SECRETKEY_AWS_REGION",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_NAME": {
+          "name": "SECRETKEY_AWS_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DISABLED_NODES": {
+          "name": "DISABLED_NODES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "MODE": {
+          "name": "MODE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "WORKER_CONCURRENCY": {
+          "name": "WORKER_CONCURRENCY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "QUEUE_NAME": {
+          "name": "QUEUE_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "QUEUE_REDIS_EVENT_STREAM_MAX_LEN": {
+          "name": "QUEUE_REDIS_EVENT_STREAM_MAX_LEN",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REMOVE_ON_AGE": {
+          "name": "REMOVE_ON_AGE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REMOVE_ON_COUNT": {
+          "name": "REMOVE_ON_COUNT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_URL": {
+          "name": "REDIS_URL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_HOST": {
+          "name": "REDIS_HOST",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_PORT": {
+          "name": "REDIS_PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_USERNAME": {
+          "name": "REDIS_USERNAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_PASSWORD": {
+          "name": "REDIS_PASSWORD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_TLS": {
+          "name": "REDIS_TLS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_CERT": {
+          "name": "REDIS_CERT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_KEY": {
+          "name": "REDIS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_CA": {
+          "name": "REDIS_CA",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_KEEP_ALIVE": {
+          "name": "REDIS_KEEP_ALIVE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "ENABLE_BULLMQ_DASHBOARD": {
+          "name": "ENABLE_BULLMQ_DASHBOARD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "base",
+      "pluginAlias": "dtamind",
+      "pluginName": "dtamind",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "base.js"
+      ]
+    },
+    "start": {
+      "aliases": [],
+      "args": {},
+      "flags": {
+        "DTAMIND_FILE_SIZE_LIMIT": {
+          "name": "DTAMIND_FILE_SIZE_LIMIT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "PORT": {
+          "name": "PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "CORS_ORIGINS": {
+          "name": "CORS_ORIGINS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "IFRAME_ORIGINS": {
+          "name": "IFRAME_ORIGINS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DEBUG": {
+          "name": "DEBUG",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "BLOB_STORAGE_PATH": {
+          "name": "BLOB_STORAGE_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LOG_PATH": {
+          "name": "LOG_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LOG_LEVEL": {
+          "name": "LOG_LEVEL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "TOOL_FUNCTION_BUILTIN_DEP": {
+          "name": "TOOL_FUNCTION_BUILTIN_DEP",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "TOOL_FUNCTION_EXTERNAL_DEP": {
+          "name": "TOOL_FUNCTION_EXTERNAL_DEP",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "NUMBER_OF_PROXIES": {
+          "name": "NUMBER_OF_PROXIES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_TYPE": {
+          "name": "DATABASE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PATH": {
+          "name": "DATABASE_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PORT": {
+          "name": "DATABASE_PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_HOST": {
+          "name": "DATABASE_HOST",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_NAME": {
+          "name": "DATABASE_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_USER": {
+          "name": "DATABASE_USER",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PASSWORD": {
+          "name": "DATABASE_PASSWORD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_SSL": {
+          "name": "DATABASE_SSL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_SSL_KEY_BASE64": {
+          "name": "DATABASE_SSL_KEY_BASE64",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_TRACING_V2": {
+          "name": "LANGCHAIN_TRACING_V2",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_ENDPOINT": {
+          "name": "LANGCHAIN_ENDPOINT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_API_KEY": {
+          "name": "LANGCHAIN_API_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_PROJECT": {
+          "name": "LANGCHAIN_PROJECT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "MODEL_LIST_CONFIG_JSON": {
+          "name": "MODEL_LIST_CONFIG_JSON",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "STORAGE_TYPE": {
+          "name": "STORAGE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_BUCKET_NAME": {
+          "name": "S3_STORAGE_BUCKET_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_ACCESS_KEY_ID": {
+          "name": "S3_STORAGE_ACCESS_KEY_ID",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_SECRET_ACCESS_KEY": {
+          "name": "S3_STORAGE_SECRET_ACCESS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_REGION": {
+          "name": "S3_STORAGE_REGION",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_ENDPOINT_URL": {
+          "name": "S3_ENDPOINT_URL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_FORCE_PATH_STYLE": {
+          "name": "S3_FORCE_PATH_STYLE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_CREDENTIAL": {
+          "name": "GOOGLE_CLOUD_STORAGE_CREDENTIAL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_PROJ_ID": {
+          "name": "GOOGLE_CLOUD_STORAGE_PROJ_ID",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_BUCKET_NAME": {
+          "name": "GOOGLE_CLOUD_STORAGE_BUCKET_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_UNIFORM_BUCKET_ACCESS": {
+          "name": "GOOGLE_CLOUD_UNIFORM_BUCKET_ACCESS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SHOW_COMMUNITY_NODES": {
+          "name": "SHOW_COMMUNITY_NODES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_STORAGE_TYPE": {
+          "name": "SECRETKEY_STORAGE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_PATH": {
+          "name": "SECRETKEY_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DTAMIND_SECRETKEY_OVERWRITE": {
+          "name": "DTAMIND_SECRETKEY_OVERWRITE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_ACCESS_KEY": {
+          "name": "SECRETKEY_AWS_ACCESS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_SECRET_KEY": {
+          "name": "SECRETKEY_AWS_SECRET_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_REGION": {
+          "name": "SECRETKEY_AWS_REGION",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_NAME": {
+          "name": "SECRETKEY_AWS_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DISABLED_NODES": {
+          "name": "DISABLED_NODES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "MODE": {
+          "name": "MODE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "WORKER_CONCURRENCY": {
+          "name": "WORKER_CONCURRENCY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "QUEUE_NAME": {
+          "name": "QUEUE_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "QUEUE_REDIS_EVENT_STREAM_MAX_LEN": {
+          "name": "QUEUE_REDIS_EVENT_STREAM_MAX_LEN",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REMOVE_ON_AGE": {
+          "name": "REMOVE_ON_AGE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REMOVE_ON_COUNT": {
+          "name": "REMOVE_ON_COUNT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_URL": {
+          "name": "REDIS_URL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_HOST": {
+          "name": "REDIS_HOST",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_PORT": {
+          "name": "REDIS_PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_USERNAME": {
+          "name": "REDIS_USERNAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_PASSWORD": {
+          "name": "REDIS_PASSWORD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_TLS": {
+          "name": "REDIS_TLS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_CERT": {
+          "name": "REDIS_CERT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_KEY": {
+          "name": "REDIS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_CA": {
+          "name": "REDIS_CA",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_KEEP_ALIVE": {
+          "name": "REDIS_KEEP_ALIVE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "ENABLE_BULLMQ_DASHBOARD": {
+          "name": "ENABLE_BULLMQ_DASHBOARD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "start",
+      "pluginAlias": "dtamind",
+      "pluginName": "dtamind",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "start.js"
+      ]
+    },
+    "user": {
+      "aliases": [],
+      "args": {
+        "email": {
+          "description": "Email address to search for in the user database",
+          "name": "email"
+        },
+        "password": {
+          "description": "New password for that user",
+          "name": "password"
+        }
+      },
+      "flags": {
+        "DTAMIND_FILE_SIZE_LIMIT": {
+          "name": "DTAMIND_FILE_SIZE_LIMIT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "PORT": {
+          "name": "PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "CORS_ORIGINS": {
+          "name": "CORS_ORIGINS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "IFRAME_ORIGINS": {
+          "name": "IFRAME_ORIGINS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DEBUG": {
+          "name": "DEBUG",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "BLOB_STORAGE_PATH": {
+          "name": "BLOB_STORAGE_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LOG_PATH": {
+          "name": "LOG_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LOG_LEVEL": {
+          "name": "LOG_LEVEL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "TOOL_FUNCTION_BUILTIN_DEP": {
+          "name": "TOOL_FUNCTION_BUILTIN_DEP",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "TOOL_FUNCTION_EXTERNAL_DEP": {
+          "name": "TOOL_FUNCTION_EXTERNAL_DEP",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "NUMBER_OF_PROXIES": {
+          "name": "NUMBER_OF_PROXIES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_TYPE": {
+          "name": "DATABASE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PATH": {
+          "name": "DATABASE_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PORT": {
+          "name": "DATABASE_PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_HOST": {
+          "name": "DATABASE_HOST",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_NAME": {
+          "name": "DATABASE_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_USER": {
+          "name": "DATABASE_USER",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PASSWORD": {
+          "name": "DATABASE_PASSWORD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_SSL": {
+          "name": "DATABASE_SSL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_SSL_KEY_BASE64": {
+          "name": "DATABASE_SSL_KEY_BASE64",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_TRACING_V2": {
+          "name": "LANGCHAIN_TRACING_V2",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_ENDPOINT": {
+          "name": "LANGCHAIN_ENDPOINT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_API_KEY": {
+          "name": "LANGCHAIN_API_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_PROJECT": {
+          "name": "LANGCHAIN_PROJECT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "MODEL_LIST_CONFIG_JSON": {
+          "name": "MODEL_LIST_CONFIG_JSON",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "STORAGE_TYPE": {
+          "name": "STORAGE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_BUCKET_NAME": {
+          "name": "S3_STORAGE_BUCKET_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_ACCESS_KEY_ID": {
+          "name": "S3_STORAGE_ACCESS_KEY_ID",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_SECRET_ACCESS_KEY": {
+          "name": "S3_STORAGE_SECRET_ACCESS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_REGION": {
+          "name": "S3_STORAGE_REGION",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_ENDPOINT_URL": {
+          "name": "S3_ENDPOINT_URL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_FORCE_PATH_STYLE": {
+          "name": "S3_FORCE_PATH_STYLE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_CREDENTIAL": {
+          "name": "GOOGLE_CLOUD_STORAGE_CREDENTIAL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_PROJ_ID": {
+          "name": "GOOGLE_CLOUD_STORAGE_PROJ_ID",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_BUCKET_NAME": {
+          "name": "GOOGLE_CLOUD_STORAGE_BUCKET_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_UNIFORM_BUCKET_ACCESS": {
+          "name": "GOOGLE_CLOUD_UNIFORM_BUCKET_ACCESS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SHOW_COMMUNITY_NODES": {
+          "name": "SHOW_COMMUNITY_NODES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_STORAGE_TYPE": {
+          "name": "SECRETKEY_STORAGE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_PATH": {
+          "name": "SECRETKEY_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DTAMIND_SECRETKEY_OVERWRITE": {
+          "name": "DTAMIND_SECRETKEY_OVERWRITE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_ACCESS_KEY": {
+          "name": "SECRETKEY_AWS_ACCESS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_SECRET_KEY": {
+          "name": "SECRETKEY_AWS_SECRET_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_REGION": {
+          "name": "SECRETKEY_AWS_REGION",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_NAME": {
+          "name": "SECRETKEY_AWS_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DISABLED_NODES": {
+          "name": "DISABLED_NODES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "MODE": {
+          "name": "MODE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "WORKER_CONCURRENCY": {
+          "name": "WORKER_CONCURRENCY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "QUEUE_NAME": {
+          "name": "QUEUE_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "QUEUE_REDIS_EVENT_STREAM_MAX_LEN": {
+          "name": "QUEUE_REDIS_EVENT_STREAM_MAX_LEN",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REMOVE_ON_AGE": {
+          "name": "REMOVE_ON_AGE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REMOVE_ON_COUNT": {
+          "name": "REMOVE_ON_COUNT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_URL": {
+          "name": "REDIS_URL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_HOST": {
+          "name": "REDIS_HOST",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_PORT": {
+          "name": "REDIS_PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_USERNAME": {
+          "name": "REDIS_USERNAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_PASSWORD": {
+          "name": "REDIS_PASSWORD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_TLS": {
+          "name": "REDIS_TLS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_CERT": {
+          "name": "REDIS_CERT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_KEY": {
+          "name": "REDIS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_CA": {
+          "name": "REDIS_CA",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_KEEP_ALIVE": {
+          "name": "REDIS_KEEP_ALIVE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "ENABLE_BULLMQ_DASHBOARD": {
+          "name": "ENABLE_BULLMQ_DASHBOARD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "user",
+      "pluginAlias": "dtamind",
+      "pluginName": "dtamind",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "user.js"
+      ]
+    },
+    "worker": {
+      "aliases": [],
+      "args": {},
+      "flags": {
+        "DTAMIND_FILE_SIZE_LIMIT": {
+          "name": "DTAMIND_FILE_SIZE_LIMIT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "PORT": {
+          "name": "PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "CORS_ORIGINS": {
+          "name": "CORS_ORIGINS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "IFRAME_ORIGINS": {
+          "name": "IFRAME_ORIGINS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DEBUG": {
+          "name": "DEBUG",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "BLOB_STORAGE_PATH": {
+          "name": "BLOB_STORAGE_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LOG_PATH": {
+          "name": "LOG_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LOG_LEVEL": {
+          "name": "LOG_LEVEL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "TOOL_FUNCTION_BUILTIN_DEP": {
+          "name": "TOOL_FUNCTION_BUILTIN_DEP",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "TOOL_FUNCTION_EXTERNAL_DEP": {
+          "name": "TOOL_FUNCTION_EXTERNAL_DEP",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "NUMBER_OF_PROXIES": {
+          "name": "NUMBER_OF_PROXIES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_TYPE": {
+          "name": "DATABASE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PATH": {
+          "name": "DATABASE_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PORT": {
+          "name": "DATABASE_PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_HOST": {
+          "name": "DATABASE_HOST",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_NAME": {
+          "name": "DATABASE_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_USER": {
+          "name": "DATABASE_USER",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_PASSWORD": {
+          "name": "DATABASE_PASSWORD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_SSL": {
+          "name": "DATABASE_SSL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DATABASE_SSL_KEY_BASE64": {
+          "name": "DATABASE_SSL_KEY_BASE64",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_TRACING_V2": {
+          "name": "LANGCHAIN_TRACING_V2",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_ENDPOINT": {
+          "name": "LANGCHAIN_ENDPOINT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_API_KEY": {
+          "name": "LANGCHAIN_API_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "LANGCHAIN_PROJECT": {
+          "name": "LANGCHAIN_PROJECT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "MODEL_LIST_CONFIG_JSON": {
+          "name": "MODEL_LIST_CONFIG_JSON",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "STORAGE_TYPE": {
+          "name": "STORAGE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_BUCKET_NAME": {
+          "name": "S3_STORAGE_BUCKET_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_ACCESS_KEY_ID": {
+          "name": "S3_STORAGE_ACCESS_KEY_ID",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_SECRET_ACCESS_KEY": {
+          "name": "S3_STORAGE_SECRET_ACCESS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_STORAGE_REGION": {
+          "name": "S3_STORAGE_REGION",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_ENDPOINT_URL": {
+          "name": "S3_ENDPOINT_URL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "S3_FORCE_PATH_STYLE": {
+          "name": "S3_FORCE_PATH_STYLE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_CREDENTIAL": {
+          "name": "GOOGLE_CLOUD_STORAGE_CREDENTIAL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_PROJ_ID": {
+          "name": "GOOGLE_CLOUD_STORAGE_PROJ_ID",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_STORAGE_BUCKET_NAME": {
+          "name": "GOOGLE_CLOUD_STORAGE_BUCKET_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "GOOGLE_CLOUD_UNIFORM_BUCKET_ACCESS": {
+          "name": "GOOGLE_CLOUD_UNIFORM_BUCKET_ACCESS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SHOW_COMMUNITY_NODES": {
+          "name": "SHOW_COMMUNITY_NODES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_STORAGE_TYPE": {
+          "name": "SECRETKEY_STORAGE_TYPE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_PATH": {
+          "name": "SECRETKEY_PATH",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DTAMIND_SECRETKEY_OVERWRITE": {
+          "name": "DTAMIND_SECRETKEY_OVERWRITE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_ACCESS_KEY": {
+          "name": "SECRETKEY_AWS_ACCESS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_SECRET_KEY": {
+          "name": "SECRETKEY_AWS_SECRET_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_REGION": {
+          "name": "SECRETKEY_AWS_REGION",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "SECRETKEY_AWS_NAME": {
+          "name": "SECRETKEY_AWS_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "DISABLED_NODES": {
+          "name": "DISABLED_NODES",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "MODE": {
+          "name": "MODE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "WORKER_CONCURRENCY": {
+          "name": "WORKER_CONCURRENCY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "QUEUE_NAME": {
+          "name": "QUEUE_NAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "QUEUE_REDIS_EVENT_STREAM_MAX_LEN": {
+          "name": "QUEUE_REDIS_EVENT_STREAM_MAX_LEN",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REMOVE_ON_AGE": {
+          "name": "REMOVE_ON_AGE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REMOVE_ON_COUNT": {
+          "name": "REMOVE_ON_COUNT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_URL": {
+          "name": "REDIS_URL",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_HOST": {
+          "name": "REDIS_HOST",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_PORT": {
+          "name": "REDIS_PORT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_USERNAME": {
+          "name": "REDIS_USERNAME",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_PASSWORD": {
+          "name": "REDIS_PASSWORD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_TLS": {
+          "name": "REDIS_TLS",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_CERT": {
+          "name": "REDIS_CERT",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_KEY": {
+          "name": "REDIS_KEY",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_CA": {
+          "name": "REDIS_CA",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "REDIS_KEEP_ALIVE": {
+          "name": "REDIS_KEEP_ALIVE",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "ENABLE_BULLMQ_DASHBOARD": {
+          "name": "ENABLE_BULLMQ_DASHBOARD",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "worker",
+      "pluginAlias": "dtamind",
+      "pluginName": "dtamind",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "worker.js"
+      ]
+    }
+  },
+  "version": "3.0.4"
+}

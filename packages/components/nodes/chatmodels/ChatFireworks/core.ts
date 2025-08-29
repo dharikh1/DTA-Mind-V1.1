@@ -47,7 +47,7 @@ export class ChatFireworks extends ChatOpenAICompletions<ChatFireworksCallOption
 
     fireworksApiKey?: string
 
-    apiKey?: string
+    declare apiKey?: string
 
     constructor(fields?: ChatFireworksParams) {
         const fireworksApiKey = fields?.apiKey || fields?.fireworksApiKey || getEnvironmentVariable('FIREWORKS_API_KEY')

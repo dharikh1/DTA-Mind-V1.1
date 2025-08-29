@@ -1,0 +1,25 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY packages/*/package*.json ./packages/
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Show what we have
+RUN echo "=== ROOT DIRECTORY ===" && ls -la
+RUN echo "=== PACKAGES DIRECTORY ===" && ls -la packages/
+RUN echo "=== ROOT PACKAGE.JSON ===" && cat package.json
+RUN echo "=== COMPONENTS PACKAGE.JSON ===" && cat packages/components/package.json
+
+# Try to understand the issue
+RUN echo "=== SEARCHING FOR NODEVM REFERENCES ==="
+RUN grep -r "nodevm" . --exclude-dir=node_modules 2>/dev/null || echo "No nodevm references found"
+RUN echo "=== SEARCHING FOR DTAMINDAI REFERENCES ==="
+RUN grep -r "dtamindai" . --exclude-dir=node_modules 2>/dev/null || echo "No dtamindai references found"
+
+# Keep container running for debugging
+CMD ["sh"]

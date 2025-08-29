@@ -71,7 +71,7 @@ const getAllChatMessages = async (req: Request, res: Response, next: NextFunctio
         const messageId = req.query?.messageId as string | undefined
         const startDate = req.query?.startDate as string | undefined
         const endDate = req.query?.endDate as string | undefined
-        const feedback = req.query?.feedback as boolean | undefined
+        const feedback = req.query?.feedback as any
 
         const { page, limit } = getPageAndLimitParams(req)
 
@@ -117,7 +117,7 @@ const getAllInternalChatMessages = async (req: Request, res: Response, next: Nex
         const messageId = req.query?.messageId as string | undefined
         const startDate = req.query?.startDate as string | undefined
         const endDate = req.query?.endDate as string | undefined
-        const feedback = req.query?.feedback as boolean | undefined
+        const feedback = req.query?.feedback as any
         let feedbackTypeFilters = req.query?.feedbackType as ChatMessageRatingType[] | undefined
         if (feedbackTypeFilters) {
             feedbackTypeFilters = getFeedbackTypeFilters(feedbackTypeFilters)
@@ -199,7 +199,7 @@ const removeAllChatMessages = async (req: Request, res: Response, next: NextFunc
 
         if (!chatId) {
             const isFeedback = feedbackTypeFilters?.length ? true : false
-            const hardDelete = req.query?.hardDelete as boolean | undefined
+            const hardDelete = req.query?.hardDelete as any
 
             const messages = await utilGetChatMessage({
                 chatflowid,

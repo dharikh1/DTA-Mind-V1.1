@@ -184,8 +184,8 @@ export function tryJsonStringify(obj: unknown, fallback: string) {
 }
 
 export function elapsed(run: Run): string {
-    if (!run.end_time) return ''
-    const elapsed = run.end_time - run.start_time
+    if (!run.end_time || !run.start_time) return ''
+    const elapsed = Number(run.end_time) - Number(run.start_time)
     if (elapsed < 1000) {
         return `${elapsed}ms`
     }
