@@ -102,7 +102,7 @@
         "express-rate-limit": "^8.2.0",
         "express-session": "^1.18.1",
         "express-validator": "^8.1.0",
-        "flowise-components": "workspace:*",
+        "dtamind-components": "workspace:*",
         "helmet": "^8.0.0",
         "ioredis": "^5.3.2",
         "jsonwebtoken": "^9.0.2",
