@@ -330,25 +330,7 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
             >
                 {open ? <IconMinus /> : <IconPlus />}
             </StyledFab>
-            {isAgentflowv2 && (
-                <StyledFab
-                    sx={{
-                        left: 40,
-                        top: 20,
-                        background: 'linear-gradient(45deg, #FF6B6B 30%, #FF8E53 90%)',
-                        '&:hover': {
-                            background: 'linear-gradient(45deg, #FF8E53 30%, #FF6B6B 90%)'
-                        }
-                    }}
-                    onClick={handleOpenDialog}
-                    size='small'
-                    color='primary'
-                    aria-label='generate'
-                    title='Generate Agentflow'
-                >
-                    <IconSparkles />
-                </StyledFab>
-            )}
+
 
             <AgentflowGeneratorDialog
                 show={openDialog}

@@ -17,7 +17,7 @@ import {
 import { omit, cloneDeep } from 'lodash'
 
 // material-ui
-import { Toolbar, Box, AppBar, Button, Fab, Tabs, Tab, Typography, Card, CardContent, Grid, Switch } from '@mui/material'
+import { Toolbar, Box, AppBar, Button, Fab, Tabs, Tab, Typography, Card, CardContent, Grid, Switch, ButtonBase, Avatar } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
 
@@ -28,12 +28,14 @@ import AgentFlowEdge from './AgentFlowEdge'
 import ConnectionLine from './ConnectionLine'
 import StickyNote from './StickyNote'
 import Logo from '@/ui-component/extended/Logo'
-import CanvasHeader from '@/views/canvas/CanvasHeader'
+
 import AddNodes from '@/views/canvas/AddNodes'
 import ConfirmDialog from '@/ui-component/dialog/ConfirmDialog'
+import SaveChatflowDialog from '@/ui-component/dialog/SaveChatflowDialog'
 import EditNodeDialog from '@/views/agentflowsv2/EditNodeDialog'
 import ChatPopUp from '@/views/chatmessage/ChatPopUp'
 import ValidationPopUp from '@/views/chatmessage/ValidationPopUp'
+import AgentflowGeneratorDialog from '@/ui-component/dialog/AgentflowGeneratorDialog'
 import { flowContext } from '@/store/context/ReactFlowContext'
 
 // API
@@ -45,7 +47,7 @@ import useApi from '@/hooks/useApi'
 import useConfirm from '@/hooks/useConfirm'
 
 // icons
-import { IconX, IconRefreshAlert, IconMagnetFilled, IconMagnetOff, IconKey, IconShield, IconDatabase } from '@tabler/icons-react'
+import { IconX, IconRefreshAlert, IconMagnetFilled, IconMagnetOff, IconKey, IconShield, IconDatabase, IconDeviceFloppy, IconSettings } from '@tabler/icons-react'
 
 // utils
 import {
@@ -103,8 +105,10 @@ const AgentflowCanvas = () => {
     const [isSyncNodesButtonEnabled, setIsSyncNodesButtonEnabled] = useState(false)
     const [editNodeDialogOpen, setEditNodeDialogOpen] = useState(false)
     const [editNodeDialogProps, setEditNodeDialogProps] = useState({})
+    const [flowDialogOpen, setFlowDialogOpen] = useState(false)
     const [isSnappingEnabled, setIsSnappingEnabled] = useState(false)
     const [activeTab, setActiveTab] = useState('workflow') // Default to workflow tab
+    const [agentflowGeneratorOpen, setAgentflowGeneratorOpen] = useState(false)
 
     const reactFlowWrapper = useRef(null)
 
@@ -122,8 +126,6 @@ const AgentflowCanvas = () => {
             navigate('/assistants')
         } else if (newValue === 'agents') {
             navigate('/agent')
-        } else if (newValue === 'chatbot') {
-            navigate('/canvas')
         } else if (newValue === 'configuration') {
             // Stay on current page for configuration
             setActiveTab('configuration')
@@ -198,6 +200,10 @@ const AgentflowCanvas = () => {
         }
     }
 
+    const handleAgentflowGeneration = () => {
+        setAgentflowGeneratorOpen(true)
+    }
+
     const handleDeleteFlow = async () => {
         const confirmPayload = {
             title: `Delete`,
@@ -228,6 +234,11 @@ const AgentflowCanvas = () => {
                 })
             }
         }
+    }
+
+    const onConfirmSaveName = (flowName) => {
+        setFlowDialogOpen(false)
+        handleSaveFlow(flowName)
     }
 
     const handleSaveFlow = (chatflowName) => {
@@ -727,24 +738,266 @@ const AgentflowCanvas = () => {
                         </Box>
                         
                         {/* Center - Tab Navigation */}
-                        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+                        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            {/* Sparkle Icon - Generate Agentflow */}
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    mr: 2,
+                                    cursor: 'pointer',
+                                    transition: 'all 0.3s ease',
+                                    '&:hover': {
+                                        transform: 'scale(1.1)'
+                                    }
+                                }}
+                                onClick={handleAgentflowGeneration}
+                                title="Generate Agentflow"
+                            >
+                                <Box
+                                    sx={{
+                                        width: '32px',
+                                        height: '32px',
+                                        borderRadius: '50%',
+                                        background: 'linear-gradient(135deg, #ff6b35, #f7931e)',
+                                        boxShadow: '0 2px 8px rgba(255, 107, 53, 0.3)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        transition: 'all 0.3s ease',
+                                        '&:hover': {
+                                            boxShadow: '0 4px 12px rgba(255, 107, 53, 0.4)'
+                                        }
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            width: '16px',
+                                            height: '16px',
+                                            position: 'relative',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}
+                                    >
+                                        {/* Large Star */}
+                                        <Box
+                                            sx={{
+                                                position: 'absolute',
+                                                width: '12px',
+                                                height: '12px',
+                                                background: 'white',
+                                                clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+                                                transform: 'translate(-1px, -1px)'
+                                            }}
+                                        />
+                                        {/* Small Star */}
+                                        <Box
+                                            sx={{
+                                                position: 'absolute',
+                                                width: '8px',
+                                                height: '8px',
+                                                background: 'white',
+                                                clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+                                                transform: 'translate(2px, 2px)'
+                                            }}
+                                        />
+                                    </Box>
+                                </Box>
+                            </Box>
+                            
                             <Tabs
                                 value={activeTab}
                                 onChange={handleTabChange}
-                                sx={{ height: '64px' }}
+                                sx={{ 
+                                    height: '64px',
+                                    '& .MuiTabs-indicator': {
+                                        height: '3px',
+                                        borderRadius: '2px',
+                                        background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`
+                                    }
+                                }}
                             >
-                                <Tab label="Workflow" value="workflow" sx={{ height: '64px' }} />
-                                <Tab label="Configuration" value="configuration" sx={{ height: '64px' }} />
-                                <Tab label="Templates" value="templates" sx={{ height: '64px' }} />
-                                <Tab label="Schedule" value="schedule" sx={{ height: '64px' }} />
-                                <Tab label="Assistants" value="assistants" sx={{ height: '64px' }} />
-                                <Tab label="Agents" value="agents" sx={{ height: '64px' }} />
-                                <Tab label="Chatbot" value="chatbot" sx={{ height: '64px' }} />
+                                <Tab 
+                                    label="Workflow" 
+                                    value="workflow" 
+                                    sx={{ 
+                                        height: '64px',
+                                        fontSize: '0.95rem',
+                                        fontWeight: 600,
+                                        textTransform: 'none',
+                                        color: theme.palette.text.secondary,
+                                        '&.Mui-selected': {
+                                            color: theme.palette.primary.main,
+                                            fontWeight: 700
+                                        },
+                                        '&:hover': {
+                                            color: theme.palette.primary.main,
+                                            background: 'rgba(25, 118, 210, 0.04)',
+                                            borderRadius: '8px 8px 0 0'
+                                        }
+                                    }} 
+                                />
+                                <Tab 
+                                    label="Agents" 
+                                    value="agents" 
+                                    sx={{ 
+                                        height: '64px',
+                                        fontSize: '0.95rem',
+                                        fontWeight: 600,
+                                        textTransform: 'none',
+                                        color: theme.palette.text.secondary,
+                                        '&.Mui-selected': {
+                                            color: theme.palette.primary.main,
+                                            fontWeight: 700
+                                        },
+                                        '&:hover': {
+                                            color: theme.palette.primary.main,
+                                            background: 'rgba(25, 118, 210, 0.04)',
+                                            borderRadius: '8px 8px 0 0'
+                                        }
+                                    }} 
+                                />
+                                <Tab 
+                                    label="Configuration" 
+                                    value="configuration" 
+                                    sx={{ 
+                                        height: '64px',
+                                        fontSize: '0.95rem',
+                                        fontWeight: 600,
+                                        textTransform: 'none',
+                                        color: theme.palette.text.secondary,
+                                        '&.Mui-selected': {
+                                            color: theme.palette.primary.main,
+                                            fontWeight: 700
+                                        },
+                                        '&:hover': {
+                                            color: theme.palette.primary.main,
+                                            background: 'rgba(25, 118, 210, 0.04)',
+                                            borderRadius: '8px 8px 0 0'
+                                        }
+                                    }} 
+                                />
+                                <Tab 
+                                    label="Templates" 
+                                    value="templates" 
+                                    sx={{ 
+                                        height: '64px',
+                                        fontSize: '0.95rem',
+                                        fontWeight: 600,
+                                        textTransform: 'none',
+                                        color: theme.palette.text.secondary,
+                                        '&.Mui-selected': {
+                                            color: theme.palette.primary.main,
+                                            fontWeight: 700
+                                        },
+                                        '&:hover': {
+                                            color: theme.palette.primary.main,
+                                            background: 'rgba(25, 118, 210, 0.04)',
+                                            borderRadius: '8px 8px 0 0'
+                                        }
+                                    }} 
+                                />
+                                <Tab 
+                                    label="Schedule" 
+                                    value="schedule" 
+                                    sx={{ 
+                                        height: '64px',
+                                        fontSize: '0.95rem',
+                                        fontWeight: 600,
+                                        textTransform: 'none',
+                                        color: theme.palette.text.secondary,
+                                        '&.Mui-selected': {
+                                            color: theme.palette.primary.main,
+                                            fontWeight: 700
+                                        },
+                                        '&:hover': {
+                                            color: theme.palette.primary.main,
+                                            background: 'rgba(25, 118, 210, 0.04)',
+                                            borderRadius: '8px 8px 0 0'
+                                        }
+                                    }} 
+                                />
+                                <Tab 
+                                    label="Assistants" 
+                                    value="assistants" 
+                                    sx={{ 
+                                        height: '64px',
+                                        fontSize: '0.95rem',
+                                        fontWeight: 600,
+                                        textTransform: 'none',
+                                        color: theme.palette.text.secondary,
+                                        '&.Mui-selected': {
+                                            color: theme.palette.primary.main,
+                                            fontWeight: 700
+                                        },
+                                        '&:hover': {
+                                            color: theme.palette.primary.main,
+                                            background: 'rgba(25, 118, 210, 0.04)',
+                                            borderRadius: '8px 8px 0 0'
+                                        }
+                                    }} 
+                                />
                             </Tabs>
                         </Box>
                         
-                        {/* Right side - Dark/Light Mode Toggle */}
-                        <Box sx={{ display: 'flex', alignItems: 'center', minWidth: '228px', justifyContent: 'flex-end' }}>
+                        {/* Right side - Canvas Header Elements */}
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            {/* Flow Name Display */}
+                            <Typography variant="h6" sx={{ mr: 2, color: theme.palette.text.primary }}>
+                                {chatflow?.name || '* Untitled Agent'}
+                            </Typography>
+                            
+                            {/* Save Button */}
+                            <ButtonBase title="Save Agent" sx={{ borderRadius: '50%' }}>
+                                <Avatar
+                                    variant='rounded'
+                                    sx={{
+                                        ...theme.typography.commonAvatar,
+                                        ...theme.typography.mediumAvatar,
+                                        transition: 'all .2s ease-in-out',
+                                        background: theme.palette.canvasHeader?.saveLight || theme.palette.success.light,
+                                        color: theme.palette.canvasHeader?.saveDark || theme.palette.success.dark,
+                                        '&:hover': {
+                                            background: theme.palette.canvasHeader?.saveDark || theme.palette.success.dark,
+                                            color: theme.palette.canvasHeader?.saveLight || theme.palette.success.light
+                                        }
+                                    }}
+                    color='inherit'
+                                    onClick={() => {
+                                        if (chatflow?.id) {
+                                            handleSaveFlow(chatflow.name)
+                                        } else {
+                                            setFlowDialogOpen(true)
+                                        }
+                                    }}
+                                >
+                                    <IconDeviceFloppy stroke={1.5} size='1.3rem' />
+                                </Avatar>
+                            </ButtonBase>
+                            
+                            {/* Settings Button */}
+                            <ButtonBase title="Settings" sx={{ borderRadius: '50%' }}>
+                                <Avatar
+                                    variant='rounded'
+                    sx={{
+                                        ...theme.typography.commonAvatar,
+                                        ...theme.typography.mediumAvatar,
+                                        transition: 'all .2s ease-in-out',
+                                        background: theme.palette.canvasHeader?.settingsLight || theme.palette.grey[300],
+                                        color: theme.palette.canvasHeader?.settingsDark || theme.palette.grey[700],
+                                        '&:hover': {
+                                            background: theme.palette.canvasHeader?.settingsDark || theme.palette.grey[700],
+                                            color: theme.palette.canvasHeader?.settingsLight || theme.palette.grey[300]
+                                        }
+                                    }}
+                                    onClick={() => {/* TODO: Add settings functionality */}}
+                                >
+                                    <IconSettings stroke={1.5} size='1.3rem' />
+                                </Avatar>
+                            </ButtonBase>
+                            
+                            {/* Dark/Light Mode Toggle */}
                             <Switch 
                                 checked={customization.isDarkMode} 
                                 onChange={() => dispatch({ type: SET_DARKMODE, isDarkMode: !customization.isDarkMode })}
@@ -753,30 +1006,8 @@ const AgentflowCanvas = () => {
                     </Toolbar>
                 </AppBar>
 
-                {/* Canvas Header - positioned below tabs */}
-                <AppBar
-                    enableColorOnDark
-                    position='fixed'
-                    color='inherit'
-                    elevation={1}
-                    sx={{
-                        bgcolor: theme.palette.background.default,
-                        top: '64px',
-                        height: '64px'
-                    }}
-                >
-                    <Toolbar sx={{ height: '64px', minHeight: '64px' }}>
-                        <CanvasHeader
-                            chatflow={chatflow}
-                            handleSaveFlow={handleSaveFlow}
-                            handleDeleteFlow={handleDeleteFlow}
-                            handleLoadFlow={handleLoadFlow}
-                            isAgentCanvas={true}
-                            isAgentflowV2={true}
-                        />
-                    </Toolbar>
-                </AppBar>
-                <Box sx={{ pt: '128px', height: '100vh', width: '100%' }}> {/* 64px + 64px = 128px padding */}
+
+                <Box sx={{ pt: '80px', height: '100vh', width: '100%' }}> {/* Adjusted for 64px menu bar */}
                     {/* Tab Content */}
                     {activeTab === 'workflow' && (
                         <div className='reactflow-parent-wrapper'>
@@ -1007,6 +1238,29 @@ const AgentflowCanvas = () => {
                         </Box>
                     )}
                 </Box>
+                <SaveChatflowDialog
+                    show={flowDialogOpen}
+                    dialogProps={{
+                        title: 'Save New Agent',
+                        confirmButtonName: 'Save',
+                        cancelButtonName: 'Cancel'
+                    }}
+                    onCancel={() => setFlowDialogOpen(false)}
+                    onConfirm={onConfirmSaveName}
+                />
+                <AgentflowGeneratorDialog
+                    show={agentflowGeneratorOpen}
+                    dialogProps={{
+                        title: 'What would you like to build?',
+                        description: 'Enter your prompt to generate an agentflow. Performance may vary with different models. Only nodes and edges are generated, you will need to fill in the input fields for each node.'
+                    }}
+                    onCancel={() => setAgentflowGeneratorOpen(false)}
+                    onConfirm={() => {
+                        setAgentflowGeneratorOpen(false)
+                        // Handle the generated flow here
+                        enqueueSnackbar('Agentflow generation completed!', { variant: 'success' })
+                    }}
+                />
                 <ConfirmDialog />
             </Box>
         </>

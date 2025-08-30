@@ -62,6 +62,9 @@ const Logs = Loadable(lazy(() => import('@/views/serverlogs')))
 // executions routing
 const Executions = Loadable(lazy(() => import('@/views/agentexecutions')))
 
+// canvas routing
+const Canvas = Loadable(lazy(() => import('@/views/canvas')))
+
 // enterprise features
 const UsersPage = Loadable(lazy(() => import('@/views/users')))
 const RolesPage = Loadable(lazy(() => import('@/views/roles')))
@@ -89,14 +92,7 @@ const MainRoutes = {
                         </RequireAuth>
                     )
                 },
-                {
-                    path: '/chatbot',
-                    element: (
-                        <RequireAuth permission={'chatflows:view'}>
-                            <Chatflows />
-                        </RequireAuth>
-                    )
-                },
+
                 {
                     path: '/agentflows',
                     element: (
@@ -125,7 +121,7 @@ const MainRoutes = {
                     path: '/',
                     element: (
                         <RequireAuth permission={'agentflows:view'}>
-                            <Agentflows />
+                            <Canvas />
                         </RequireAuth>
                     )
                 },

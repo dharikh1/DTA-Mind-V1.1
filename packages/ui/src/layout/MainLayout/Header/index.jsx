@@ -168,6 +168,8 @@ const Header = ({ handleLeftDrawerToggle }) => {
         localStorage.setItem('isDarkMode', !isDark)
     }
 
+
+
     const signOutClicked = () => {
         logoutApi.request()
         enqueueSnackbar({
