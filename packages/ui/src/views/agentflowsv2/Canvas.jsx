@@ -29,7 +29,7 @@ import ConnectionLine from './ConnectionLine'
 import StickyNote from './StickyNote'
 import Logo from '@/ui-component/extended/Logo'
 
-import AddNodes from '@/views/canvas/AddNodes'
+import LeftPanel from './LeftPanel'
 import ConfirmDialog from '@/ui-component/dialog/ConfirmDialog'
 import SaveChatflowDialog from '@/ui-component/dialog/SaveChatflowDialog'
 import EditNodeDialog from '@/views/agentflowsv2/EditNodeDialog'
@@ -1008,9 +1008,23 @@ const AgentflowCanvas = () => {
 
 
                 <Box sx={{ pt: '80px', height: '100vh', width: '100%' }}> {/* Adjusted for 64px menu bar */}
+                    {/* Left Panel - Add Nodes */}
+                    <LeftPanel
+                        nodesData={getNodesApi.data}
+                        selectedNode={selectedNode}
+                        onFlowGenerated={triggerConfetti}
+                        onPanelToggle={(isOpen) => {
+                            // Update the ReactFlow wrapper margin based on panel state
+                            const wrapper = document.querySelector('.reactflow-parent-wrapper')
+                            if (wrapper) {
+                                wrapper.style.marginLeft = isOpen ? '304px' : '24px'
+                            }
+                        }}
+                    />
+                    
                     {/* Tab Content */}
                     {activeTab === 'workflow' && (
-                        <div className='reactflow-parent-wrapper'>
+                        <div className='reactflow-parent-wrapper' style={{ marginLeft: '304px' }}>
                             <div className='reactflow-wrapper' ref={reactFlowWrapper}>
                                 <ReactFlow
                                     nodes={nodes}
@@ -1063,13 +1077,6 @@ const AgentflowCanvas = () => {
                                         }}
                                     />
                                     <Background color='#aaa' gap={16} />
-                                    <AddNodes
-                                        isAgentCanvas={true}
-                                        isAgentflowv2={true}
-                                        nodesData={getNodesApi.data}
-                                        node={selectedNode}
-                                        onFlowGenerated={triggerConfetti}
-                                    />
                                     <EditNodeDialog
                                         show={editNodeDialogOpen}
                                         dialogProps={editNodeDialogProps}

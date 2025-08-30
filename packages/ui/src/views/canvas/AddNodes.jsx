@@ -70,7 +70,7 @@ const blacklistForChatflowCanvas = {
     Memory: agentMemoryNodes
 }
 
-const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerated }) => {
+const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerated, isEmbedded = false }) => {
     const theme = useTheme()
     const customization = useSelector((state) => state.customization)
     const dispatch = useDispatch()
@@ -315,6 +315,288 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
     const handleConfirmDialog = () => {
         setOpenDialog(false)
         onFlowGenerated()
+    }
+
+    // If embedded, render the content directly without the floating button and popper
+    if (isEmbedded) {
+        return (
+            <>
+                <AgentflowGeneratorDialog
+                    show={openDialog}
+                    dialogProps={dialogProps}
+                    onCancel={handleCloseDialog}
+                    onConfirm={handleConfirmDialog}
+                />
+                
+                <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <Box sx={{ p: 2, borderBottom: `1px solid ${theme.palette.divider}` }}>
+                        <Typography variant='h5' sx={{ mb: 2 }}>Add Nodes</Typography>
+                        <OutlinedInput
+                            sx={{ width: '100%', pr: 2, pl: 2 }}
+                            id='input-search-node'
+                            value={searchValue}
+                            onChange={(e) => filterSearch(e.target.value)}
+                            placeholder='Search nodes'
+                            startAdornment={
+                                <InputAdornment position='start'>
+                                    <IconSearch stroke={1.5} size='1rem' color={theme.palette.grey[500]} />
+                                </InputAdornment>
+                            }
+                            endAdornment={
+                                <InputAdornment
+                                    position='end'
+                                    sx={{
+                                        cursor: 'pointer',
+                                        color: theme.palette.grey[500],
+                                        '&:hover': {
+                                            color: theme.palette.grey[900]
+                                        }
+                                    }}
+                                    title='Clear Search'
+                                >
+                                    <IconX
+                                        stroke={1.5}
+                                        size='1rem'
+                                        onClick={() => filterSearch('')}
+                                        style={{
+                                            cursor: 'pointer'
+                                        }}
+                                    />
+                                </InputAdornment>
+                            }
+                            aria-describedby='search-helper-text'
+                            inputProps={{
+                                'aria-label': 'weight'
+                            }}
+                        />
+                        {!isAgentCanvas && (
+                            <Tabs
+                                sx={{ position: 'relative', minHeight: '50px', height: '50px', mt: 2 }}
+                                variant='fullWidth'
+                                value={tabValue}
+                                onChange={handleTabChange}
+                                aria-label='tabs'
+                            >
+                                {['AI Builder', 'Data Search'].map((item, index) => (
+                                    <Tab
+                                        icon={
+                                            <div
+                                                style={{
+                                                    borderRadius: '50%',
+                                                    width: '20px',
+                                                    height: '20px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    backgroundColor: index === 0 ? '#3B82F6' : '#10B981'
+                                                }}
+                                            >
+                                                {index === 0 ? (
+                                                    <IconSparkles size={12} color='white' />
+                                                ) : (
+                                                    <IconSearch size={12} color='white' />
+                                                )}
+                                            </div>
+                                        }
+                                        iconPosition='start'
+                                        sx={{ minHeight: '50px', height: '50px' }}
+                                        key={index}
+                                        label={item}
+                                        {...a11yProps(index)}
+                                    ></Tab>
+                                ))}
+                            </Tabs>
+                        )}
+                    </Box>
+                    
+                    <PerfectScrollbar
+                        containerRef={(el) => {
+                            ps.current = el
+                        }}
+                        style={{
+                            height: '100%',
+                            flex: 1,
+                            overflowX: 'hidden'
+                        }}
+                    >
+                        <Box sx={{ p: 2 }}>
+                            <List
+                                sx={{
+                                    width: '100%',
+                                    py: 0,
+                                    borderRadius: '10px',
+                                    '& .MuiListItemSecondaryAction-root': {
+                                        top: 22
+                                    },
+                                    '& .MuiDivider-root': {
+                                        my: 0
+                                    },
+                                    '& .list-container': {
+                                        pl: 7
+                                    }
+                                }}
+                            >
+                                {Object.keys(nodes)
+                                    .sort()
+                                    .map((category) => (
+                                        <Accordion
+                                            expanded={categoryExpanded[category] || false}
+                                            onChange={handleAccordionChange(category)}
+                                            key={category}
+                                            disableGutters
+                                        >
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls={`nodes-accordian-${category}`}
+                                                id={`nodes-accordian-header-${category}`}
+                                            >
+                                                {category.split(';').length > 1 ? (
+                                                    <div
+                                                        style={{
+                                                            display: 'flex',
+                                                            flexDirection: 'row',
+                                                            alignItems: 'center'
+                                                        }}
+                                                    >
+                                                        <Typography variant='h5'>{category.split(';')[0]}</Typography>
+                                                        &nbsp;
+                                                        <Chip
+                                                            sx={{
+                                                                width: 'max-content',
+                                                                fontWeight: 700,
+                                                                fontSize: '0.65rem',
+                                                                background:
+                                                                    category.split(';')[1] === 'DEPRECATING'
+                                                                        ? theme.palette.warning.main
+                                                                        : theme.palette.teal.main,
+                                                                color:
+                                                                    category.split(';')[1] !== 'DEPRECATING'
+                                                                        ? 'white'
+                                                                        : 'inherit'
+                                                            }}
+                                                            size='small'
+                                                            label={category.split(';')[1]}
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <Typography variant='h5'>{category}</Typography>
+                                                )}
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                {nodes[category].map((node, index) => (
+                                                    <div
+                                                        key={node.name}
+                                                        onDragStart={(event) => onDragStart(event, node)}
+                                                        draggable
+                                                    >
+                                                        <ListItemButton
+                                                            sx={{
+                                                                p: 0,
+                                                                borderRadius: `${customization.borderRadius}px`,
+                                                                cursor: 'move'
+                                                            }}
+                                                        >
+                                                            <ListItem alignItems='center'>
+                                                                {node.color && !node.icon ? (
+                                                                    <ListItemAvatar>
+                                                                        <div
+                                                                            style={{
+                                                                                width: 50,
+                                                                                height: 'auto',
+                                                                                display: 'flex',
+                                                                                alignItems: 'center',
+                                                                                justifyContent: 'center'
+                                                                            }}
+                                                                        >
+                                                                            {renderIcon(node)}
+                                                                        </div>
+                                                                    </ListItemAvatar>
+                                                                ) : (
+                                                                    <ListItemAvatar>
+                                                                        <div
+                                                                            style={{
+                                                                                width: 50,
+                                                                                height: 50,
+                                                                                borderRadius: '50%',
+                                                                                backgroundColor: 'white'
+                                                                            }}
+                                                                        >
+                                                                            <img
+                                                                                style={{
+                                                                                    width: '100%',
+                                                                                    height: '100%',
+                                                                                    padding: 10,
+                                                                                    objectFit: 'contain'
+                                                                                }}
+                                                                                alt={node.name}
+                                                                                src={`${baseURL}/api/v1/node-icon/${node.name}`}
+                                                                            />
+                                                                        </div>
+                                                                    </ListItemAvatar>
+                                                                )}
+                                                                <ListItemText
+                                                                    sx={{ ml: 1 }}
+                                                                    primary={
+                                                                        <>
+                                                                            <div
+                                                                                style={{
+                                                                                    display: 'flex',
+                                                                                    flexDirection: 'row',
+                                                                                    alignItems: 'center'
+                                                                                }}
+                                                                            >
+                                                                                <span>{node.label}</span>
+                                                                                &nbsp;
+                                                                                {node.badge && (
+                                                                                    <Chip
+                                                                                        sx={{
+                                                                                            width: 'max-content',
+                                                                                            fontWeight: 700,
+                                                                                            fontSize: '0.65rem',
+                                                                                            background:
+                                                                                                node.badge === 'DEPRECATING'
+                                                                                                    ? theme.palette.warning
+                                                                                                          .main
+                                                                                                    : theme.palette.teal
+                                                                                                          .main,
+                                                                                color:
+                                                                                    node.badge !== 'DEPRECATING'
+                                                                                        ? 'white'
+                                                                                        : 'inherit'
+                                                                                        }}
+                                                                                        size='small'
+                                                                                        label={node.badge}
+                                                                                    />
+                                                                                )}
+                                                                            </div>
+                                                                            {node.author && (
+                                                                                <span
+                                                                                    style={{
+                                                                                        fontSize: '0.65rem',
+                                                                                        fontWeight: 700
+                                                                                    }}
+                                                                                >
+                                                                                    By {node.author}
+                                                                                </span>
+                                                                            )}
+                                                                        </>
+                                                                    }
+                                                                    secondary={node.description}
+                                                                />
+                                                            </ListItem>
+                                                        </ListItemButton>
+                                                        {index === nodes[category].length - 1 ? null : <Divider />}
+                                                    </div>
+                                                ))}
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    ))}
+                            </List>
+                        </Box>
+                    </PerfectScrollbar>
+                </Box>
+            </>
+        )
     }
 
     return (
@@ -652,7 +934,8 @@ AddNodes.propTypes = {
     node: PropTypes.object,
     onFlowGenerated: PropTypes.func,
     isAgentCanvas: PropTypes.bool,
-    isAgentflowv2: PropTypes.bool
+    isAgentflowv2: PropTypes.bool,
+    isEmbedded: PropTypes.bool
 }
 
 export default memo(AddNodes)
