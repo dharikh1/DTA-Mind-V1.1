@@ -1,47 +1,32 @@
 # DTA Mind - AI Chatflow Builder
-# Multi-stage Docker build for production
+# Single-stage Docker build for production
 
-# Stage 1: Build components package
-FROM node:20-alpine AS components-builder
-WORKDIR /app/components
-COPY packages/components/package.json ./
-RUN npm ci --only=production
-COPY packages/components/ ./
-RUN npm run build
+FROM node:20-alpine
 
-# Stage 2: Build UI package
-FROM node:20-alpine AS ui-builder
-WORKDIR /app/ui
-COPY packages/ui/package.json ./
-RUN npm ci
-COPY packages/ui/ ./
-RUN npm run build
+# Install pnpm
+RUN npm install -g pnpm
 
-# Stage 3: Build server package
-FROM node:20-alpine AS server-builder
-WORKDIR /app/server
-COPY packages/server/package.json ./
-RUN npm ci --only=production
-COPY packages/server/ ./
-COPY --from=components-builder /app/components/dist ./node_modules/dtamind-components
-RUN npm run build
-
-# Stage 4: Production runtime
-FROM node:20-alpine AS production
+# Set working directory
 WORKDIR /app
 
-# Install production dependencies
-COPY package*.json ./
-RUN npm ci --only=production
+# Copy package files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages/components/package.json ./packages/components/
+COPY packages/ui/package.json ./packages/ui/
+COPY packages/server/package.json ./packages/server/
+COPY packages/api-documentation/package.json ./packages/api-documentation/
 
-# Copy built packages
-COPY --from=components-builder /app/components/dist ./packages/components/dist
-COPY --from=ui-builder /app/ui/dist ./packages/ui/dist
-COPY --from=server-builder /app/server/dist ./packages/server/dist
+# Install all dependencies (including dev dependencies for build)
+RUN pnpm install --frozen-lockfile
 
-# Copy server package files
-COPY --from=server-builder /app/server/package*.json ./packages/server/
-COPY --from=server-builder /app/server/bin ./packages/server/bin
+# Copy source code
+COPY . .
+
+# Build all packages
+RUN pnpm run build
+
+# Remove dev dependencies and keep only production
+RUN pnpm prune --prod
 
 # Set environment variables
 ENV NODE_ENV=production
