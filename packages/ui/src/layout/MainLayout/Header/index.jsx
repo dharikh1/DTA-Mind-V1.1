@@ -13,6 +13,7 @@ import ProfileSection from './ProfileSection'
 import WorkspaceSwitcher from '@/layout/MainLayout/Header/WorkspaceSwitcher'
 import OrgWorkspaceBreadcrumbs from '@/layout/MainLayout/Header/OrgWorkspaceBreadcrumbs'
 import PricingDialog from '@/ui-component/subscription/PricingDialog'
+import PersistentMenuBar from './PersistentMenuBar'
 
 // assets
 import { IconMenu2, IconX, IconSparkles } from '@tabler/icons-react'
@@ -217,103 +218,11 @@ const Header = ({ handleLeftDrawerToggle }) => {
 
     return (
         <>
-            <Box
-                sx={{
-                    width: 228,
-                    display: 'flex',
-                    [theme.breakpoints.down('md')]: {
-                        width: 'auto'
-                    }
-                }}
-            >
-                <Box component='span' sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
-                    <LogoSection />
-                </Box>
-                {isAuthenticated && (
-                    <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
-                        <Avatar
-                            variant='rounded'
-                            sx={{
-                                ...theme.typography.commonAvatar,
-                                ...theme.typography.mediumAvatar,
-                                transition: 'all .2s ease-in-out',
-                                background: theme.palette.secondary.light,
-                                color: theme.palette.secondary.dark,
-                                '&:hover': {
-                                    background: theme.palette.secondary.dark,
-                                    color: theme.palette.secondary.light
-                                }
-                            }}
-                            onClick={handleLeftDrawerToggle}
-                            color='inherit'
-                        >
-                            <IconMenu2 stroke={1.5} size='1.3rem' />
-                        </Avatar>
-                    </ButtonBase>
-                )}
+            <PersistentMenuBar />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <MaterialUISwitch checked={isDark} onChange={changeDarkMode} />
+                <ProfileSection handleLogout={signOutClicked} />
             </Box>
-            {isCloud || isOpenSource ? (
-                <Box
-                    sx={{
-                        flexGrow: 1,
-                        px: 4,
-                        display: 'flex',
-                        alignItems: 'center',
-                        '& span': {
-                            display: 'flex',
-                            alignItems: 'center'
-                        }
-                    }}
-                >
-                    <GitHubStarButton starCount={starCount} isDark={isDark} />
-                </Box>
-            ) : (
-                <Box sx={{ flexGrow: 1 }} />
-            )}
-            {isEnterpriseLicensed && isAuthenticated && <WorkspaceSwitcher />}
-            {isCloud && isAuthenticated && <OrgWorkspaceBreadcrumbs />}
-            {isCloud && currentUser?.isOrganizationAdmin && (
-                <Button
-                    variant='contained'
-                    sx={{
-                        mr: 1,
-                        ml: 2,
-                        borderRadius: 15,
-                        background: (theme) =>
-                            `linear-gradient(90deg, ${theme.palette.primary.main} 10%, ${theme.palette.secondary.main} 100%)`,
-                        color: (theme) => theme.palette.secondary.contrastText,
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                        transition: 'all 0.3s ease',
-                        '&:hover': {
-                            background: (theme) =>
-                                `linear-gradient(90deg, ${darken(theme.palette.primary.main, 0.1)} 10%, ${darken(
-                                    theme.palette.secondary.main,
-                                    0.1
-                                )} 100%)`,
-                            boxShadow: '0 4px 8px rgba(0,0,0,0.3)'
-                        }
-                    }}
-                    onClick={() => setIsPricingOpen(true)}
-                    startIcon={<IconSparkles size={20} />}
-                >
-                    Upgrade
-                </Button>
-            )}
-            {isPricingOpen && isCloud && (
-                <PricingDialog
-                    open={isPricingOpen}
-                    onClose={(planUpdated) => {
-                        setIsPricingOpen(false)
-                        if (planUpdated) {
-                            navigate('/')
-                            navigate(0)
-                        }
-                    }}
-                />
-            )}
-            <MaterialUISwitch checked={isDark} onChange={changeDarkMode} />
-            <Box sx={{ ml: 2 }}></Box>
-            <ProfileSection handleLogout={signOutClicked} />
         </>
     )
 }
