@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  dtamind:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dtamind-production
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Database Configuration
+      - DATABASE_TYPE=sqlite
+      - DATABASE_PATH=/app/data
+      
+      # Server Configuration
+      - PORT=3000
+      - SECRETKEY_PATH=/app/data
+      - DEBUG=false
+      - LOG_PATH=/app/data/logs
+      - BLOB_STORAGE_PATH=/app/data/storage
+      
+      # Security
+      - NODE_ENV=production
+      - CORS_ORIGIN=*
+      
+      # Optional: Redis for session storage (uncomment if using Redis)
+      # - REDIS_HOST=redis
+      # - REDIS_PORT=6379
+      # - REDIS_PASSWORD=
+      
+      # Optional: PostgreSQL (uncomment if using PostgreSQL)
+      # - DATABASE_TYPE=postgres
+      # - DATABASE_HOST=postgres
+      # - DATABASE_PORT=5432
+      # - DATABASE_USER=dtamind
+      # - DATABASE_PASSWORD=dtamind_password
+      # - DATABASE_NAME=dtamind
+      
+    volumes:
+      # Persistent data storage
+      - dtamind_data:/app/data
+      
+      # Optional: Mount custom configuration
+      # - ./config:/app/config:ro
+      
+    networks:
+      - dtamind-network
+      
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/v1/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Redis for session storage (uncomment if needed)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: dtamind-redis
+  #   restart: unless-stopped
+  #   command: redis-server --appendonly yes
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - dtamind-network
+
+  # Optional: PostgreSQL database (uncomment if using PostgreSQL)
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: dtamind-postgres
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_DB=dtamind
+  #     - POSTGRES_USER=dtamind
+  #     - POSTGRES_PASSWORD=dtamind_password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - dtamind-network
+
+volumes:
+  dtamind_data:
+    driver: local
+  # redis_data:
+  #   driver: local
+  # postgres_data:
+  #   driver: local
+
+networks:
+  dtamind-network:
+    driver: bridge
