@@ -93,6 +93,14 @@ const MainRoutes = {
                     )
                 },
 
+                {
+                    path: '/agentflows',
+                    element: (
+                        <RequireAuth permission={'agentflows:view'}>
+                            <Agentflows />
+                        </RequireAuth>
+                    )
+                },
 
                 {
                     path: '/executions',
@@ -115,6 +123,16 @@ const MainRoutes = {
                     element: (
                         <RequireAuth permission={'agentflows:view'}>
                             <Canvas />
+                        </RequireAuth>
+                    )
+                },
+
+                // Agent page
+                {
+                    path: '/agent',
+                    element: (
+                        <RequireAuth permission={'agentflows:view'}>
+                            <Agentflows />
                         </RequireAuth>
                     )
                 },
