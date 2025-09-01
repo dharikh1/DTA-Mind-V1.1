@@ -93,14 +93,7 @@ const MainRoutes = {
                     )
                 },
 
-                {
-                    path: '/agentflows',
-                    element: (
-                        <RequireAuth permission={'agentflows:view'}>
-                            <Agentflows />
-                        </RequireAuth>
-                    )
-                },
+
                 {
                     path: '/executions',
                     element: (
@@ -125,15 +118,7 @@ const MainRoutes = {
                         </RequireAuth>
                     )
                 },
-                // Agent page
-                {
-                    path: '/agent',
-                    element: (
-                        <RequireAuth permission={'agentflows:view'}>
-                            <Agentflows />
-                        </RequireAuth>
-                    )
-                },
+
                 // Schedule page
                 {
                     path: '/schedule',

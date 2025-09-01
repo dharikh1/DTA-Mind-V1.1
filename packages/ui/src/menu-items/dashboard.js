@@ -78,24 +78,7 @@ const dashboard = {
             title: 'WORKFLOWS',
             type: 'group',
             children: [
-                {
-                    id: 'agentflows',
-                    title: 'Agent',
-                    type: 'item',
-                    url: '/agent',
-                    icon: icons.IconBrain,
-                    breadcrumbs: true,
-                    permission: 'agentflows:view'
-                },
-                {
-                    id: 'multiagentflows',
-                    title: 'Multi Agents',
-                    type: 'item',
-                    url: '/agent',
-                    icon: icons.IconUsersGroup,
-                    breadcrumbs: true,
-                    permission: 'agentflows:view'
-                },
+
                 {
                     id: 'chatflows',
                     title: 'Chatbot',

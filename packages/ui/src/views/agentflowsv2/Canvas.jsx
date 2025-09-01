@@ -226,8 +226,6 @@ const AgentflowCanvas = () => {
             navigate('/schedule')
         } else if (newValue === 'assistants') {
             navigate('/assistants')
-        } else if (newValue === 'agents') {
-            navigate('/agent')
         } else if (newValue === 'credentials') {
             navigate('/credentials')
         } else if (newValue === 'apikey') {
@@ -1041,26 +1039,7 @@ const AgentflowCanvas = () => {
                                 }
                             }} 
                         />
-                        <Tab 
-                            label="Agents" 
-                            value="agents" 
-                            sx={{ 
-                                height: '64px',
-                                fontSize: '0.95rem',
-                                fontWeight: 600,
-                                textTransform: 'none',
-                                color: theme.palette.text.secondary,
-                                '&.Mui-selected': {
-                                    color: theme.palette.primary.main,
-                                    fontWeight: 700
-                                },
-                                '&:hover': {
-                                    color: theme.palette.primary.main,
-                                    background: 'rgba(25, 118, 210, 0.04)',
-                                    borderRadius: '8px 8px 0 0'
-                                }
-                            }} 
-                        />
+
                         <Tab 
                             label="Credentials" 
                             value="credentials" 
