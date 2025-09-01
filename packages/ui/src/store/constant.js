@@ -41,76 +41,76 @@ export const AGENTFLOW_ICONS = [
     {
         name: 'conditionAgentflow',
         icon: IconArrowsSplit,
-        color: '#4CAF50'
+        color: '#FFB938'
     },
     {
         name: 'startAgentflow',
         icon: IconPlayerPlayFilled,
-        color: '#2196F3'
+        color: '#7EE787'
     },
     {
         name: 'llmAgentflow',
         icon: IconSparkles,
-        color: '#9C27B0'
+        color: '#64B5F6'
     },
     {
         name: 'agentAgentflow',
         icon: IconRobot,
-        color: '#FF9800'
+        color: '#4DD0E1'
     },
     {
         name: 'humanInputAgentflow',
         icon: IconReplaceUser,
-        color: '#F44336'
+        color: '#6E6EFD'
     },
     {
         name: 'loopAgentflow',
         icon: IconRepeat,
-        color: '#795548'
+        color: '#FFA07A'
     },
     {
         name: 'directReplyAgentflow',
         icon: IconMessageCircleFilled,
-        color: '#607D8B'
+        color: '#4DDBBB'
     },
     {
         name: 'customFunctionAgentflow',
         icon: IconFunctionFilled,
-        color: '#E91E63'
+        color: '#E4B7FF'
     },
     {
         name: 'toolAgentflow',
         icon: IconTools,
-        color: '#00BCD4'
+        color: '#d4a373'
     },
     {
         name: 'retrieverAgentflow',
         icon: IconLibrary,
-        color: '#8BC34A'
+        color: '#b8bedd'
     },
     {
         name: 'conditionAgentAgentflow',
         icon: IconSubtask,
-        color: '#FF5722'
+        color: '#ff8fab'
     },
     {
         name: 'stickyNoteAgentflow',
         icon: IconNote,
-        color: '#FFC107'
+        color: '#fee440'
     },
     {
         name: 'httpAgentflow',
         icon: IconWorld,
-        color: '#3F51B5'
+        color: '#FF7F7F'
     },
     {
         name: 'iterationAgentflow',
         icon: IconRelationOneToManyFilled,
-        color: '#009688'
+        color: '#9C89B8'
     },
     {
         name: 'executeFlowAgentflow',
         icon: IconVectorBezier2,
-        color: '#673AB7'
+        color: '#a3b18a'
     }
 ]

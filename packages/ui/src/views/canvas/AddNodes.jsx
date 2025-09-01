@@ -36,7 +36,6 @@ import MainCard from '@/ui-component/cards/MainCard'
 import Transitions from '@/ui-component/extended/Transitions'
 import { StyledFab } from '@/ui-component/button/StyledFab'
 import AgentflowGeneratorDialog from '@/ui-component/dialog/AgentflowGeneratorDialog'
-import StyledIcon from '@/ui-component/icons/StyledAgentIcons'
 
 // icons
 import { IconPlus, IconSearch, IconMinus, IconX, IconSparkles } from '@tabler/icons-react'
@@ -275,7 +274,7 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
         const foundIcon = AGENTFLOW_ICONS.find((icon) => icon.name === node.name)
 
         if (!foundIcon) return null
-        return <StyledIcon icon={foundIcon.icon} backgroundColor={foundIcon.color} size={30} />
+        return <foundIcon.icon size={30} color={node.color} />
     }
 
     useEffect(() => {
