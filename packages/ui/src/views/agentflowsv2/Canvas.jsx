@@ -14,6 +14,7 @@ import {
     closeSnackbar as closeSnackbarAction,
     SET_DARKMODE
 } from '@/store/actions'
+import { logoutSuccess } from '@/store/reducers/authSlice'
 import { omit, cloneDeep } from 'lodash'
 
 // material-ui
@@ -28,6 +29,7 @@ import AgentFlowEdge from './AgentFlowEdge'
 import ConnectionLine from './ConnectionLine'
 import StickyNote from './StickyNote'
 import Logo from '@/ui-component/extended/Logo'
+import ProfileSection from '@/layout/MainLayout/Header/ProfileSection'
 
 import LeftPanel from './LeftPanel'
 import ConfirmDialog from '@/ui-component/dialog/ConfirmDialog'
@@ -41,10 +43,12 @@ import { flowContext } from '@/store/context/ReactFlowContext'
 // API
 import nodesApi from '@/api/nodes'
 import chatflowsApi from '@/api/chatflows'
+import accountApi from '@/api/account.api'
 
 // Hooks
 import useApi from '@/hooks/useApi'
 import useConfirm from '@/hooks/useConfirm'
+import { useConfig } from '@/store/context/ConfigContext'
 
 // icons
 import { IconX, IconRefreshAlert, IconMagnetFilled, IconMagnetOff, IconKey, IconShield, IconDatabase, IconDeviceFloppy, IconSettings } from '@tabler/icons-react'
@@ -63,6 +67,7 @@ import { usePrompt } from '@/utils/usePrompt'
 
 // const
 import { DTAMIND_CREDENTIAL_ID, AGENTFLOW_ICONS } from '@/store/constant'
+import { store } from '@/store'
 
 const nodeTypes = { agentFlow: CanvasNode, stickyNote: StickyNote, iteration: IterationNode }
 const edgeTypes = { agentFlow: AgentFlowEdge }
@@ -86,6 +91,9 @@ const AgentflowCanvas = () => {
 
     const { confirm } = useConfirm()
 
+    const logoutApi = useApi(accountApi.logout)
+    const { isEnterpriseLicensed, isCloud, isOpenSource } = useConfig()
+
     const [canvasDataStore, setCanvasDataStore] = useState(canvas)
     const [chatflow, setChatflow] = useState(null)
     const { reactFlowInstance, setReactFlowInstance } = useContext(flowContext)
@@ -95,6 +103,33 @@ const AgentflowCanvas = () => {
     useNotifier()
     const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args))
     const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args))
+
+    const signOutClicked = () => {
+        logoutApi.request()
+        enqueueSnackbar({
+            message: 'Logging out...',
+            options: {
+                key: new Date().getTime() + Math.random(),
+                variant: 'success',
+                action: (key) => (
+                    <Button style={{ color: 'white' }} onClick={() => closeSnackbar(key)}>
+                        <IconX />
+                    </Button>
+                )
+            }
+        })
+    }
+
+    useEffect(() => {
+        try {
+            if (logoutApi.data && logoutApi.data.message === 'logged_out') {
+                store.dispatch(logoutSuccess())
+                window.location.href = logoutApi.data.redirectTo
+            }
+        } catch (e) {
+            console.error(e)
+        }
+    }, [logoutApi.data])
 
     // ==============================|| ReactFlow ||============================== //
 
@@ -987,7 +1022,7 @@ const AgentflowCanvas = () => {
                     </Tabs>
                 </Box>
                 
-                {/* Right side - Save button and Agent title */}
+                {/* Right side - Save button, Agent title, and User Profile */}
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: '200px', justifyContent: 'flex-end' }}>
                     {/* Agent Title */}
                     <Typography 
@@ -1067,6 +1102,9 @@ const AgentflowCanvas = () => {
                     >
                         <IconSettings size={20} />
                     </ButtonBase>
+
+                    {/* User Profile Section */}
+                    <ProfileSection handleLogout={signOutClicked} />
                 </Box>
             </Box>
 
