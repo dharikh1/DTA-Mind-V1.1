@@ -1,15 +1,15 @@
 // constant
 import {
-    IconLibrary,
-    IconTools,
-    IconFunctionFilled,
-    IconMessageCircleFilled,
-    IconRobot,
     IconArrowsSplit,
     IconPlayerPlayFilled,
     IconSparkles,
+    IconRobot,
     IconReplaceUser,
     IconRepeat,
+    IconMessageCircleFilled,
+    IconFunctionFilled,
+    IconTools,
+    IconLibrary,
     IconSubtask,
     IconNote,
     IconWorld,
@@ -41,76 +41,76 @@ export const AGENTFLOW_ICONS = [
     {
         name: 'conditionAgentflow',
         icon: IconArrowsSplit,
-        color: '#FFB938'
+        color: '#4CAF50'
     },
     {
         name: 'startAgentflow',
         icon: IconPlayerPlayFilled,
-        color: '#7EE787'
+        color: '#2196F3'
     },
     {
         name: 'llmAgentflow',
         icon: IconSparkles,
-        color: '#64B5F6'
+        color: '#9C27B0'
     },
     {
         name: 'agentAgentflow',
         icon: IconRobot,
-        color: '#4DD0E1'
+        color: '#FF9800'
     },
     {
         name: 'humanInputAgentflow',
         icon: IconReplaceUser,
-        color: '#6E6EFD'
+        color: '#F44336'
     },
     {
         name: 'loopAgentflow',
         icon: IconRepeat,
-        color: '#FFA07A'
+        color: '#795548'
     },
     {
         name: 'directReplyAgentflow',
         icon: IconMessageCircleFilled,
-        color: '#4DDBBB'
+        color: '#607D8B'
     },
     {
         name: 'customFunctionAgentflow',
         icon: IconFunctionFilled,
-        color: '#E4B7FF'
+        color: '#E91E63'
     },
     {
         name: 'toolAgentflow',
         icon: IconTools,
-        color: '#d4a373'
+        color: '#00BCD4'
     },
     {
         name: 'retrieverAgentflow',
         icon: IconLibrary,
-        color: '#b8bedd'
+        color: '#8BC34A'
     },
     {
         name: 'conditionAgentAgentflow',
         icon: IconSubtask,
-        color: '#ff8fab'
+        color: '#FF5722'
     },
     {
         name: 'stickyNoteAgentflow',
         icon: IconNote,
-        color: '#fee440'
+        color: '#FFC107'
     },
     {
         name: 'httpAgentflow',
         icon: IconWorld,
-        color: '#FF7F7F'
+        color: '#3F51B5'
     },
     {
         name: 'iterationAgentflow',
         icon: IconRelationOneToManyFilled,
-        color: '#9C89B8'
+        color: '#009688'
     },
     {
         name: 'executeFlowAgentflow',
         icon: IconVectorBezier2,
-        color: '#a3b18a'
+        color: '#673AB7'
     }
 ]
