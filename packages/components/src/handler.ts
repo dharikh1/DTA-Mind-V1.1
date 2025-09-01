@@ -66,7 +66,7 @@ function getArizeTracer(options: ArizeTracerOptions): Tracer | undefined {
                 model_id: options.projectName
             })
         })
-        tracerProvider.addSpanProcessor(new SimpleSpanProcessor(traceExporter))
+        tracerProvider.addSpanProcessor(new SimpleSpanProcessor(traceExporter) as any)
         if (options.enableCallback) {
             registerInstrumentations({
                 instrumentations: []
@@ -75,7 +75,7 @@ function getArizeTracer(options: ArizeTracerOptions): Tracer | undefined {
             lcInstrumentation.manuallyInstrument(CallbackManagerModule)
             tracerProvider.register()
         }
-        return tracerProvider.getTracer(`arize-tracer-${uuidv4().toString()}`)
+        return tracerProvider.getTracer(`arize-tracer-${uuidv4().toString()}`) as any
     } catch (err) {
         if (process.env.DEBUG === 'true') console.error(`Error setting up Arize tracer: ${err.message}`)
         return undefined
@@ -107,7 +107,7 @@ function getPhoenixTracer(options: PhoenixTracerOptions): Tracer | undefined {
                 [SEMRESATTRS_PROJECT_NAME]: options.projectName
             })
         })
-        tracerProvider.addSpanProcessor(new SimpleSpanProcessor(traceExporter))
+        tracerProvider.addSpanProcessor(new SimpleSpanProcessor(traceExporter) as any)
         if (options.enableCallback) {
             registerInstrumentations({
                 instrumentations: []
@@ -116,7 +116,7 @@ function getPhoenixTracer(options: PhoenixTracerOptions): Tracer | undefined {
             lcInstrumentation.manuallyInstrument(CallbackManagerModule)
             tracerProvider.register()
         }
-        return tracerProvider.getTracer(`phoenix-tracer-${uuidv4().toString()}`)
+        return tracerProvider.getTracer(`phoenix-tracer-${uuidv4().toString()}`) as any
     } catch (err) {
         if (process.env.DEBUG === 'true') console.error(`Error setting up Phoenix tracer: ${err.message}`)
         return undefined
@@ -151,7 +151,7 @@ function getOpikTracer(options: OpikTracerOptions): Tracer | undefined {
                 [SEMRESATTRS_PROJECT_NAME]: options.projectName
             })
         })
-        tracerProvider.addSpanProcessor(new SimpleSpanProcessor(traceExporter))
+        tracerProvider.addSpanProcessor(new SimpleSpanProcessor(traceExporter) as any)
         if (options.enableCallback) {
             registerInstrumentations({
                 instrumentations: []
@@ -160,7 +160,7 @@ function getOpikTracer(options: OpikTracerOptions): Tracer | undefined {
             lcInstrumentation.manuallyInstrument(CallbackManagerModule)
             tracerProvider.register()
         }
-        return tracerProvider.getTracer(`opik-tracer-${uuidv4().toString()}`)
+        return tracerProvider.getTracer(`opik-tracer-${uuidv4().toString()}`) as any
     } catch (err) {
         if (process.env.DEBUG === 'true') console.error(`Error setting up Opik tracer: ${err.message}`)
         return undefined
