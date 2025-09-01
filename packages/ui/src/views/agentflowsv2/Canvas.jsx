@@ -38,6 +38,11 @@ import EditNodeDialog from '@/views/agentflowsv2/EditNodeDialog'
 import ChatPopUp from '@/views/chatmessage/ChatPopUp'
 import ValidationPopUp from '@/views/chatmessage/ValidationPopUp'
 import AgentflowGeneratorDialog from '@/ui-component/dialog/AgentflowGeneratorDialog'
+import Settings from '@/views/settings'
+import ViewMessagesDialog from '@/ui-component/dialog/ViewMessagesDialog'
+import ViewLeadsDialog from '@/ui-component/dialog/ViewLeadsDialog'
+import ChatflowConfigurationDialog from '@/ui-component/dialog/ChatflowConfigurationDialog'
+import ExportAsTemplateDialog from '@/ui-component/dialog/ExportAsTemplateDialog'
 import { flowContext } from '@/store/context/ReactFlowContext'
 
 // API
@@ -144,6 +149,18 @@ const AgentflowCanvas = () => {
     const [isSnappingEnabled, setIsSnappingEnabled] = useState(false)
     const [activeTab, setActiveTab] = useState('workflow') // Default to workflow tab
     const [agentflowGeneratorOpen, setAgentflowGeneratorOpen] = useState(false)
+    
+    // Settings dropdown state
+    const [isSettingsOpen, setSettingsOpen] = useState(false)
+    const [settingsAnchorEl, setSettingsAnchorEl] = useState(null)
+    const [viewMessagesDialogOpen, setViewMessagesDialogOpen] = useState(false)
+    const [viewMessagesDialogProps, setViewMessagesDialogProps] = useState({})
+    const [viewLeadsDialogOpen, setViewLeadsDialogOpen] = useState(false)
+    const [viewLeadsDialogProps, setViewLeadsDialogProps] = useState({})
+    const [chatflowConfigurationDialogOpen, setChatflowConfigurationDialogOpen] = useState(false)
+    const [chatflowConfigurationDialogProps, setChatflowConfigurationDialogProps] = useState({})
+    const [exportAsTemplateDialogOpen, setExportAsTemplateDialogOpen] = useState(false)
+    const [exportAsTemplateDialogProps, setExportAsTemplateDialogProps] = useState({})
 
     const reactFlowWrapper = useRef(null)
 
@@ -240,6 +257,94 @@ const AgentflowCanvas = () => {
 
     const handleAgentflowGeneration = () => {
         setAgentflowGeneratorOpen(true)
+    }
+
+    // Settings dropdown handlers
+    const handleSettingsClick = (event) => {
+        setSettingsAnchorEl(event.currentTarget)
+        setSettingsOpen(true)
+    }
+
+    const handleSettingsClose = () => {
+        setSettingsOpen(false)
+        setSettingsAnchorEl(null)
+    }
+
+    const handleSettingsItemClick = (setting) => {
+        setSettingsOpen(false)
+        setSettingsAnchorEl(null)
+
+        if (setting === 'deleteChatflow') {
+            handleDeleteFlow()
+        } else if (setting === 'viewMessages') {
+            setViewMessagesDialogProps({
+                title: 'View Messages',
+                chatflow: chatflow,
+                isChatflow: false
+            })
+            setViewMessagesDialogOpen(true)
+        } else if (setting === 'viewLeads') {
+            setViewLeadsDialogProps({
+                title: 'View Leads',
+                chatflow: chatflow
+            })
+            setViewLeadsDialogOpen(true)
+        } else if (setting === 'saveAsTemplate') {
+            if (canvas.isDirty) {
+                enqueueSnackbar({
+                    message: 'Please save the flow before exporting as template',
+                    options: {
+                        key: new Date().getTime() + Math.random(),
+                        variant: 'error',
+                        persist: true,
+                        action: (key) => (
+                            <Button style={{ color: 'white' }} onClick={() => closeSnackbar(key)}>
+                                <IconX />
+                            </Button>
+                        )
+                    }
+                })
+                return
+            }
+            setExportAsTemplateDialogProps({
+                title: 'Export As Template',
+                chatflow: chatflow
+            })
+            setExportAsTemplateDialogOpen(true)
+        } else if (setting === 'chatflowConfiguration') {
+            setChatflowConfigurationDialogProps({
+                title: 'Configuration',
+                chatflow: chatflow
+            })
+            setChatflowConfigurationDialogOpen(true)
+        } else if (setting === 'duplicateChatflow') {
+            // Handle duplicate functionality
+            enqueueSnackbar({
+                message: 'Duplicate functionality will be implemented',
+                options: {
+                    key: new Date().getTime() + Math.random(),
+                    variant: 'info'
+                }
+            })
+        } else if (setting === 'loadChatflow') {
+            // Handle load functionality
+            enqueueSnackbar({
+                message: 'Load functionality will be implemented',
+                options: {
+                    key: new Date().getTime() + Math.random(),
+                    variant: 'info'
+                }
+            })
+        } else if (setting === 'exportChatflow') {
+            // Handle export functionality
+            enqueueSnackbar({
+                message: 'Export functionality will be implemented',
+                options: {
+                    key: new Date().getTime() + Math.random(),
+                    variant: 'info'
+                }
+            })
+        }
     }
 
     const handleDeleteFlow = async () => {
@@ -1098,6 +1203,7 @@ const AgentflowCanvas = () => {
                                 transform: 'scale(1.05)'
                             }
                         }}
+                        onClick={handleSettingsClick}
                         title="Settings"
                     >
                         <IconSettings size={20} />
@@ -1369,6 +1475,41 @@ const AgentflowCanvas = () => {
                         enqueueSnackbar('Agentflow generation completed!', { variant: 'success' })
                     }}
                 />
+                
+                {/* Settings Dropdown */}
+                <Settings
+                    chatflow={chatflow}
+                    isSettingsOpen={isSettingsOpen}
+                    isAgentCanvas={true}
+                    anchorEl={settingsAnchorEl}
+                    onSettingsItemClick={handleSettingsItemClick}
+                    onClose={handleSettingsClose}
+                />
+                
+                {/* Settings Dialogs */}
+                <ViewMessagesDialog
+                    show={viewMessagesDialogOpen}
+                    dialogProps={viewMessagesDialogProps}
+                    onCancel={() => setViewMessagesDialogOpen(false)}
+                />
+                <ViewLeadsDialog 
+                    show={viewLeadsDialogOpen} 
+                    dialogProps={viewLeadsDialogProps} 
+                    onCancel={() => setViewLeadsDialogOpen(false)} 
+                />
+                <ChatflowConfigurationDialog
+                    key='chatflowConfiguration'
+                    show={chatflowConfigurationDialogOpen}
+                    dialogProps={chatflowConfigurationDialogProps}
+                    onCancel={() => setChatflowConfigurationDialogOpen(false)}
+                    isAgentCanvas={true}
+                />
+                <ExportAsTemplateDialog
+                    show={exportAsTemplateDialogOpen}
+                    dialogProps={exportAsTemplateDialogProps}
+                    onCancel={() => setExportAsTemplateDialogOpen(false)}
+                />
+                
                 <ConfirmDialog />
         </>
     )
