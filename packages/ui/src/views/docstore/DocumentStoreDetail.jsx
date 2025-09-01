@@ -51,7 +51,7 @@ import { getFileName } from '@/utils/genericHelper'
 import useConfirm from '@/hooks/useConfirm'
 
 // icons
-import { IconPlus, IconRefresh, IconX, IconVectorBezier2 } from '@tabler/icons-react'
+import { IconPlus, IconRefresh, IconX, IconVectorBezier2, IconFileText } from '@tabler/icons-react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import FileDeleteIcon from '@mui/icons-material/Delete'
 import FileEditIcon from '@mui/icons-material/Edit'
@@ -60,7 +60,7 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import SearchIcon from '@mui/icons-material/Search'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import CodeIcon from '@mui/icons-material/Code'
-import doc_store_details_emptySVG from '@/assets/images/doc_store_details_empty.svg'
+import EmptyState from '@/ui-component/EmptyState'
 
 // store
 import { closeSnackbar as closeSnackbarAction, enqueueSnackbar as enqueueSnackbarAction } from '@/store/actions'
@@ -564,14 +564,12 @@ const DocumentStoreDetails = () => {
                         )}
                         {!isLoading && documentStore && !documentStore?.loaders?.length ? (
                             <Stack sx={{ alignItems: 'center', justifyContent: 'center' }} flexDirection='column'>
-                                <Box sx={{ p: 2, height: 'auto' }}>
-                                    <img
-                                        style={{ objectFit: 'cover', height: '16vh', width: 'auto' }}
-                                        src={doc_store_details_emptySVG}
-                                        alt='doc_store_details_emptySVG'
-                                    />
-                                </Box>
-                                <div>No Document Added Yet</div>
+                                <EmptyState 
+                                    icon={IconFileText}
+                                    title="No Document Added Yet"
+                                    description="Add your first document to this store"
+                                    iconColor="#84CC16"
+                                />
                                 <StyledButton
                                     variant='contained'
                                     sx={{ borderRadius: 2, height: '100%', mt: 2, color: 'white' }}

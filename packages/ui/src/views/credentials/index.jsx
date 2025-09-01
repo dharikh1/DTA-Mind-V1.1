@@ -41,8 +41,8 @@ import useConfirm from '@/hooks/useConfirm'
 import useNotifier from '@/utils/useNotifier'
 
 // Icons
-import { IconTrash, IconEdit, IconX, IconPlus, IconShare } from '@tabler/icons-react'
-import CredentialEmptySVG from '@/assets/images/credential_empty.svg'
+import { IconTrash, IconEdit, IconX, IconPlus, IconShare, IconKey } from '@tabler/icons-react'
+import EmptyState from '@/ui-component/EmptyState'
 import keySVG from '@/assets/images/key.svg'
 
 // const
@@ -260,16 +260,12 @@ const Credentials = () => {
                             </StyledPermissionButton>
                         </ViewHeader>
                         {!isLoading && credentials.length <= 0 ? (
-                            <Stack sx={{ alignItems: 'center', justifyContent: 'center' }} flexDirection='column'>
-                                <Box sx={{ p: 2, height: 'auto' }}>
-                                    <img
-                                        style={{ objectFit: 'cover', height: '16vh', width: 'auto' }}
-                                        src={CredentialEmptySVG}
-                                        alt='CredentialEmptySVG'
-                                    />
-                                </Box>
-                                <div>No Credentials Yet</div>
-                            </Stack>
+                            <EmptyState 
+                                icon={IconKey}
+                                title="No Credentials Yet"
+                                description="Add your first credential to connect with external services"
+                                iconColor="#F97316"
+                            />
                         ) : (
                             <TableContainer
                                 sx={{ border: 1, borderColor: theme.palette.grey[900] + 25, borderRadius: 2 }}

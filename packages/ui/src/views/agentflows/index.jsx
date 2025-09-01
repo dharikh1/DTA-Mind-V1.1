@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles'
 import MainCard from '@/ui-component/cards/MainCard'
 import ItemCard from '@/ui-component/cards/ItemCard'
 import { gridSpacing } from '@/store/constant'
-import AgentsEmptySVG from '@/assets/images/agents_empty.svg'
+import EmptyState from '@/ui-component/EmptyState'
 import ConfirmDialog from '@/ui-component/dialog/ConfirmDialog'
 import { FlowListTable } from '@/ui-component/table/FlowListTable'
 import ViewHeader from '@/layout/MainLayout/ViewHeader'
@@ -28,7 +28,7 @@ import { baseURL, AGENTFLOW_ICONS } from '@/store/constant'
 import { useError } from '@/store/context/ErrorContext'
 
 // icons
-import { IconPlus, IconLayoutGrid, IconList } from '@tabler/icons-react'
+import { IconPlus, IconLayoutGrid, IconList, IconBrain } from '@tabler/icons-react'
 
 // ==============================|| AGENTS ||============================== //
 
@@ -248,16 +248,12 @@ const Agentflows = () => {
                     )}
 
                     {!isLoading && total === 0 && (
-                        <Stack sx={{ alignItems: 'center', justifyContent: 'center' }} flexDirection='column'>
-                            <Box sx={{ p: 2, height: 'auto' }}>
-                                <img
-                                    style={{ objectFit: 'cover', height: '12vh', width: 'auto' }}
-                                    src={AgentsEmptySVG}
-                                    alt='AgentsEmptySVG'
-                                />
-                            </Box>
-                            <div>No Agents Yet</div>
-                        </Stack>
+                        <EmptyState 
+                            icon={IconBrain}
+                            title="No Agents Yet"
+                            description="Create your first agent to get started"
+                            iconColor="#10B981"
+                        />
                     )}
                 </Stack>
             )}

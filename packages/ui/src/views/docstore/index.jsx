@@ -20,8 +20,8 @@ import useApi from '@/hooks/useApi'
 import documentsApi from '@/api/documentstore'
 
 // icons
-import { IconPlus, IconLayoutGrid, IconList } from '@tabler/icons-react'
-import doc_store_empty from '@/assets/images/doc_store_empty.svg'
+import { IconPlus, IconLayoutGrid, IconList, IconFiles } from '@tabler/icons-react'
+import EmptyState from '@/ui-component/EmptyState'
 
 // const
 import { baseURL, gridSpacing } from '@/store/constant'
@@ -204,16 +204,12 @@ const Documents = () => {
                         </StyledPermissionButton>
                     </ViewHeader>
                     {!hasDocStores ? (
-                        <Stack sx={{ alignItems: 'center', justifyContent: 'center' }} flexDirection='column'>
-                            <Box sx={{ p: 2, height: 'auto' }}>
-                                <img
-                                    style={{ objectFit: 'cover', height: '20vh', width: 'auto' }}
-                                    src={doc_store_empty}
-                                    alt='doc_store_empty'
-                                />
-                            </Box>
-                            <div>No Document Stores Created Yet</div>
-                        </Stack>
+                        <EmptyState 
+                            icon={IconFiles}
+                            title="No Document Stores Created Yet"
+                            description="Create your first document store to organize your documents"
+                            iconColor="#84CC16"
+                        />
                     ) : (
                         <React.Fragment>
                             {!view || view === 'card' ? (

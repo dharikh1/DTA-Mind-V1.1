@@ -35,8 +35,8 @@ import executionsApi from '@/api/executions'
 import { useSelector } from 'react-redux'
 
 // icons
-import execution_empty from '@/assets/images/executions_empty.svg'
-import { IconTrash } from '@tabler/icons-react'
+import { IconTrash, IconCalendar } from '@tabler/icons-react'
+import EmptyState from '@/ui-component/EmptyState'
 
 // const
 import { ExecutionsListTable } from '@/ui-component/table/ExecutionsListTable'
@@ -427,16 +427,12 @@ const AgentExecutions = () => {
                     </Dialog>
 
                     {!isLoading && (!executions || executions.length === 0) && (
-                        <Stack sx={{ alignItems: 'center', justifyContent: 'center' }} flexDirection='column'>
-                            <Box sx={{ p: 2, height: 'auto' }}>
-                                <img
-                                    style={{ objectFit: 'cover', height: '20vh', width: 'auto' }}
-                                    src={execution_empty}
-                                    alt='execution_empty'
-                                />
-                            </Box>
-                            <div>No Executions Yet</div>
-                        </Stack>
+                        <EmptyState 
+                            icon={IconCalendar}
+                            title="No Executions Yet"
+                            description="Your workflow executions will appear here"
+                            iconColor="#F59E0B"
+                        />
                     )}
                 </Stack>
             )}
