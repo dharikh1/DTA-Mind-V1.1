@@ -86,3 +86,77 @@
     color: #ffffff;
     fill: #ffffff;
 }
+
+/* Perfect circular node styling - exactly matching image */
+.react-flow__node {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.react-flow__node:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+/* Perfect circular nodes - exactly matching image */
+.react-flow__node > div:first-child {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50% !important;
+    background: rgba(173, 216, 230, 0.1) !important;
+    border: 2px solid rgba(173, 216, 230, 0.8) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    cursor: grab;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.react-flow__node > div:first-child:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+    border-color: rgba(173, 216, 230, 1) !important;
+}
+
+/* Icon container inside circle - exactly matching image */
+.react-flow__node > div:first-child > div:first-child {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 12px !important;
+    background-color: rgba(173, 216, 230, 0.3) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Icon styling - exactly matching image */
+.react-flow__node > div:first-child > div:first-child > img {
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: contain !important;
+    filter: brightness(0) saturate(100%) invert(100%) !important; /* Make icon white */
+}
+
+/* Title styling below circle - exactly matching image */
+.react-flow__node .MuiTypography-root {
+    text-align: center;
+    font-weight: 500;
+    color: #333333;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+/* Handle styling */
+.react-flow__handle {
+    width: 8px !important;
+    height: 8px !important;
+    border: 2px solid white !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.react-flow__handle:hover {
+    transform: scale(1.1);
+}

@@ -1,6 +1,7 @@
 import { memo } from 'react'
-import { EdgeLabelRenderer, useStore, getBezierPath } from 'reactflow'
+import { EdgeLabelRenderer, useStore, getSmoothStepPath } from 'reactflow'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import { AGENTFLOW_ICONS } from '@/store/constant'
 import { useTheme } from '@mui/material/styles'
 
@@ -33,18 +34,19 @@ EdgeLabel.propTypes = {
 }
 
 const ConnectionLine = ({ fromX, fromY, toX, toY, fromPosition, toPosition }) => {
-    const [edgePath] = getBezierPath({
-        // we need this little hack in order to display the gradient for a straight line
+    const [edgePath] = getSmoothStepPath({
         sourceX: fromX,
         sourceY: fromY,
         sourcePosition: fromPosition,
         targetX: toX,
         targetY: toY,
-        targetPosition: toPosition
+        targetPosition: toPosition,
+        borderRadius: 0 // This creates sharp right-angle corners instead of rounded corners
     })
 
     const { connectionHandleId } = useStore()
     const theme = useTheme()
+    const customization = useSelector((state) => state.customization)
     const nodeName = (connectionHandleId || '').split('_')[0] || ''
 
     const isLabelVisible = nodeName === 'humanInputAgentflow' || nodeName === 'conditionAgentflow' || nodeName === 'conditionAgentAgentflow'
@@ -63,19 +65,78 @@ const ConnectionLine = ({ fromX, fromY, toX, toY, fromPosition, toPosition }) =>
         return edgeLabel
     }
 
-    const color =
-        AGENTFLOW_ICONS.find((icon) => icon.name === (connectionHandleId || '').split('_')[0] || '')?.color ?? theme.palette.primary.main
+    // Get appropriate color based on theme
+    const getConnectionLineColor = () => {
+        return customization.isDarkMode ? '#ffffff' : '#000000'
+    }
+    
+    const color = getConnectionLineColor()
 
     return (
         <g>
-            <path fill='none' stroke={color} strokeWidth={1.5} className='animated' d={edgePath} />
-            <g transform={`translate(${toX - 10}, ${toY - 10}) scale(0.8)`}>
-                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                <path
-                    d='M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -20 0c0 -5.523 4.477 -10 10 -10m-.293 6.293a1 1 0 0 0 -1.414 0l-.083 .094a1 1 0 0 0 .083 1.32l2.292 2.293l-2.292 2.293a1 1 0 0 0 1.414 1.414l3 -3a1 1 0 0 0 0 -1.414z'
-                    fill={color}
-                />
-            </g>
+            <defs>
+                {/* Arrow marker for connection line */}
+                <marker
+                    id={`connection-arrow-${fromX}-${fromY}`}
+                    markerWidth='8'
+                    markerHeight='8'
+                    refX='7'
+                    refY='3'
+                    orient='auto'
+                    markerUnits='strokeWidth'
+                >
+                    <path
+                        d='M0,0 L0,6 L7,3 z'
+                        fill={color}
+                        stroke={color}
+                        strokeWidth='1'
+                    />
+                </marker>
+            </defs>
+            
+            {/* Main connection line */}
+            <path 
+                fill='none' 
+                stroke={color} 
+                strokeWidth={2} 
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeDasharray='5,5'
+                strokeDashoffset='0'
+                d={edgePath}
+                markerEnd={`url(#connection-arrow-${fromX}-${fromY})`}
+                style={{
+                    animation: 'connectionFlow 1s linear infinite'
+                }}
+            />
+            
+            {/* Animated overlay */}
+            <path 
+                fill='none' 
+                stroke={color} 
+                strokeWidth={1} 
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                opacity='0.6'
+                d={edgePath}
+                style={{
+                    animation: 'connectionPulse 2s ease-in-out infinite'
+                }}
+            />
+            
+            <style>
+                {`
+                    @keyframes connectionFlow {
+                        0% { stroke-dashoffset: 10; }
+                        100% { stroke-dashoffset: 0; }
+                    }
+                    
+                    @keyframes connectionPulse {
+                        0%, 100% { opacity: 0.6; }
+                        50% { opacity: 1; }
+                    }
+                `}
+            </style>
             {isLabelVisible && (
                 <EdgeLabelRenderer>
                     <EdgeLabel

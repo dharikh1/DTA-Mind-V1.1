@@ -1306,6 +1306,7 @@ const AgentflowCanvas = () => {
                                     onNodeDragStop={setDirty}
                                     nodeTypes={nodeTypes}
                                     edgeTypes={edgeTypes}
+                                    defaultEdgeOptions={{ type: 'agentFlow' }}
                                     onConnect={onConnect}
                                     onInit={setReactFlowInstance}
                                     fitView

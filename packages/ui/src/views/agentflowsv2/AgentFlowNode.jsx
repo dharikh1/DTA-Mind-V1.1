@@ -32,11 +32,16 @@ import { baseURL, AGENTFLOW_ICONS } from '@/store/constant'
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     background: theme.palette.card.main,
     color: theme.darkTextPrimary,
-    border: 'solid 1px',
-    width: 'max-content',
-    height: 'auto',
-    padding: '10px',
-    boxShadow: 'none'
+    border: 'solid 2px',
+    width: '120px',
+    height: '120px',
+    padding: '0',
+    borderRadius: '50%',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative'
 }))
 
 const StyledNodeToolbar = styled(NodeToolbar)(({ theme }) => ({
@@ -211,258 +216,118 @@ const AgentFlowNode = ({ data }) => {
                     </IconButton>
                 </ButtonGroup>
             </StyledNodeToolbar>
-            <CardWrapper
-                content={false}
-                sx={{
-                    borderColor: getStateColor(),
-                    borderWidth: '1px',
-                    boxShadow: data.selected ? `0 0 0 1px ${getStateColor()} !important` : 'none',
-                    minHeight: getMinimumHeight(),
-                    height: 'auto',
-                    backgroundColor: getBackgroundColor(),
-                    display: 'flex',
-                    alignItems: 'center',
-                    '&:hover': {
-                        boxShadow: data.selected ? `0 0 0 1px ${getStateColor()} !important` : 'none'
-                    }
-                }}
-                border={false}
-            >
-                {data && data.status && (
-                    <Tooltip title={data.status === 'ERROR' ? data.error || 'Error' : ''}>
-                        <Avatar
-                            variant='rounded'
-                            sx={{
-                                ...theme.typography.smallAvatar,
-                                borderRadius: '50%',
-                                background:
-                                    data.status === 'STOPPED' || data.status === 'TERMINATED'
-                                        ? 'white'
-                                        : getStatusBackgroundColor(data.status),
-                                color: 'white',
-                                ml: 2,
-                                position: 'absolute',
-                                top: -10,
-                                right: -10
-                            }}
-                        >
-                            {data.status === 'INPROGRESS' ? (
-                                <IconLoader className='spin-animation' />
-                            ) : data.status === 'ERROR' ? (
-                                <IconExclamationMark />
-                            ) : data.status === 'TERMINATED' ? (
-                                <CancelIcon sx={{ color: getStatusBackgroundColor(data.status) }} />
-                            ) : data.status === 'STOPPED' ? (
-                                <StopCircleIcon sx={{ color: getStatusBackgroundColor(data.status) }} />
-                            ) : (
-                                <IconCheck />
-                            )}
-                        </Avatar>
-                    </Tooltip>
-                )}
+            
+            {/* Main container with circular node and title below */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+                <CardWrapper
+                    content={false}
+                    sx={{
+                        borderColor: getStateColor(),
+                        backgroundColor: getBackgroundColor(),
+                        '&:hover': {
+                            boxShadow: data.selected ? `0 0 0 2px ${getStateColor()} !important` : '0 4px 12px rgba(0, 0, 0, 0.2)'
+                        }
+                    }}
+                    border={false}
+                >
+                    {/* Status indicators */}
+                    {data && data.status && (
+                        <Tooltip title={data.status === 'ERROR' ? data.error || 'Error' : ''}>
+                            <Avatar
+                                variant='rounded'
+                                sx={{
+                                    ...theme.typography.smallAvatar,
+                                    borderRadius: '50%',
+                                    background:
+                                        data.status === 'STOPPED' || data.status === 'TERMINATED'
+                                            ? 'white'
+                                            : getStatusBackgroundColor(data.status),
+                                    color: 'white',
+                                    position: 'absolute',
+                                    top: -8,
+                                    right: -8,
+                                    zIndex: 2
+                                }}
+                            >
+                                {data.status === 'INPROGRESS' ? (
+                                    <IconLoader className='spin-animation' />
+                                ) : data.status === 'ERROR' ? (
+                                    <IconExclamationMark />
+                                ) : data.status === 'TERMINATED' ? (
+                                    <CancelIcon sx={{ color: getStatusBackgroundColor(data.status) }} />
+                                ) : data.status === 'STOPPED' ? (
+                                    <StopCircleIcon sx={{ color: getStatusBackgroundColor(data.status) }} />
+                                ) : (
+                                    <IconCheck />
+                                )}
+                            </Avatar>
+                        </Tooltip>
+                    )}
 
-                {warningMessage && (
-                    <Tooltip placement='right-start' title={<span style={{ whiteSpace: 'pre-line' }}>{warningMessage}</span>}>
-                        <Avatar
-                            variant='rounded'
-                            sx={{
-                                ...theme.typography.smallAvatar,
-                                borderRadius: '50%',
-                                background: 'white',
-                                position: 'absolute',
-                                top: -10,
-                                left: -10
-                            }}
-                        >
-                            <IconAlertCircleFilled color='orange' />
-                        </Avatar>
-                    </Tooltip>
-                )}
+                    {warningMessage && (
+                        <Tooltip placement='right-start' title={<span style={{ whiteSpace: 'pre-line' }}>{warningMessage}</span>}>
+                            <Avatar
+                                variant='rounded'
+                                sx={{
+                                    ...theme.typography.smallAvatar,
+                                    borderRadius: '50%',
+                                    background: 'white',
+                                    position: 'absolute',
+                                    top: -8,
+                                    left: -8,
+                                    zIndex: 2
+                                }}
+                            >
+                                <IconAlertCircleFilled color='orange' />
+                            </Avatar>
+                        </Tooltip>
+                    )}
 
-                <Box sx={{ width: '100%' }}>
+                    {/* Input handle */}
                     {!data.hideInput && (
                         <Handle
                             type='target'
                             position={Position.Left}
                             id={data.id}
                             style={{
-                                width: 5,
-                                height: 20,
-                                backgroundColor: 'transparent',
+                                width: 8,
+                                height: 8,
+                                backgroundColor: nodeColor,
                                 border: 'none',
                                 position: 'absolute',
-                                left: -2
+                                left: -4,
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                borderRadius: '50%'
                             }}
-                        >
-                            <div
-                                style={{
-                                    width: 5,
-                                    height: 20,
-                                    backgroundColor: nodeColor,
-                                    position: 'absolute',
-                                    left: '50%',
-                                    top: '50%',
-                                    transform: 'translate(-50%, -50%)'
-                                }}
-                            />
-                        </Handle>
+                        />
                     )}
 
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                        <Box item style={{ width: 50 }}>
-                            {data.color && !data.icon ? (
-                                <div
-                                    style={{
-                                        ...theme.typography.commonAvatar,
-                                        ...theme.typography.largeAvatar,
-                                        borderRadius: '15px',
-                                        backgroundColor: data.color,
-                                        cursor: 'grab',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        background: data.color
-                                    }}
-                                >
-                                    {renderIcon(data)}
-                                </div>
-                            ) : (
-                                <div
-                                    style={{
-                                        ...theme.typography.commonAvatar,
-                                        ...theme.typography.largeAvatar,
-                                        borderRadius: '50%',
-                                        backgroundColor: 'white',
-                                        cursor: 'grab'
-                                    }}
-                                >
-                                    <img
-                                        style={{ width: '100%', height: '100%', padding: 5, objectFit: 'contain' }}
-                                        src={`${baseURL}/api/v1/node-icon/${data.name}`}
-                                        alt={data.name}
-                                    />
-                                </div>
-                            )}
-                        </Box>
-                        <Box>
-                            <Typography
-                                sx={{
-                                    fontSize: '0.85rem',
-                                    fontWeight: 500
-                                }}
-                            >
-                                {data.label}
-                            </Typography>
+                    {/* Rounded square container for icon */}
+                    <Box
+                        sx={{
+                            width: 60,
+                            height: 60,
+                            borderRadius: '12px',
+                            backgroundColor: alpha(nodeColor, 0.8),
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'grab'
+                        }}
+                    >
+                        {data.color && !data.icon ? (
+                            renderIcon(data)
+                        ) : (
+                            <img
+                                style={{ width: '80%', height: '80%', objectFit: 'contain' }}
+                                src={`${baseURL}/api/v1/node-icon/${data.name}`}
+                                alt={data.name}
+                            />
+                        )}
+                    </Box>
 
-                            {(() => {
-                                // Array of model configs to check and render
-                                const modelConfigs = [
-                                    { model: data.inputs?.llmModel, config: data.inputs?.llmModelConfig },
-                                    { model: data.inputs?.agentModel, config: data.inputs?.agentModelConfig },
-                                    { model: data.inputs?.conditionAgentModel, config: data.inputs?.conditionAgentModelConfig }
-                                ]
-
-                                // Filter out undefined models and render each valid one
-                                return modelConfigs
-                                    .filter((item) => item.model && item.config)
-                                    .map((item, index) => (
-                                        <Box key={`model-${index}`} sx={{ display: 'flex', gap: 1, mt: 1 }}>
-                                            <Box
-                                                sx={{
-                                                    backgroundColor: customization.isDarkMode
-                                                        ? 'rgba(255, 255, 255, 0.2)'
-                                                        : 'rgba(255, 255, 255, 0.9)',
-                                                    borderRadius: '16px',
-                                                    width: 'max-content',
-                                                    height: 24,
-                                                    pl: 1,
-                                                    pr: 1,
-                                                    display: 'flex',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center'
-                                                }}
-                                            >
-                                                <img
-                                                    style={{ width: 20, height: 20, objectFit: 'contain' }}
-                                                    src={`${baseURL}/api/v1/node-icon/${item.model}`}
-                                                    alt={item.model}
-                                                />
-                                                <Typography sx={{ fontSize: '0.7rem', ml: 0.5 }}>
-                                                    {item.config.modelName || item.config.model}
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-                                    ))
-                            })()}
-
-                            {(() => {
-                                // Array of tool configurations to check and render
-                                const toolConfigs = [
-                                    { tools: data.inputs?.llmTools, toolProperty: 'llmSelectedTool' },
-                                    { tools: data.inputs?.agentTools, toolProperty: 'agentSelectedTool' },
-                                    {
-                                        tools:
-                                            data.inputs?.selectedTool ?? data.inputs?.toolAgentflowSelectedTool
-                                                ? [{ selectedTool: data.inputs?.selectedTool ?? data.inputs?.toolAgentflowSelectedTool }]
-                                                : [],
-                                        toolProperty: ['selectedTool', 'toolAgentflowSelectedTool']
-                                    },
-                                    { tools: data.inputs?.agentKnowledgeVSEmbeddings, toolProperty: ['vectorStore', 'embeddingModel'] }
-                                ]
-
-                                // Filter out undefined tools and render each valid collection
-                                return toolConfigs
-                                    .filter((config) => config.tools && config.tools.length > 0)
-                                    .map((config, configIndex) => (
-                                        <Box key={`tools-${configIndex}`} sx={{ display: 'flex', gap: 1, mt: 1 }}>
-                                            {config.tools.flatMap((tool, toolIndex) => {
-                                                if (Array.isArray(config.toolProperty)) {
-                                                    return config.toolProperty
-                                                        .filter((prop) => tool[prop])
-                                                        .map((prop, propIndex) => {
-                                                            const toolName = tool[prop]
-                                                            return (
-                                                                <Box
-                                                                    key={`tool-${configIndex}-${toolIndex}-${propIndex}`}
-                                                                    component='img'
-                                                                    src={`${baseURL}/api/v1/node-icon/${toolName}`}
-                                                                    alt={toolName}
-                                                                    sx={{
-                                                                        width: 20,
-                                                                        height: 20,
-                                                                        borderRadius: '50%',
-                                                                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                                                                        padding: 0.3
-                                                                    }}
-                                                                />
-                                                            )
-                                                        })
-                                                } else {
-                                                    const toolName = tool[config.toolProperty]
-                                                    if (!toolName) return []
-
-                                                    return [
-                                                        <Box
-                                                            key={`tool-${configIndex}-${toolIndex}`}
-                                                            component='img'
-                                                            src={`${baseURL}/api/v1/node-icon/${toolName}`}
-                                                            alt={toolName}
-                                                            sx={{
-                                                                width: 20,
-                                                                height: 20,
-                                                                borderRadius: '50%',
-                                                                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                                                                padding: 0.3
-                                                            }}
-                                                        />
-                                                    ]
-                                                }
-                                            })}
-                                        </Box>
-                                    ))
-                            })()}
-                        </Box>
-                    </div>
+                    {/* Output handles */}
                     {getOutputAnchors().map((outputAnchor, index) => {
                         return (
                             <Handle
@@ -471,41 +336,37 @@ const AgentFlowNode = ({ data }) => {
                                 key={outputAnchor.id}
                                 id={outputAnchor.id}
                                 style={{
-                                    height: 20,
-                                    width: 20,
+                                    height: 8,
+                                    width: 8,
                                     top: getAnchorPosition(index),
-                                    backgroundColor: 'transparent',
+                                    backgroundColor: nodeColor,
                                     border: 'none',
                                     position: 'absolute',
-                                    right: -10,
+                                    right: -4,
                                     opacity: isHovered ? 1 : 0,
-                                    transition: 'opacity 0.2s'
+                                    transition: 'opacity 0.2s',
+                                    borderRadius: '50%'
                                 }}
-                            >
-                                <div
-                                    style={{
-                                        position: 'absolute',
-                                        width: 20,
-                                        height: 20,
-                                        borderRadius: '50%',
-                                        backgroundColor: theme.palette.background.paper, // or 'white'
-                                        pointerEvents: 'none'
-                                    }}
-                                />
-                                <IconCircleChevronRightFilled
-                                    size={20}
-                                    color={nodeColor}
-                                    style={{
-                                        pointerEvents: 'none',
-                                        position: 'relative',
-                                        zIndex: 1
-                                    }}
-                                />
-                            </Handle>
+                            />
                         )
                     })}
-                </Box>
-            </CardWrapper>
+                </CardWrapper>
+                
+                {/* Title outside the circle */}
+                <Typography
+                    sx={{
+                        fontSize: '0.85rem',
+                        fontWeight: 500,
+                        color: theme.palette.text.primary,
+                        textAlign: 'center',
+                        maxWidth: '140px',
+                        wordWrap: 'break-word'
+                    }}
+                >
+                    {data.label}
+                </Typography>
+            </Box>
+            
             <NodeInfoDialog show={showInfoDialog} dialogProps={infoDialogProps} onCancel={() => setShowInfoDialog(false)}></NodeInfoDialog>
         </div>
     )

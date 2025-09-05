@@ -112,6 +112,7 @@ const MarketplaceCanvasV2 = () => {
                                 onInit={setReactFlowInstance}
                                 nodeTypes={nodeTypes}
                                 edgeTypes={edgeTypes}
+                                defaultEdgeOptions={{ type: 'agentFlow' }}
                                 fitView
                                 minZoom={0.1}
                                 snapGrid={[25, 25]}
