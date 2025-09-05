@@ -38,7 +38,7 @@ import { StyledFab } from '@/ui-component/button/StyledFab'
 import AgentflowGeneratorDialog from '@/ui-component/dialog/AgentflowGeneratorDialog'
 
 // icons
-import { IconPlus, IconSearch, IconMinus, IconX, IconSparkles } from '@tabler/icons-react'
+import { IconPlus, IconSearch, IconMinus, IconX, IconSparkles, IconRobot, IconLink, IconArrowsSplit, IconCode, IconDatabase, IconBrain, IconArrowLeft, IconRoute } from '@tabler/icons-react'
 import LlamaindexPNG from '@/assets/images/llamaindex.png'
 import LangChainPNG from '@/assets/images/langchain.png'
 import utilNodesPNG from '@/assets/images/utilNodes.png'
@@ -277,6 +277,33 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
         return <foundIcon.icon size={30} color={node.color} />
     }
 
+    // Get node icon and color based on node type
+    const getNodeIconAndColor = (node) => {
+        const nodeLabel = node.label.toLowerCase()
+        
+        // Map node types to their icons and colors based on the image
+        if (nodeLabel.includes('agent')) {
+            return { icon: IconRobot, color: '#8B5CF6' } // Purple
+        } else if (nodeLabel.includes('api') || nodeLabel.includes('webhook')) {
+            return { icon: IconLink, color: '#3B82F6' } // Blue
+        } else if (nodeLabel.includes('condition') || nodeLabel.includes('if')) {
+            return { icon: IconArrowsSplit, color: '#F59E0B' } // Orange
+        } else if (nodeLabel.includes('function') || nodeLabel.includes('custom')) {
+            return { icon: IconCode, color: '#EF4444' } // Red
+        } else if (nodeLabel.includes('knowledge') || nodeLabel.includes('vector') || nodeLabel.includes('document')) {
+            return { icon: IconDatabase, color: '#06B6D4' } // Teal
+        } else if (nodeLabel.includes('memory')) {
+            return { icon: IconBrain, color: '#EC4899' } // Pink
+        } else if (nodeLabel.includes('response') || nodeLabel.includes('reply') || nodeLabel.includes('output')) {
+            return { icon: IconArrowLeft, color: '#3B82F6' } // Blue
+        } else if (nodeLabel.includes('router') || nodeLabel.includes('switch')) {
+            return { icon: IconRoute, color: '#10B981' } // Green
+        }
+        
+        // Default fallback - use original icon system for other nodes
+        return null
+    }
+
     useEffect(() => {
         if (prevOpen.current === true && open === false) {
             anchorRef.current.focus()
@@ -336,7 +363,7 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                             id='input-search-node'
                             value={searchValue}
                             onChange={(e) => filterSearch(e.target.value)}
-                            placeholder='Search nodes'
+                            placeholder='Search blocks...'
                             startAdornment={
                                 <InputAdornment position='start'>
                                     <IconSearch stroke={1.5} size='1rem' color={theme.palette.grey[500]} />
@@ -491,97 +518,130 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                     >
                                                         <ListItemButton
                                                             sx={{
-                                                                p: 0,
+                                                                p: 1.5,
                                                                 borderRadius: `${customization.borderRadius}px`,
-                                                                cursor: 'move'
+                                                                cursor: 'move',
+                                                                mb: 0.5,
+                                                                '&:hover': {
+                                                                    backgroundColor: theme.palette.action.hover,
+                                                                    transform: 'translateY(-1px)',
+                                                                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                                                                },
+                                                                transition: 'all 0.2s ease-in-out'
                                                             }}
                                                         >
                                                             <ListItem alignItems='center'>
-                                                                {node.color && !node.icon ? (
-                                                                    <ListItemAvatar>
-                                                                        <div
-                                                                            style={{
-                                                                                width: 50,
-                                                                                height: 'auto',
-                                                                                display: 'flex',
-                                                                                alignItems: 'center',
-                                                                                justifyContent: 'center'
-                                                                            }}
-                                                                        >
-                                                                            {renderIcon(node)}
-                                                                        </div>
-                                                                    </ListItemAvatar>
-                                                                ) : (
-                                                                    <ListItemAvatar>
-                                                                        <div
-                                                                            style={{
-                                                                                width: 50,
-                                                                                height: 50,
-                                                                                borderRadius: '50%',
-                                                                                backgroundColor: 'white'
-                                                                            }}
-                                                                        >
-                                                                            <img
-                                                                                style={{
-                                                                                    width: '100%',
-                                                                                    height: '100%',
-                                                                                    padding: 10,
-                                                                                    objectFit: 'contain'
-                                                                                }}
-                                                                                alt={node.name}
-                                                                                src={`${baseURL}/api/v1/node-icon/${node.name}`}
-                                                                            />
-                                                                        </div>
-                                                                    </ListItemAvatar>
-                                                                )}
-                                                                <ListItemText
-                                                                    sx={{ ml: 1 }}
-                                                                    primary={
-                                                                        <>
-                                                                            <div
-                                                                                style={{
-                                                                                    display: 'flex',
-                                                                                    flexDirection: 'row',
-                                                                                    alignItems: 'center'
-                                                                                }}
-                                                                            >
-                                                                                <span>{node.label}</span>
-                                                                                &nbsp;
-                                                                                {node.badge && (
-                                                                                    <Chip
-                                                                                        sx={{
-                                                                                            width: 'max-content',
-                                                                                            fontWeight: 700,
-                                                                                            fontSize: '0.65rem',
-                                                                                            background:
-                                                                                                node.badge === 'DEPRECATING'
-                                                                                                    ? theme.palette.warning
-                                                                                                          .main
-                                                                                                    : theme.palette.teal
-                                                                                                          .main,
-                                                                                color:
-                                                                                    node.badge !== 'DEPRECATING'
-                                                                                        ? 'white'
-                                                                                        : 'inherit'
-                                                                                        }}
-                                                                                        size='small'
-                                                                                        label={node.badge}
-                                                                                    />
-                                                                                )}
-                                                                            </div>
-                                                                            {node.author && (
-                                                                                <span
+                                                                {(() => {
+                                                                    const iconData = getNodeIconAndColor(node)
+                                                                    if (iconData) {
+                                                                        const { icon: IconComponent, color } = iconData
+                                                                        return (
+                                                                            <ListItemAvatar>
+                                                                                <div
                                                                                     style={{
-                                                                                        fontSize: '0.65rem',
-                                                                                        fontWeight: 700
+                                                                                        width: 40,
+                                                                                        height: 40,
+                                                                                        borderRadius: '8px',
+                                                                                        backgroundColor: color,
+                                                                                        display: 'flex',
+                                                                                        alignItems: 'center',
+                                                                                        justifyContent: 'center',
+                                                                                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                                                                                     }}
                                                                                 >
-                                                                                    By {node.author}
-                                                                                </span>
-                                                                            )}
-                                                                        </>
+                                                                                    <IconComponent size={20} color="white" />
+                                                                                </div>
+                                                                            </ListItemAvatar>
+                                                                        )
+                                                                    } else {
+                                                                        // Fallback to original icon system
+                                                                        return node.color && !node.icon ? (
+                                                                            <ListItemAvatar>
+                                                                                <div
+                                                                                    style={{
+                                                                                        width: 40,
+                                                                                        height: 40,
+                                                                                        borderRadius: '8px',
+                                                                                        backgroundColor: node.color,
+                                                                                        display: 'flex',
+                                                                                        alignItems: 'center',
+                                                                                        justifyContent: 'center',
+                                                                                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                                                                                    }}
+                                                                                >
+                                                                                    {renderIcon(node)}
+                                                                                </div>
+                                                                            </ListItemAvatar>
+                                                                        ) : (
+                                                                            <ListItemAvatar>
+                                                                                <div
+                                                                                    style={{
+                                                                                        width: 40,
+                                                                                        height: 40,
+                                                                                        borderRadius: '8px',
+                                                                                        backgroundColor: '#f8f9fa',
+                                                                                        border: '1px solid #e9ecef',
+                                                                                        display: 'flex',
+                                                                                        alignItems: 'center',
+                                                                                        justifyContent: 'center',
+                                                                                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                                                                                    }}
+                                                                                >
+                                                                                    <img
+                                                                                        style={{
+                                                                                            width: '24px',
+                                                                                            height: '24px',
+                                                                                            objectFit: 'contain'
+                                                                                        }}
+                                                                                        alt={node.name}
+                                                                                        src={`${baseURL}/api/v1/node-icon/${node.name}`}
+                                                                                    />
+                                                                                </div>
+                                                                            </ListItemAvatar>
+                                                                        )
                                                                     }
-                                                                    secondary={node.description}
+                                                                })()}
+                                                                <ListItemText
+                                                                    sx={{ 
+                                                                        ml: 1,
+                                                                        '& .MuiListItemText-primary': {
+                                                                            fontSize: '0.95rem',
+                                                                            fontWeight: 500,
+                                                                            color: theme.palette.text.primary
+                                                                        }
+                                                                    }}
+                                                                    primary={
+                                                                        <div
+                                                                            style={{
+                                                                                display: 'flex',
+                                                                                flexDirection: 'row',
+                                                                                alignItems: 'center',
+                                                                                justifyContent: 'space-between',
+                                                                                width: '100%'
+                                                                            }}
+                                                                        >
+                                                                            <span>{node.label}</span>
+                                                                            {node.badge && (
+                                                                                <Chip
+                                                                                    sx={{
+                                                                                        width: 'max-content',
+                                                                                        fontWeight: 700,
+                                                                                        fontSize: '0.65rem',
+                                                                                        background:
+                                                                                            node.badge === 'DEPRECATING'
+                                                                                                ? theme.palette.warning.main
+                                                                                                : theme.palette.teal.main,
+                                                                                        color:
+                                                                                            node.badge !== 'DEPRECATING'
+                                                                                                ? 'white'
+                                                                                                : 'inherit'
+                                                                                    }}
+                                                                                    size='small'
+                                                                                    label={node.badge}
+                                                                                />
+                                                                            )}
+                                                                        </div>
+                                                                    }
                                                                 />
                                                             </ListItem>
                                                         </ListItemButton>
@@ -656,7 +716,7 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                             id='input-search-node'
                                             value={searchValue}
                                             onChange={(e) => filterSearch(e.target.value)}
-                                            placeholder='Search nodes'
+                                            placeholder='Search blocks...'
                                             startAdornment={
                                                 <InputAdornment position='start'>
                                                     <IconSearch stroke={1.5} size='1rem' color={theme.palette.grey[500]} />
@@ -816,97 +876,130 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                     >
                                                                         <ListItemButton
                                                                             sx={{
-                                                                                p: 0,
+                                                                                p: 1.5,
                                                                                 borderRadius: `${customization.borderRadius}px`,
-                                                                                cursor: 'move'
+                                                                                cursor: 'move',
+                                                                                mb: 0.5,
+                                                                                '&:hover': {
+                                                                                    backgroundColor: theme.palette.action.hover,
+                                                                                    transform: 'translateY(-1px)',
+                                                                                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                                                                                },
+                                                                                transition: 'all 0.2s ease-in-out'
                                                                             }}
                                                                         >
                                                                             <ListItem alignItems='center'>
-                                                                                {node.color && !node.icon ? (
-                                                                                    <ListItemAvatar>
-                                                                                        <div
-                                                                                            style={{
-                                                                                                width: 50,
-                                                                                                height: 'auto',
-                                                                                                display: 'flex',
-                                                                                                alignItems: 'center',
-                                                                                                justifyContent: 'center'
-                                                                                            }}
-                                                                                        >
-                                                                                            {renderIcon(node)}
-                                                                                        </div>
-                                                                                    </ListItemAvatar>
-                                                                                ) : (
-                                                                                    <ListItemAvatar>
-                                                                                        <div
-                                                                                            style={{
-                                                                                                width: 50,
-                                                                                                height: 50,
-                                                                                                borderRadius: '50%',
-                                                                                                backgroundColor: 'white'
-                                                                                            }}
-                                                                                        >
-                                                                                            <img
-                                                                                                style={{
-                                                                                                    width: '100%',
-                                                                                                    height: '100%',
-                                                                                                    padding: 10,
-                                                                                                    objectFit: 'contain'
-                                                                                                }}
-                                                                                                alt={node.name}
-                                                                                                src={`${baseURL}/api/v1/node-icon/${node.name}`}
-                                                                                            />
-                                                                                        </div>
-                                                                                    </ListItemAvatar>
-                                                                                )}
-                                                                                <ListItemText
-                                                                                    sx={{ ml: 1 }}
-                                                                                    primary={
-                                                                                        <>
-                                                                                            <div
-                                                                                                style={{
-                                                                                                    display: 'flex',
-                                                                                                    flexDirection: 'row',
-                                                                                                    alignItems: 'center'
-                                                                                                }}
-                                                                                            >
-                                                                                                <span>{node.label}</span>
-                                                                                                &nbsp;
-                                                                                                {node.badge && (
-                                                                                                    <Chip
-                                                                                                        sx={{
-                                                                                                            width: 'max-content',
-                                                                                                            fontWeight: 700,
-                                                                                                            fontSize: '0.65rem',
-                                                                                                            background:
-                                                                                                                node.badge === 'DEPRECATING'
-                                                                                                                    ? theme.palette.warning
-                                                                                                                          .main
-                                                                                                                    : theme.palette.teal
-                                                                                                                          .main,
-                                                                                                            color:
-                                                                                                                node.badge !== 'DEPRECATING'
-                                                                                                                    ? 'white'
-                                                                                                                    : 'inherit'
-                                                                                                        }}
-                                                                                                        size='small'
-                                                                                                        label={node.badge}
-                                                                                                    />
-                                                                                                )}
-                                                                                            </div>
-                                                                                            {node.author && (
-                                                                                                <span
+                                                                                {(() => {
+                                                                                    const iconData = getNodeIconAndColor(node)
+                                                                                    if (iconData) {
+                                                                                        const { icon: IconComponent, color } = iconData
+                                                                                        return (
+                                                                                            <ListItemAvatar>
+                                                                                                <div
                                                                                                     style={{
-                                                                                                        fontSize: '0.65rem',
-                                                                                                        fontWeight: 700
+                                                                                                        width: 40,
+                                                                                                        height: 40,
+                                                                                                        borderRadius: '8px',
+                                                                                                        backgroundColor: color,
+                                                                                                        display: 'flex',
+                                                                                                        alignItems: 'center',
+                                                                                                        justifyContent: 'center',
+                                                                                                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                                                                                                     }}
                                                                                                 >
-                                                                                                    By {node.author}
-                                                                                                </span>
-                                                                                            )}
-                                                                                        </>
+                                                                                                    <IconComponent size={20} color="white" />
+                                                                                                </div>
+                                                                                            </ListItemAvatar>
+                                                                                        )
+                                                                                    } else {
+                                                                                        // Fallback to original icon system
+                                                                                        return node.color && !node.icon ? (
+                                                                                            <ListItemAvatar>
+                                                                                                <div
+                                                                                                    style={{
+                                                                                                        width: 40,
+                                                                                                        height: 40,
+                                                                                                        borderRadius: '8px',
+                                                                                                        backgroundColor: node.color,
+                                                                                                        display: 'flex',
+                                                                                                        alignItems: 'center',
+                                                                                                        justifyContent: 'center',
+                                                                                                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                                                                                                    }}
+                                                                                                >
+                                                                                                    {renderIcon(node)}
+                                                                                                </div>
+                                                                                            </ListItemAvatar>
+                                                                                        ) : (
+                                                                                            <ListItemAvatar>
+                                                                                                <div
+                                                                                                    style={{
+                                                                                                        width: 40,
+                                                                                                        height: 40,
+                                                                                                        borderRadius: '8px',
+                                                                                                        backgroundColor: '#f8f9fa',
+                                                                                                        border: '1px solid #e9ecef',
+                                                                                                        display: 'flex',
+                                                                                                        alignItems: 'center',
+                                                                                                        justifyContent: 'center',
+                                                                                                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                                                                                                    }}
+                                                                                                >
+                                                                                                    <img
+                                                                                                        style={{
+                                                                                                            width: '24px',
+                                                                                                            height: '24px',
+                                                                                                            objectFit: 'contain'
+                                                                                                        }}
+                                                                                                        alt={node.name}
+                                                                                                        src={`${baseURL}/api/v1/node-icon/${node.name}`}
+                                                                                                    />
+                                                                                                </div>
+                                                                                            </ListItemAvatar>
+                                                                                        )
                                                                                     }
-                                                                                    secondary={node.description}
+                                                                                })()}
+                                                                                <ListItemText
+                                                                                    sx={{ 
+                                                                                        ml: 1,
+                                                                                        '& .MuiListItemText-primary': {
+                                                                                            fontSize: '0.95rem',
+                                                                                            fontWeight: 500,
+                                                                                            color: theme.palette.text.primary
+                                                                                        }
+                                                                                    }}
+                                                                                    primary={
+                                                                                        <div
+                                                                                            style={{
+                                                                                                display: 'flex',
+                                                                                                flexDirection: 'row',
+                                                                                                alignItems: 'center',
+                                                                                                justifyContent: 'space-between',
+                                                                                                width: '100%'
+                                                                                            }}
+                                                                                        >
+                                                                                            <span>{node.label}</span>
+                                                                                            {node.badge && (
+                                                                                                <Chip
+                                                                                                    sx={{
+                                                                                                        width: 'max-content',
+                                                                                                        fontWeight: 700,
+                                                                                                        fontSize: '0.65rem',
+                                                                                                        background:
+                                                                                                            node.badge === 'DEPRECATING'
+                                                                                                                ? theme.palette.warning.main
+                                                                                                                : theme.palette.teal.main,
+                                                                                                        color:
+                                                                                                            node.badge !== 'DEPRECATING'
+                                                                                                                ? 'white'
+                                                                                                                : 'inherit'
+                                                                                                    }}
+                                                                                                    size='small'
+                                                                                                    label={node.badge}
+                                                                                                />
+                                                                                            )}
+                                                                                        </div>
+                                                                                    }
                                                                                 />
                                                                             </ListItem>
                                                                         </ListItemButton>

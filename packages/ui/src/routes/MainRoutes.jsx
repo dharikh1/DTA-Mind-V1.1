@@ -12,6 +12,7 @@ const Chatflows = Loadable(lazy(() => import('@/views/chatflows')))
 
 // agents routing
 const Agentflows = Loadable(lazy(() => import('@/views/agentflows')))
+const AgentflowCanvas = Loadable(lazy(() => import('@/views/agentflowsv2/Canvas')))
 
 // marketplaces routing
 const Marketplaces = Loadable(lazy(() => import('@/views/marketplaces')))
@@ -122,7 +123,7 @@ const MainRoutes = {
                     path: '/',
                     element: (
                         <RequireAuth permission={'agentflows:view'}>
-                            <Canvas />
+                            <AgentflowCanvas />
                         </RequireAuth>
                     )
                 },

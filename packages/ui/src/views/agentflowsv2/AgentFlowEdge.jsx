@@ -46,7 +46,7 @@ const AgentFlowEdge = ({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
     
     // Get appropriate color based on theme
     const getEdgeColor = () => {
-        return customization.isDarkMode ? '#ffffff' : '#000000'
+        return customization.isDarkMode ? '#ffffff' : '#999999' // Even lighter black for light mode
     }
 
     const onEdgeClick = (evt, id) => {
@@ -122,24 +122,6 @@ const AgentFlowEdge = ({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
                         repeatCount='indefinite'
                     />
                 </linearGradient>
-                
-                {/* Arrow marker */}
-                <marker
-                    id={`arrow-${id}`}
-                    markerWidth='10'
-                    markerHeight='10'
-                    refX='9'
-                    refY='3'
-                    orient='auto'
-                    markerUnits='strokeWidth'
-                >
-                    <path
-                        d='M0,0 L0,6 L9,3 z'
-                        fill={edgeColor}
-                        stroke={edgeColor}
-                        strokeWidth='1'
-                    />
-                </marker>
             </defs>
             
             {/* Invisible selector path for hover detection */}
@@ -162,7 +144,7 @@ const AgentFlowEdge = ({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
                 id={`${id}-base`}
                 className='agent-flow-edge-base'
                 style={{
-                    strokeWidth: selected ? 4 : 3,
+                    strokeWidth: selected ? 2 : 1.5,
                     stroke: edgeColor,
                     filter: selected ? `drop-shadow(0 0 6px ${edgeColor}40)` : 'none',
                     cursor: 'pointer',
@@ -175,7 +157,6 @@ const AgentFlowEdge = ({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
                     animation: 'flow 1.5s linear infinite'
                 }}
                 d={edgePath}
-                markerEnd={`url(#arrow-${id})`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             />
@@ -185,7 +166,7 @@ const AgentFlowEdge = ({ id, sourceX, sourceY, targetX, targetY, sourcePosition,
                 id={`${id}-animated`}
                 className='agent-flow-edge-animated'
                 style={{
-                    strokeWidth: selected ? 2 : 1.5,
+                    strokeWidth: selected ? 1 : 0.8,
                     stroke: edgeColor,
                     cursor: 'pointer',
                     opacity: selected ? 0.8 : 0.6,

@@ -67,44 +67,24 @@ const ConnectionLine = ({ fromX, fromY, toX, toY, fromPosition, toPosition }) =>
 
     // Get appropriate color based on theme
     const getConnectionLineColor = () => {
-        return customization.isDarkMode ? '#ffffff' : '#000000'
+        return customization.isDarkMode ? '#ffffff' : '#999999' // Even lighter black for light mode
     }
     
     const color = getConnectionLineColor()
 
     return (
         <g>
-            <defs>
-                {/* Arrow marker for connection line */}
-                <marker
-                    id={`connection-arrow-${fromX}-${fromY}`}
-                    markerWidth='8'
-                    markerHeight='8'
-                    refX='7'
-                    refY='3'
-                    orient='auto'
-                    markerUnits='strokeWidth'
-                >
-                    <path
-                        d='M0,0 L0,6 L7,3 z'
-                        fill={color}
-                        stroke={color}
-                        strokeWidth='1'
-                    />
-                </marker>
-            </defs>
             
             {/* Main connection line */}
             <path 
                 fill='none' 
                 stroke={color} 
-                strokeWidth={2} 
+                strokeWidth={1.5} 
                 strokeLinecap='round'
                 strokeLinejoin='round'
                 strokeDasharray='5,5'
                 strokeDashoffset='0'
                 d={edgePath}
-                markerEnd={`url(#connection-arrow-${fromX}-${fromY})`}
                 style={{
                     animation: 'connectionFlow 1s linear infinite'
                 }}

@@ -935,9 +935,6 @@ const AgentflowCanvas = () => {
             }}>
                 {/* Left side - Logo and Sparkle Icon */}
                 <Box sx={{ display: 'flex', alignItems: 'center', minWidth: '228px' }}>
-                    <Typography variant="h6" sx={{ mr: 2, color: theme.palette.primary.main }}>
-                        DTA Mind
-                    </Typography>
                     <Logo />
                     {/* Sparkle Icon - Generate Agentflow */}
                     <Box
