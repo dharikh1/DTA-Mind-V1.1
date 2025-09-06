@@ -83,16 +83,25 @@ const AgentFlowNode = ({ data }) => {
     }
 
     const getAnchorPosition = (index) => {
-        const currentHeight = ref.current?.clientHeight || 0
-        const spacing = currentHeight / (getOutputAnchors().length + 1)
-        const position = spacing * (index + 1)
-
-        // Update node internals when we get a non-zero position
-        if (position > 0) {
-            updateNodeInternals(data.id)
+        const outputCount = getOutputAnchors().length
+        const nodeHeight = 120 // Fixed height for circular node
+        
+        if (outputCount === 1) {
+            // Single output handle - center it
+            return nodeHeight / 2 - 8 // 8 is half the handle height
+        } else if (outputCount === 2) {
+            // Two output handles - position them symmetrically around center
+            const centerY = nodeHeight / 2
+            const offset = 20 // Distance from center
+            return index === 0 ? centerY - offset - 8 : centerY + offset - 8
+        } else {
+            // Multiple handles - distribute them evenly in a compact area around center
+            const centerY = nodeHeight / 2
+            const totalSpacing = Math.min(outputCount * 16, 60) // Max 60px total spacing
+            const startY = centerY - (totalSpacing / 2)
+            const spacing = outputCount > 1 ? totalSpacing / (outputCount - 1) : 0
+            return startY + (spacing * index) - 8
         }
-
-        return position
     }
 
     const getMinimumHeight = () => {
@@ -290,15 +299,16 @@ const AgentFlowNode = ({ data }) => {
                             position={Position.Left}
                             id={data.id}
                             style={{
-                                width: 8,
-                                height: 8,
+                                width: 16,
+                                height: 16,
                                 backgroundColor: nodeColor,
-                                border: 'none',
+                                border: '2px solid white',
                                 position: 'absolute',
-                                left: -4,
+                                left: -8,
                                 top: '50%',
                                 transform: 'translateY(-50%)',
-                                borderRadius: '50%'
+                                borderRadius: '50%',
+                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
                             }}
                         />
                     )}
@@ -336,16 +346,17 @@ const AgentFlowNode = ({ data }) => {
                                 key={outputAnchor.id}
                                 id={outputAnchor.id}
                                 style={{
-                                    height: 8,
-                                    width: 8,
+                                    height: 16,
+                                    width: 16,
                                     top: getAnchorPosition(index),
                                     backgroundColor: nodeColor,
-                                    border: 'none',
+                                    border: '2px solid white',
                                     position: 'absolute',
-                                    right: -4,
-                                    opacity: isHovered ? 1 : 0,
+                                    right: -8,
+                                    opacity: isHovered ? 1 : 0.7,
                                     transition: 'opacity 0.2s',
-                                    borderRadius: '50%'
+                                    borderRadius: '50%',
+                                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
                                 }}
                             />
                         )

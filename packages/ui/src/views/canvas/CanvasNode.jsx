@@ -17,7 +17,7 @@ import NodeInfoDialog from '@/ui-component/dialog/NodeInfoDialog'
 
 // const
 import { baseURL } from '@/store/constant'
-import { IconTrash, IconCopy, IconInfoCircle, IconAlertTriangle } from '@tabler/icons-react'
+import { IconTrash, IconCopy, IconInfoCircle, IconAlertTriangle, IconRobot, IconLink, IconArrowsSplit, IconCode, IconDatabase, IconBrain, IconArrowLeft, IconRoute, IconPlayerPlay, IconWorld, IconUsers, IconSparkles, IconRefresh, IconRepeat, IconFileText } from '@tabler/icons-react'
 import { flowContext } from '@/store/context/ReactFlowContext'
 import LlamaindexPNG from '@/assets/images/llamaindex.png'
 
@@ -27,6 +27,49 @@ const CanvasNode = ({ data }) => {
     const theme = useTheme()
     const canvas = useSelector((state) => state.canvas)
     const { deleteNode, duplicateNode } = useContext(flowContext)
+
+    // Get node icon and color based on node type (same as AddNodes panel)
+    const getNodeIconAndColor = (node) => {
+        const nodeLabel = node.label.toLowerCase()
+        
+        // Map node types to their icons and colors based on the image
+        if (nodeLabel.includes('agent')) {
+            return { icon: IconRobot, color: '#8B5CF6' } // Purple
+        } else if (nodeLabel.includes('api') || nodeLabel.includes('webhook')) {
+            return { icon: IconLink, color: '#3B82F6' } // Blue
+        } else if (nodeLabel.includes('condition') || nodeLabel.includes('if')) {
+            return { icon: IconArrowsSplit, color: '#F59E0B' } // Orange
+        } else if (nodeLabel.includes('function') || nodeLabel.includes('custom')) {
+            return { icon: IconCode, color: '#EF4444' } // Red
+        } else if (nodeLabel.includes('knowledge') || nodeLabel.includes('vector') || nodeLabel.includes('document')) {
+            return { icon: IconDatabase, color: '#06B6D4' } // Teal
+        } else if (nodeLabel.includes('memory')) {
+            return { icon: IconBrain, color: '#EC4899' } // Pink
+        } else if (nodeLabel.includes('response') || nodeLabel.includes('reply') || nodeLabel.includes('output')) {
+            return { icon: IconArrowLeft, color: '#3B82F6' } // Blue
+        } else if (nodeLabel.includes('router') || nodeLabel.includes('switch')) {
+            return { icon: IconRoute, color: '#10B981' } // Green
+        } else if (nodeLabel.includes('execute') || nodeLabel.includes('flow')) {
+            return { icon: IconPlayerPlay, color: '#10B981' } // Green
+        } else if (nodeLabel.includes('http')) {
+            return { icon: IconWorld, color: '#EF4444' } // Red
+        } else if (nodeLabel.includes('human') || nodeLabel.includes('input')) {
+            return { icon: IconUsers, color: '#8B5CF6' } // Purple
+        } else if (nodeLabel.includes('llm') || nodeLabel.includes('ai') || nodeLabel.includes('chat')) {
+            return { icon: IconSparkles, color: '#3B82F6' } // Blue
+        } else if (nodeLabel.includes('retriever') || nodeLabel.includes('search')) {
+            return { icon: IconFileText, color: '#6B7280' } // Gray
+        } else if (nodeLabel.includes('start') || nodeLabel.includes('begin')) {
+            return { icon: IconPlayerPlay, color: '#10B981' } // Green
+        } else if (nodeLabel.includes('iteration') || nodeLabel.includes('loop') || nodeLabel.includes('repeat')) {
+            return { icon: IconRefresh, color: '#F59E0B' } // Orange
+        } else if (nodeLabel.includes('tool') || (node.name && node.name.toLowerCase().includes('tool'))) {
+            return { icon: IconCode, color: '#8B5CF6' } // Purple
+        }
+        
+        // Default fallback
+        return { icon: IconCode, color: '#6B7280' } // Gray
+    }
 
     const [showDialog, setShowDialog] = useState(false)
     const [dialogProps, setDialogProps] = useState({})
@@ -121,29 +164,26 @@ const CanvasNode = ({ data }) => {
                     }}
                 >
                     {/* Icon Container Inside Circle */}
-                    <div
-                        style={{
-                            width: '60px',
-                            height: '60px',
-                            borderRadius: '12px',
-                            backgroundColor: 'rgba(173, 216, 230, 0.3)',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
-                        }}
-                    >
-                        <img
-                            style={{ 
-                                width: '40px', 
-                                height: '40px', 
-                                objectFit: 'contain',
-                                filter: 'brightness(0) saturate(100%) invert(100%)' // Make icon white
-                            }}
-                            src={`${baseURL}/api/v1/node-icon/${data.name}`}
-                            alt='Notification'
-                        />
-                    </div>
+                    {(() => {
+                        const iconData = getNodeIconAndColor(data)
+                        const { icon: IconComponent, color } = iconData
+                        return (
+                            <div
+                                style={{
+                                    width: '60px',
+                                    height: '60px',
+                                    borderRadius: '12px',
+                                    backgroundColor: color,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+                                }}
+                            >
+                                <IconComponent size={30} color="white" />
+                            </div>
+                        )
+                    })()}
                 </div>
 
                 {/* Title Below Circle - Matching Image */}

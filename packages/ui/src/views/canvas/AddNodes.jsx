@@ -38,7 +38,7 @@ import { StyledFab } from '@/ui-component/button/StyledFab'
 import AgentflowGeneratorDialog from '@/ui-component/dialog/AgentflowGeneratorDialog'
 
 // icons
-import { IconPlus, IconSearch, IconMinus, IconX, IconSparkles, IconRobot, IconLink, IconArrowsSplit, IconCode, IconDatabase, IconBrain, IconArrowLeft, IconRoute } from '@tabler/icons-react'
+import { IconPlus, IconSearch, IconMinus, IconX, IconSparkles, IconRobot, IconLink, IconArrowsSplit, IconCode, IconDatabase, IconBrain, IconArrowLeft, IconRoute, IconPlayerPlay, IconWorld, IconUsers, IconRefresh, IconRepeat, IconFileText } from '@tabler/icons-react'
 import LlamaindexPNG from '@/assets/images/llamaindex.png'
 import LangChainPNG from '@/assets/images/langchain.png'
 import utilNodesPNG from '@/assets/images/utilNodes.png'
@@ -298,6 +298,22 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
             return { icon: IconArrowLeft, color: '#3B82F6' } // Blue
         } else if (nodeLabel.includes('router') || nodeLabel.includes('switch')) {
             return { icon: IconRoute, color: '#10B981' } // Green
+        } else if (nodeLabel.includes('execute') || nodeLabel.includes('flow')) {
+            return { icon: IconPlayerPlay, color: '#10B981' } // Green
+        } else if (nodeLabel.includes('http')) {
+            return { icon: IconWorld, color: '#EF4444' } // Red
+        } else if (nodeLabel.includes('human') || nodeLabel.includes('input')) {
+            return { icon: IconUsers, color: '#8B5CF6' } // Purple
+        } else if (nodeLabel.includes('llm') || nodeLabel.includes('ai') || nodeLabel.includes('chat')) {
+            return { icon: IconSparkles, color: '#3B82F6' } // Blue
+        } else if (nodeLabel.includes('retriever') || nodeLabel.includes('search')) {
+            return { icon: IconFileText, color: '#6B7280' } // Gray
+        } else if (nodeLabel.includes('start') || nodeLabel.includes('begin')) {
+            return { icon: IconPlayerPlay, color: '#10B981' } // Green
+        } else if (nodeLabel.includes('iteration') || nodeLabel.includes('loop') || nodeLabel.includes('repeat')) {
+            return { icon: IconRefresh, color: '#F59E0B' } // Orange
+        } else if (nodeLabel.includes('tool') || (node.name && node.name.toLowerCase().includes('tool'))) {
+            return { icon: IconCode, color: '#8B5CF6' } // Purple
         }
         
         // Default fallback - use original icon system for other nodes

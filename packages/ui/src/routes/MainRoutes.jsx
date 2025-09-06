@@ -118,9 +118,19 @@ const MainRoutes = {
             path: '/',
             element: <ExternalLayout />,
             children: [
-                // Main Agent Canvas page (default landing)
+                // Main Agent Canvas page (default landing) - Simple Canvas
                 {
                     path: '/',
+                    element: (
+                        <RequireAuth permission={'agentflows:view'}>
+                            <Canvas />
+                        </RequireAuth>
+                    )
+                },
+
+                // Full AgentFlow Canvas (for later use)
+                {
+                    path: '/agentflow-full',
                     element: (
                         <RequireAuth permission={'agentflows:view'}>
                             <AgentflowCanvas />
