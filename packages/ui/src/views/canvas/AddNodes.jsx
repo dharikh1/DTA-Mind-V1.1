@@ -534,10 +534,11 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                     >
                                                         <ListItemButton
                                                             sx={{
-                                                                p: 1.5,
+                                                                p: 1,
                                                                 borderRadius: `${customization.borderRadius}px`,
                                                                 cursor: 'move',
-                                                                mb: 0.5,
+                                                                mb: 0.3,
+                                                                minHeight: 45,
                                                                 '&:hover': {
                                                                     backgroundColor: theme.palette.action.hover,
                                                                     transform: 'translateY(-1px)',
@@ -555,9 +556,9 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                             <ListItemAvatar>
                                                                                 <div
                                                                                     style={{
-                                                                                        width: 40,
-                                                                                        height: 40,
-                                                                                        borderRadius: '8px',
+                                                                                        width: 36,
+                                                                                        height: 36,
+                                                                                        borderRadius: '6px',
                                                                                         backgroundColor: color,
                                                                                         display: 'flex',
                                                                                         alignItems: 'center',
@@ -575,9 +576,9 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                             <ListItemAvatar>
                                                                                 <div
                                                                                     style={{
-                                                                                        width: 40,
-                                                                                        height: 40,
-                                                                                        borderRadius: '8px',
+                                                                                        width: 36,
+                                                                                        height: 36,
+                                                                                        borderRadius: '6px',
                                                                                         backgroundColor: node.color,
                                                                                         display: 'flex',
                                                                                         alignItems: 'center',
@@ -592,9 +593,9 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                             <ListItemAvatar>
                                                                                 <div
                                                                                     style={{
-                                                                                        width: 40,
-                                                                                        height: 40,
-                                                                                        borderRadius: '8px',
+                                                                                        width: 36,
+                                                                                        height: 36,
+                                                                                        borderRadius: '6px',
                                                                                         backgroundColor: '#f8f9fa',
                                                                                         border: '1px solid #e9ecef',
                                                                                         display: 'flex',
@@ -605,8 +606,8 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                                 >
                                                                                     <img
                                                                                         style={{
-                                                                                            width: '24px',
-                                                                                            height: '24px',
+                                                                                            width: '22px',
+                                                                                            height: '22px',
                                                                                             objectFit: 'contain'
                                                                                         }}
                                                                                         alt={node.name}
@@ -621,7 +622,7 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                     sx={{ 
                                                                         ml: 1,
                                                                         '& .MuiListItemText-primary': {
-                                                                            fontSize: '0.95rem',
+                                                                            fontSize: '0.85rem',
                                                                             fontWeight: 500,
                                                                             color: theme.palette.text.primary
                                                                         }
@@ -820,11 +821,11 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                             <List
                                                 sx={{
                                                     width: '100%',
-                                                    maxWidth: 370,
+                                                    maxWidth: 280,
                                                     py: 0,
                                                     borderRadius: '10px',
                                                     [theme.breakpoints.down('md')]: {
-                                                        maxWidth: 370
+                                                        maxWidth: 280
                                                     },
                                                     '& .MuiListItemSecondaryAction-root': {
                                                         top: 22
@@ -892,10 +893,11 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                     >
                                                                         <ListItemButton
                                                                             sx={{
-                                                                                p: 1.5,
+                                                                                p: 1,
                                                                                 borderRadius: `${customization.borderRadius}px`,
                                                                                 cursor: 'move',
-                                                                                mb: 0.5,
+                                                                                mb: 0.3,
+                                                                                minHeight: 45,
                                                                                 '&:hover': {
                                                                                     backgroundColor: theme.palette.action.hover,
                                                                                     transform: 'translateY(-1px)',
@@ -913,9 +915,9 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                                             <ListItemAvatar>
                                                                                                 <div
                                                                                                     style={{
-                                                                                                        width: 40,
-                                                                                                        height: 40,
-                                                                                                        borderRadius: '8px',
+                                                                                                        width: 36,
+                                                                                                        height: 36,
+                                                                                                        borderRadius: '6px',
                                                                                                         backgroundColor: color,
                                                                                                         display: 'flex',
                                                                                                         alignItems: 'center',
@@ -933,9 +935,9 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                                             <ListItemAvatar>
                                                                                                 <div
                                                                                                     style={{
-                                                                                                        width: 40,
-                                                                                                        height: 40,
-                                                                                                        borderRadius: '8px',
+                                                                                                        width: 36,
+                                                                                                        height: 36,
+                                                                                                        borderRadius: '6px',
                                                                                                         backgroundColor: node.color,
                                                                                                         display: 'flex',
                                                                                                         alignItems: 'center',
@@ -950,9 +952,9 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                                             <ListItemAvatar>
                                                                                                 <div
                                                                                                     style={{
-                                                                                                        width: 40,
-                                                                                                        height: 40,
-                                                                                                        borderRadius: '8px',
+                                                                                                        width: 36,
+                                                                                                        height: 36,
+                                                                                                        borderRadius: '6px',
                                                                                                         backgroundColor: '#f8f9fa',
                                                                                                         border: '1px solid #e9ecef',
                                                                                                         display: 'flex',
@@ -963,8 +965,8 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                                                 >
                                                                                                     <img
                                                                                                         style={{
-                                                                                                            width: '24px',
-                                                                                                            height: '24px',
+                                                                                                            width: '22px',
+                                                                                                            height: '22px',
                                                                                                             objectFit: 'contain'
                                                                                                         }}
                                                                                                         alt={node.name}
@@ -979,7 +981,7 @@ const AddNodes = ({ nodesData, node, isAgentCanvas, isAgentflowv2, onFlowGenerat
                                                                                     sx={{ 
                                                                                         ml: 1,
                                                                                         '& .MuiListItemText-primary': {
-                                                                                            fontSize: '0.95rem',
+                                                                                            fontSize: '0.85rem',
                                                                                             fontWeight: 500,
                                                                                             color: theme.palette.text.primary
                                                                                         }
