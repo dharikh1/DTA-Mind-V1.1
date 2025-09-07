@@ -1,32 +1,31 @@
+// MarketplaceCanvasNode - Updated with enhanced condition detection (v2.0)
 import PropTypes from 'prop-types'
 import { useState } from 'react'
+import { Handle, Position } from 'reactflow'
 
 // material-ui
-import { styled, useTheme } from '@mui/material/styles'
-import { Box, Typography, Divider, Button } from '@mui/material'
+import { styled, useTheme, alpha } from '@mui/material/styles'
+import { Box, Typography } from '@mui/material'
 
 // project imports
 import MainCard from '@/ui-component/cards/MainCard'
-import NodeInputHandler from '@/views/canvas/NodeInputHandler'
-import NodeOutputHandler from '@/views/canvas/NodeOutputHandler'
-import AdditionalParamsDialog from '@/ui-component/dialog/AdditionalParamsDialog'
 
 // const
-import { baseURL } from '@/store/constant'
-import LlamaindexPNG from '@/assets/images/llamaindex.png'
+import { baseURL, AGENTFLOW_ICONS } from '@/store/constant'
 
-const CardWrapper = styled(MainCard)(({ theme }) => ({
+const CardWrapper = styled(MainCard)(({ theme, isAgent }) => ({
     background: theme.palette.card.main,
     color: theme.darkTextPrimary,
-    border: 'solid 1px',
-    borderColor: theme.palette.primary[200] + 75,
-    width: '300px',
-    height: 'auto',
-    padding: '10px',
-    boxShadow: '0 2px 14px 0 rgb(32 40 45 / 8%)',
-    '&:hover': {
-        borderColor: theme.palette.primary.main
-    }
+    border: 'solid 2px',
+    width: isAgent ? '140px' : '120px',
+    height: isAgent ? '80px' : '120px',
+    padding: '0',
+    borderRadius: isAgent ? '12px' : '50%',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative'
 }))
 
 // ===========================|| CANVAS NODE ||=========================== //
@@ -34,141 +33,194 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 const MarketplaceCanvasNode = ({ data }) => {
     const theme = useTheme()
 
-    const [showDialog, setShowDialog] = useState(false)
-    const [dialogProps, setDialogProps] = useState({})
-
-    const onDialogClicked = () => {
-        const dialogProps = {
-            data,
-            inputParams: data.inputParams.filter((param) => param.additionalParams),
-            disabled: true,
-            confirmButtonName: 'Save',
-            cancelButtonName: 'Cancel'
+    const defaultColor = '#666666' // fallback color if data.color is not present
+    
+    // Get consistent node color based on label (same as AgentFlowNode)
+    const getNodeColor = (nodeLabel) => {
+        const label = nodeLabel.toLowerCase()
+        
+        if (label.includes('agent')) {
+            return '#8B5CF6' // Purple
+        } else if (label.includes('api') || label.includes('webhook')) {
+            return '#3B82F6' // Blue
+        } else if (label.includes('condition') || label.includes('if')) {
+            return '#F59E0B' // Orange
+        } else if (label.includes('function') || label.includes('custom')) {
+            return '#EF4444' // Red
+        } else if (label.includes('knowledge') || label.includes('vector') || label.includes('document')) {
+            return '#06B6D4' // Teal
+        } else if (label.includes('memory')) {
+            return '#EC4899' // Pink
+        } else if (label.includes('response') || label.includes('reply') || label.includes('output')) {
+            return '#3B82F6' // Blue
+        } else if (label.includes('router') || label.includes('switch')) {
+            return '#10B981' // Green
+        } else if (label.includes('execute') || label.includes('flow')) {
+            return '#10B981' // Green
+        } else if (label.includes('http')) {
+            return '#EF4444' // Red
+        } else if (label.includes('human') || label.includes('input')) {
+            return '#8B5CF6' // Purple
+        } else if (label.includes('llm') || label.includes('ai') || label.includes('chat')) {
+            return '#3B82F6' // Blue
+        } else if (label.includes('retriever') || label.includes('search')) {
+            return '#6B7280' // Gray
+        } else if (label.includes('start') || label.includes('begin')) {
+            return '#10B981' // Green
+        } else if (label.includes('iteration') || label.includes('loop') || label.includes('repeat')) {
+            return '#F59E0B' // Orange
+        } else if (label.includes('tool') || (data.name && data.name.toLowerCase().includes('tool'))) {
+            return '#8B5CF6' // Purple
         }
-        setDialogProps(dialogProps)
-        setShowDialog(true)
+        
+        return data.color || defaultColor
+    }
+    
+    const nodeColor = getNodeColor(data.label)
+    
+    // Check if this is an Agent or Condition node
+    const isAgent = data.label && (
+        data.label.toLowerCase().includes('agent') || 
+        data.label.toLowerCase().includes('condition') ||
+        data.label.toLowerCase().includes('check') ||
+        data.label.toLowerCase().includes('if')
+    )
+
+    const getOutputAnchors = () => {
+        return data.outputAnchors ?? []
+    }
+
+    const getAnchorPosition = (index) => {
+        const outputCount = getOutputAnchors().length
+        const nodeHeight = isAgent ? 80 : 120 // Different heights for agent/condition vs other nodes
+        
+        if (outputCount === 1) {
+            // Single output handle - center it
+            return nodeHeight / 2 - 6 // 6 is half the handle height (12px)
+        } else if (outputCount === 2) {
+            // Two output handles - position them symmetrically around center
+            const centerY = nodeHeight / 2
+            const offset = 20 // Distance from center
+            return index === 0 ? centerY - offset - 6 : centerY + offset - 6
+        } else {
+            // Multiple handles - distribute them evenly in a compact area around center
+            const centerY = nodeHeight / 2
+            const totalSpacing = Math.min(outputCount * 16, 60) // Max 60px total spacing
+            const startY = centerY - (totalSpacing / 2)
+            const spacing = outputCount > 1 ? totalSpacing / (outputCount - 1) : 0
+            return startY + (spacing * index) - 6
+        }
     }
 
     return (
         <>
             <CardWrapper
                 content={false}
+                isAgent={isAgent}
                 sx={{
                     padding: 0,
-                    borderColor: data.selected ? theme.palette.primary.main : theme.palette.text.secondary
+                    borderColor: nodeColor,
+                    backgroundColor: alpha(nodeColor, 0.1)
                 }}
                 border={false}
             >
-                <Box>
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                        <Box style={{ width: 50, marginRight: 10, padding: 5 }}>
-                            <div
-                                style={{
-                                    ...theme.typography.commonAvatar,
-                                    ...theme.typography.largeAvatar,
-                                    borderRadius: '50%',
-                                    backgroundColor: 'white',
-                                    cursor: 'grab'
-                                }}
-                            >
-                                <img
-                                    style={{ width: '100%', height: '100%', padding: 5, objectFit: 'contain' }}
-                                    src={`${baseURL}/api/v1/node-icon/${data.name}`}
-                                    alt='Notification'
-                                />
-                            </div>
-                        </Box>
-                        <Box>
-                            <Typography
-                                sx={{
-                                    fontSize: '1rem',
-                                    fontWeight: 500
-                                }}
-                            >
-                                {data.label}
-                            </Typography>
-                        </Box>
-                        <div style={{ flexGrow: 1 }}></div>
-                        {data.tags && data.tags.includes('LlamaIndex') && (
-                            <>
-                                <div
-                                    style={{
-                                        borderRadius: '50%',
-                                        padding: 15
-                                    }}
-                                >
-                                    <img
-                                        style={{ width: '25px', height: '25px', borderRadius: '50%', objectFit: 'contain' }}
-                                        src={LlamaindexPNG}
-                                        alt='LlamaIndex'
-                                    />
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    {(data.inputAnchors.length > 0 || data.inputParams.length > 0) && (
-                        <>
-                            <Divider />
-                            <Box sx={{ background: theme.palette.asyncSelect.main, p: 1 }}>
-                                <Typography
-                                    sx={{
-                                        fontWeight: 500,
-                                        textAlign: 'center'
-                                    }}
-                                >
-                                    Inputs
-                                </Typography>
-                            </Box>
-                            <Divider />
-                        </>
-                    )}
-                    {data.inputAnchors.map((inputAnchor, index) => (
-                        <NodeInputHandler disabled={true} key={index} inputAnchor={inputAnchor} data={data} />
-                    ))}
-                    {data.inputParams
-                        .filter((inputParam) => inputParam.display !== false)
-                        .map((inputParam, index) => (
-                            <NodeInputHandler disabled={true} key={index} inputParam={inputParam} data={data} />
-                        ))}
-                    {data.inputParams.find((param) => param.additionalParams) && (
-                        <div
-                            style={{
-                                textAlign: 'center',
-                                marginTop:
-                                    data.inputParams.filter((param) => param.additionalParams).length ===
-                                    data.inputParams.length + data.inputAnchors.length
-                                        ? 20
-                                        : 0
-                            }}
-                        >
-                            <Button sx={{ borderRadius: 25, width: '90%', mb: 2 }} variant='outlined' onClick={onDialogClicked}>
-                                Additional Parameters
-                            </Button>
-                        </div>
-                    )}
-                    <Divider />
-                    <Box sx={{ background: theme.palette.asyncSelect.main, p: 1 }}>
-                        <Typography
-                            sx={{
-                                fontWeight: 500,
-                                textAlign: 'center'
-                            }}
-                        >
-                            Output
-                        </Typography>
-                    </Box>
-                    <Divider />
+                {/* Input Handle */}
+                <Handle
+                    type='target'
+                    position={Position.Left}
+                    id={data.id}
+                    style={{
+                        width: 12,
+                        height: 12,
+                        backgroundColor: nodeColor,
+                        position: 'absolute',
+                        left: -6,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        borderRadius: '2px',
+                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.25)',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease-in-out'
+                    }}
+                />
 
-                    {data.outputAnchors.map((outputAnchor, index) => (
-                        <NodeOutputHandler disabled={true} key={index} outputAnchor={outputAnchor} data={data} />
-                    ))}
+                {/* Node Content */}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        height: '100%',
+                        padding: 1
+                    }}
+                >
+                    {/* Icon Container */}
+                    <Box
+                        sx={{
+                            width: isAgent ? 50 : 60,
+                            height: isAgent ? 50 : 60,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginBottom: 0.5
+                        }}
+                    >
+                        <img
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'contain',
+                                filter: 'brightness(0) saturate(100%)'
+                            }}
+                            src={`${baseURL}/api/v1/node-icon/${data.name}`}
+                            alt={data.label}
+                        />
+                    </Box>
+
+                    {/* Node Label */}
+                    <Typography
+                        variant="caption"
+                        sx={{
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            textAlign: 'center',
+                            color: theme.palette.text.primary,
+                            lineHeight: 1.2,
+                            maxWidth: '100%',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'
+                        }}
+                    >
+                        {data.label}
+                    </Typography>
                 </Box>
+
+                {/* Output Handles */}
+                {getOutputAnchors().map((outputAnchor, index) => (
+                    <Handle
+                        type='source'
+                        position={Position.Right}
+                        key={outputAnchor.id}
+                        id={outputAnchor.id}
+                        style={{
+                            height: 12,
+                            width: 12,
+                            top: getAnchorPosition(index),
+                            backgroundColor: nodeColor,
+                            position: 'absolute',
+                            right: -6,
+                            opacity: 0.8,
+                            transition: 'all 0.2s ease-in-out',
+                            borderRadius: '2px',
+                            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.25)',
+                            cursor: 'pointer'
+                        }}
+                    />
+                ))}
             </CardWrapper>
-            <AdditionalParamsDialog
-                show={showDialog}
-                dialogProps={dialogProps}
-                onCancel={() => setShowDialog(false)}
-            ></AdditionalParamsDialog>
         </>
     )
 }

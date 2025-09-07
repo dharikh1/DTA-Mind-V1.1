@@ -1,3 +1,4 @@
+// AgentFlowNode - Updated with enhanced condition detection (v2.0)
 import PropTypes from 'prop-types'
 import { useContext, memo, useRef, useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
@@ -114,7 +115,12 @@ const AgentFlowNode = ({ data }) => {
     const nodeColor = getNodeColor(data.label)
     
     // Check if this is an Agent or Condition node
-    const isAgent = data.label && (data.label.toLowerCase().includes('agent') || data.label.toLowerCase().includes('condition'))
+    const isAgent = data.label && (
+        data.label.toLowerCase().includes('agent') || 
+        data.label.toLowerCase().includes('condition') ||
+        data.label.toLowerCase().includes('check') ||
+        data.label.toLowerCase().includes('if')
+    )
 
     // Get different shades of the color based on state
     const getStateColor = () => {
