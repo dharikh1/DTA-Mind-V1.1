@@ -96,9 +96,6 @@ DTA-Mind-01/
 Key environment variables you can customize:
 
 ```bash
-# Authentication
-DTAMIND_USERNAME=admin
-DTAMIND_PASSWORD=admin123
 
 # Database
 DATABASE_TYPE=sqlite
