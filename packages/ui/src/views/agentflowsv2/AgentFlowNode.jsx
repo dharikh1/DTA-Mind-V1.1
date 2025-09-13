@@ -30,7 +30,9 @@ import CancelIcon from '@mui/icons-material/Cancel'
 // const
 import { baseURL, AGENTFLOW_ICONS } from '@/store/constant'
 
-const CardWrapper = styled(MainCard)(({ theme, isAgent }) => ({
+const CardWrapper = styled(MainCard, {
+    shouldForwardProp: (prop) => prop !== 'isAgent'
+})(({ theme, isAgent }) => ({
     background: theme.palette.card.main,
     color: theme.darkTextPrimary,
     border: 'solid 2px',
@@ -114,13 +116,16 @@ const AgentFlowNode = ({ data }) => {
     
     const nodeColor = getNodeColor(data.label)
     
-    // Check if this is an Agent or Condition node
+    // Check if this is an Agent or Condition node (enhanced detection v3.0)
     const isAgent = data.label && (
         data.label.toLowerCase().includes('agent') || 
         data.label.toLowerCase().includes('condition') ||
         data.label.toLowerCase().includes('check') ||
-        data.label.toLowerCase().includes('if')
+        data.label.toLowerCase().includes('if') ||
+        data.label.toLowerCase().includes('valid') ||
+        data.label.toLowerCase().includes('relevant')
     )
+    
 
     // Get different shades of the color based on state
     const getStateColor = () => {
@@ -282,13 +287,17 @@ const AgentFlowNode = ({ data }) => {
                 <CardWrapper
                     isAgent={isAgent}
                     content={false}
-                    sx={{
-                        borderColor: getStateColor(),
-                        backgroundColor: getBackgroundColor(),
-                        '&:hover': {
-                            boxShadow: data.selected ? `0 0 0 2px ${getStateColor()} !important` : '0 4px 12px rgba(0, 0, 0, 0.2)'
-                        }
-                    }}
+            sx={{
+                borderColor: getStateColor(),
+                backgroundColor: getBackgroundColor(),
+                // Force rectangular shape for agent/condition nodes
+                width: isAgent ? '140px !important' : '120px !important',
+                height: isAgent ? '80px !important' : '120px !important',
+                borderRadius: isAgent ? '12px !important' : '50% !important',
+                '&:hover': {
+                    boxShadow: data.selected ? `0 0 0 2px ${getStateColor()} !important` : '0 4px 12px rgba(0, 0, 0, 0.2)'
+                }
+            }}
                     border={false}
                 >
                     {/* Status indicators */}

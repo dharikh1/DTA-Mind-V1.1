@@ -13,7 +13,9 @@ import MainCard from '@/ui-component/cards/MainCard'
 // const
 import { baseURL, AGENTFLOW_ICONS } from '@/store/constant'
 
-const CardWrapper = styled(MainCard)(({ theme, isAgent }) => ({
+const CardWrapper = styled(MainCard, {
+    shouldForwardProp: (prop) => prop !== 'isAgent'
+})(({ theme, isAgent }) => ({
     background: theme.palette.card.main,
     color: theme.darkTextPrimary,
     border: 'solid 2px',
@@ -78,12 +80,14 @@ const MarketplaceCanvasNode = ({ data }) => {
     
     const nodeColor = getNodeColor(data.label)
     
-    // Check if this is an Agent or Condition node
+    // Check if this is an Agent or Condition node (enhanced detection)
     const isAgent = data.label && (
         data.label.toLowerCase().includes('agent') || 
         data.label.toLowerCase().includes('condition') ||
         data.label.toLowerCase().includes('check') ||
-        data.label.toLowerCase().includes('if')
+        data.label.toLowerCase().includes('if') ||
+        data.label.toLowerCase().includes('valid') ||
+        data.label.toLowerCase().includes('relevant')
     )
 
     const getOutputAnchors = () => {
@@ -120,7 +124,11 @@ const MarketplaceCanvasNode = ({ data }) => {
                 sx={{
                     padding: 0,
                     borderColor: nodeColor,
-                    backgroundColor: alpha(nodeColor, 0.1)
+                    backgroundColor: alpha(nodeColor, 0.1),
+                    // Force rectangular shape for agent/condition nodes
+                    width: isAgent ? '140px !important' : '120px !important',
+                    height: isAgent ? '80px !important' : '120px !important',
+                    borderRadius: isAgent ? '12px !important' : '50% !important'
                 }}
                 border={false}
             >
@@ -171,8 +179,7 @@ const MarketplaceCanvasNode = ({ data }) => {
                             style={{
                                 width: '100%',
                                 height: '100%',
-                                objectFit: 'contain',
-                                filter: 'brightness(0) saturate(100%)'
+                                objectFit: 'contain'
                             }}
                             src={`${baseURL}/api/v1/node-icon/${data.name}`}
                             alt={data.label}

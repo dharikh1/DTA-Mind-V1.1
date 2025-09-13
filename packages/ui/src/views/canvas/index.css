@@ -98,8 +98,8 @@
     z-index: 10;
 }
 
-/* Perfect circular nodes - exactly matching image */
-.react-flow__node > div:first-child {
+/* Perfect circular nodes - only for main canvas, not marketplace */
+.react-flow:not(.marketplace-canvas) .react-flow__node > div:first-child {
     width: 120px !important;
     height: 120px !important;
     border-radius: 50% !important;
@@ -114,13 +114,13 @@
     transition: all 0.3s ease;
 }
 
-.react-flow__node > div:first-child:hover {
+.react-flow:not(.marketplace-canvas) .react-flow__node > div:first-child:hover {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
     border-color: rgba(173, 216, 230, 1) !important;
 }
 
-/* Icon container inside circle - exactly matching image */
-.react-flow__node > div:first-child > div:first-child {
+/* Icon container inside circle - only for main canvas, not marketplace */
+.react-flow:not(.marketplace-canvas) .react-flow__node > div:first-child > div:first-child {
     width: 60px !important;
     height: 60px !important;
     border-radius: 12px !important;
@@ -131,12 +131,20 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Icon styling - exactly matching image */
-.react-flow__node > div:first-child > div:first-child > img {
+/* Icon styling - only for main canvas, not marketplace */
+.react-flow:not(.marketplace-canvas) .react-flow__node > div:first-child > div:first-child > img {
     width: 40px !important;
     height: 40px !important;
     object-fit: contain !important;
     filter: brightness(0) saturate(100%) invert(100%) !important; /* Make icon white */
+}
+
+/* Marketplace icons - natural colors */
+.marketplace-canvas .react-flow__node img {
+    filter: none !important; /* Remove white filter for marketplace */
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: contain !important;
 }
 
 /* Title styling below circle - exactly matching image */
